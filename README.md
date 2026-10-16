@@ -20,24 +20,35 @@ Es una sola página, sin backend ni instalación. Se puede publicar en GitHub Pa
 ## Los dos escenarios
 
 - **Planilla actual**: la planilla de correlativas tal cual está.
-- **Propuesta**: mueve 4.6 y 5.4 al 1.º cuatrimestre (son los dos cuatrimestres con tres
+- **Propuesta**: mueve 4.6 y 5.4 al 2.º bimestre (son los dos cuatrimestres con tres
   bimestrales obligatorias) y ubica el Practicantado Rotatorio de agosto a junio del año siguiente.
 
 El escenario se cambia desde la barra superior y recalcula el diagrama, las fechas y los conflictos.
 
 ## Cómo se ubican las bimestrales
 
-El plan las marca como «B» pero no fija cuándo dentro del cuatrimestre. El criterio que usa
-el tablero sale del cronograma real de 1.º año (Res. CAESS N.º 09/2026):
+El año tiene cuatro bimestres, con fechas fijas tomadas del calendario académico:
 
-- Corren en la **cola del cuatrimestre**: mayo-julio en el 1.º, octubre-noviembre en el 2.º.
+| Bimestre | Cursada | Cuatrimestre |
+| --- | --- | --- |
+| 1.er bimestre | 16/03 al 08/05 | 1.º |
+| 2.º bimestre | 07/05 al 03/07 | 1.º |
+| 3.er bimestre | 10/08 al 30/09 | 2.º |
+| 4.º bimestre | 01/10 al 27/11 | 2.º |
+
+El plan marca las materias como «B» pero no fija en cuál de los cuatro van. El criterio que
+usa el tablero sale del cronograma real de 1.º año (Res. CAESS N.º 09/2026):
+
+- Por defecto van al **2.º o al 4.º bimestre**, que es donde las ubica el calendario vigente.
 - Cuando hay **dos en el mismo cuatrimestre, corren en paralelo**, no una atrás de la otra.
   Es lo que ya hace el calendario vigente con 1.4 y 1.5, ambas de octubre a noviembre.
-- Cuando hay **tres**, no entran: hay que mover una. Pasa en el 2.º cuatrimestre de 4.º año
-  (4.5, 4.6 y 4.7) y en el de 5.º (5.4, 5.5 y 5.7). Los espacios optativos no cuentan, porque
-  el apartado 10 de la resolución los deja libres entre 1.º y 5.º año.
-- Cualquiera se puede mover a la cabeza del cuatrimestre con el selector, en la pestaña
-  Orden de bimestrales o en el panel de detalle.
+- Cuando hay **tres**, no entran: hay que mover una al bimestre anterior del mismo año.
+  Pasa en el 2.º cuatrimestre de 4.º año (4.5, 4.6 y 4.7) y en el de 5.º (5.4, 5.5 y 5.7).
+  Los espacios optativos no cuentan, porque el apartado 10 de la resolución los deja libres
+  entre 1.º y 5.º año.
+- Cualquiera se puede cambiar de bimestre: arrastrándola del tirador ⠿ en la pestaña
+  Orden de bimestrales, o con el selector de esa pestaña y del panel de detalle. Al moverla,
+  toma las fechas predefinidas del bimestre nuevo y la barra del diagrama se corre sola.
 
 ## Publicarlo en GitHub Pages
 
@@ -99,7 +110,7 @@ Las fechas estimadas salen del Calendario Académico 2026 de la Escuela Superior
 | 2.º cuatrimestre (16 semanas) | 03/08 al 07/08 | 10/08 al 27/11 |
 
 - Semestral: 16/03 al 11/09, como Ciencias Biológicas este año.
-- Bimestral, cola del cuatrimestre: 07/05 al 03/07 o 01/10 al 27/11.
+- Bimestral: según el bimestre, 16/03 al 08/05, 07/05 al 03/07, 10/08 al 30/09 o 01/10 al 27/11.
 - Receso de invierno 13/07 al 24/07; receso de verano en enero. **En febrero no hay dictado
   de clases**: las fechas de febrero del calendario son de examen y de borrado de inscripción.
 - La semana de inscripción del 1.º cubre las anuales y las del 1.er cuatrimestre; la del 2.º,
