@@ -14,32 +14,57 @@ Es una sola página, sin backend ni instalación. Se puede publicar en GitHub Pa
 | Plan completo | Tabla filtrable con códigos, duración, campo de formación, horas y correlativas. |
 | Correlativas | Mapa de dependencias. Al elegir una materia marca de qué depende y qué habilita. |
 | Horas | Horas por año según campo de formación, régimen de acreditación o teórica/práctica. |
-| Revisión | Sugerencias sobre correlatividades, inconsistencias entre la planilla y la resolución, y conflictos de calendario. |
-| Descargas | Excel con seis hojas, Excel de fechas para SIU Guaraní, imagen de la secuencia (PNG y SVG) y la configuración en JSON. |
+| Calendario | Calendario académico estimado del ciclo: inscripciones, cursada, receso, turnos de examen y feriados, más la fecha de cada espacio curricular. Se configura desde ahí. |
+| Descargas | Excel con siete hojas (incluye el calendario académico), Excel de fechas para SIU Guaraní, imagen de la secuencia (PNG y SVG) y la configuración en JSON. |
 
-## Los tres escenarios
+## Los dos escenarios
 
 - **Planilla actual**: la planilla de correlativas tal cual está.
 - **Propuesta**: ubica una bimestral por bimestre en 3.º, 4.º y 5.º año, sin paralelismo, y
   pone el Practicantado Rotatorio de agosto a junio del año siguiente.
 
-- **Mi propuesta**: la Propuesta más los cambios que haga cada persona en el tablero
-  (arrastrar una bimestral, cambiar meses o cargar fechas). Las materias que movió quedan
-  marcadas «tu cambio».
+- **Mi propuesta**: una bimestral por bimestre en 3.º, 4.º y 5.º año, más los cambios que haga
+  cada persona en el tablero (arrastrar una bimestral, cambiar meses o cargar fechas). Las
+  materias que movió quedan marcadas «tu cambio».
 
-«Planilla actual» y «Propuesta» no cambian nunca: si se mueve algo estando en una de ellas,
-el tablero pasa solo a «Mi propuesta». Así la propuesta original siempre queda para comparar.
+«Planilla actual» no cambia nunca: si se mueve algo estando ahí, el tablero pasa solo a
+«Mi propuesta».
 La etiqueta «movida» indica una diferencia con la planilla actual; «tu cambio», una diferencia
 con la Propuesta. En la barra del escenario están **Deshacer** (vuelve atrás de a un cambio,
 incluso después de cerrar el navegador), **Borrar mis cambios** (también se puede deshacer)
 e **Imprimir**. La pestaña Orden de bimestrales tiene además una lista «Tus cambios» con un
 botón para volver atrás cada materia por separado.
 
+## Calendario académico
+
+La pestaña **Calendario** estima el ciclo completo a partir del Calendario Académico 2026
+(Res. CAESS N.º 06/2026): mantiene la misma posición del año y corre cada hito al lunes o
+viernes que corresponde. Incluye inscripciones, cursada de cada período, receso, ocho turnos
+de examen, feriados y la fecha de cada espacio curricular.
+
+**Regla administrativa aplicada** (definida por la coordinación): la inscripción —a materias y
+a exámenes— abre el lunes de la semana anterior y cierra dejando **dos días hábiles libres**.
+Esos dos días son para cerrar el acta, descargar la lista definitiva, procesar las inscripciones
+por sistema y matricular en el aula virtual. El cursado o la mesa arrancan el lunes siguiente
+con la lista ya cerrada. Normalmente el margen cae jueves y viernes; si alguno es feriado, se
+corre hacia atrás y la inscripción se acorta.
+
+Los días hábiles que informa cada período descuentan fines de semana, feriados y el receso de
+invierno. Los feriados nacionales salen de la Ley 27.399, con los trasladables ya corridos al
+lunes que corresponde. Los **días no laborables con fines turísticos** los fija el Poder
+Ejecutivo por decreto y no estaban publicados al armar esta estimación, así que no están
+descontados.
+
+En **Configuración del ciclo** se editan el año, los dos cuatrimestres, el receso y los cuatro
+bimestres. Todo lo demás se recalcula a partir de eso: semanas de inscripción, días de proceso,
+turnos de examen y fechas de cada materia. Si una bimestral se mueve de bimestre, toma las
+fechas del bimestre nuevo; si además cambia de cuatrimestre, le cambia la semana de inscripción.
+
 ## Imprimir
 
 El botón **Imprimir** arma una versión para papel o PDF del escenario que se esté viendo: la
 secuencia de cada año en una hoja apaisada, la tabla de cambios respecto de la planilla con su
-fundamento y las propuestas sobre correlatividades. En el diálogo de impresión se puede elegir
+fundamento, las propuestas sobre correlatividades, las inconsistencias y el calendario académico. En el diálogo de impresión se puede elegir
 «Guardar como PDF». Conviene hacerlo desde el sitio de GitHub Pages: dentro de la vista previa
 de Claude el navegador puede bloquear la impresión.
 
