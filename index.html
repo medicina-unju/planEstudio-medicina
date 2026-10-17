@@ -727,7 +727,12 @@ const PERKEY = {'3-7':'c1','8-11':'c2','3-9':'s1','8-12':'s2','3-11':'an',
   '3-4':'b1','5-7':'b2','8-9':'b3','10-11':'b4','3-5':'t1','8-10':'t2'};
 const perKeyW = w => w.pk || PERKEY[w.ini+'-'+w.fin] || null;
 // Los meses de cada bimestre salen de las fechas configuradas, así el diagrama sigue al calendario.
-const mesesBim = k => { const p=CAL()['b'+k]; return [dOf(p.ini).getMonth()+1, dOf(p.fin).getMonth()+1]; };
+// En el diagrama cada bimestre ocupa siempre sus dos meses (mar-abr, may-jun, ago-sep, oct-nov),
+// aunque la fecha precisa termine unos días en el mes siguiente. La fecha exacta sale del calendario
+// y es la que va al plan, a SIU y al PDF: el bimestre se identifica por su lugar, no por los meses.
+const mesesBim = k => BIMS[k].m;
+// Bimestre al que pertenece una fecha (según el calendario del ciclo).
+const bimDeFecha = iso => { const P=CAL(); for(const k of [1,2,3,4]){ const b=P['b'+k]; if(iso>=b.ini&&iso<=b.fin) return k; } return null; };
 const MESNUM = {enero:1,febrero:2,marzo:3,abril:4,mayo:5,junio:6,julio:7,agosto:8,septiembre:9,octubre:10,noviembre:11,diciembre:12};
 
 // ---------- ventanas ----------
@@ -745,6 +750,8 @@ function win(s){
   }
   // Las fechas cargadas a mano mandan sobre la estimación: la barra se mueve con ellas.
   const f = lay().fechas[s.codigo];
+  const kf = (f && f.ini && s.dur==='B') ? bimDeFecha(f.ini) : null;
+  if(kf){ const m=BIMS[kf].m; return {ini:m[0], fin:m[1], sr:false, flex:w.flex, pk:'b'+kf}; }
   if(f && (f.ini||f.fin)){
     const mi=mesDe(f.ini), mf=mesDe(f.fin), yi=anioDe(f.ini), yf=anioDe(f.fin);
     let ini = mi||w.ini, fin = mf||w.fin, cola = w.cola;
@@ -758,9 +765,11 @@ function win(s){
 function months(s){ const w=win(s); return COLS.filter(m=>m>=w.ini&&m<=w.fin&&(w.sr||m!==7)); }
 function runs(ms){ const r=[],c=[]; let cur=[]; ms.forEach(m=>{ if(cur.length&&m!==cur[cur.length-1]+1){r.push(cur);cur=[];} cur.push(m); }); if(cur.length) r.push(cur); return r; }
 function bimOf(s){ if(s.dur!=='B') return null; if(lay().bim[s.codigo]) return +lay().bim[s.codigo];
-  const k=win(s).pk; return (k&&k[0]==='b')?+k[1]:null; }
+  const k=perKeyW(win(s)); return (k&&k[0]==='b')?+k[1]:null; }
 const cuatOf = s => { const w=win(s); if(s.dur==='A'||(w.ini<=6&&w.fin>=8)) return 'A'; return w.ini<=7?1:2; };
-function rango(s){ return rangoW(win(s)); }
+function rango(s){ const b=s.dur==='B'?bimOf(s):null;
+  if(b){ const f=fechas(s); return `${BIMS[b].n} · ${dm(f.ini)} al ${dm(f.fin)}`; }
+  return rangoW(win(s)); }
 function rangoW(w){ const base = w.ini===w.fin?MF[w.ini]:MES[w.ini]+'–'+MES[w.fin];
   return (w.cola?base+' → '+w.cola+' del año siguiente':((!w.sr&&w.ini<7&&w.fin>7)?base+' (sin julio)':base)); }
 const listM = ms => { const n=ms.map(m=>MF[m]); return n.length<=1?n.join(''):n.slice(0,-1).join(', ')+' y '+n[n.length-1]; };
@@ -1091,7 +1100,10 @@ function renderDetail(){
   const opts=COLS.filter(m=>w.sr||m!==7);
   const mSel=(id,val,fn)=>h('select',ed({id,class:'selc',onchange:fn}),...opts.map(m=>
     h('option',{value:String(m),...(m===val?{selected:true}:{}),text:MF[m][0].toUpperCase()+MF[m].slice(1)})));
-  const setW=(a,b)=>{ if(b<a) b=a; const d=s.prop;
+  const MES2BIM={3:1,4:1,5:2,6:2,7:2,8:3,9:3,10:4,11:4};
+  const setW=(a,b,cual)=>{ if(b<a) b=a; const d=s.prop;
+    // En una bimestral, cambiar el mes es cambiar de bimestre: se mantienen los dos meses y la fecha precisa.
+    if(s.dur==='B'){ const k=MES2BIM[cual==='fin'?b:a]; if(k){ moveBim(s.codigo,k); return; } }
     editar(()=>{ if(a===d.ini&&b===d.fin) delete state.overrides[s.codigo]; else state.overrides[s.codigo]={ini:a,fin:b,sr:w.sr,flex:w.flex,cola:w.cola};
       delete state.bim[s.codigo]; delete state.fechas[s.codigo]; }); };
   const cor=[];
@@ -1128,8 +1140,8 @@ function renderDetail(){
       h('div',{class:'sub',style:'margin-bottom:8px'},
         w.flex?'A elección del estudiante.':`${rango(s)}: ${ms.length} ${ms.length===1?'mes':'meses'}.`,
         f.manual?' Ahora manda la fecha que cargaste abajo; si cambiás los meses acá, se borra y vuelve la estimación.':''),
-      h('div',{class:'row2'},h('label',{for:'w-i'},'Inicio',mSel('w-i',w.ini,e=>setW(+e.target.value,w.fin))),
-        h('label',{for:'w-f'},'Fin',mSel('w-f',w.fin,e=>setW(w.ini,+e.target.value)))),
+      h('div',{class:'row2'},h('label',{for:'w-i'},'Inicio',mSel('w-i',w.ini,e=>setW(+e.target.value,w.fin,'ini'))),
+        h('label',{for:'w-f'},'Fin',mSel('w-f',w.fin,e=>setW(w.ini,+e.target.value,'fin')))),
       editando&&esTuyo(s.codigo)?h('div',{style:'margin-top:6px'},h('button',{class:'linkbtn',type:'button',
         onclick:()=>editar(()=>{delete state.overrides[s.codigo];delete state.bim[s.codigo];delete state.fechas[s.codigo];}),text:'Volver a como estaba en la Propuesta'})):null),
     h('div',null,h('h3',{text:'Fechas para SIU Guaraní'}),

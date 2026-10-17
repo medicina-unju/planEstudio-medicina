@@ -9,7 +9,7 @@ Es una sola página, sin backend ni instalación. Se puede publicar en GitHub Pa
 
 | Pestaña | Para qué sirve |
 | --- | --- |
-| Secuencia | Diagrama mes a mes, filtrable por año y por período con casillas (1.º cuatrimestre: anuales, cuatrimestrales, 1.er y 2.º bimestre, semestrales; 2.º cuatrimestre: cuatrimestrales, 3.er y 4.º bimestre, Práctica Final). Abajo, el seguimiento de actas por turno, del 1.º al 8.º: en cada turno, qué materias llegan por primera vez y cuándo cierra su acta de cursada. |
+| Secuencia | Diagrama mes a mes, filtrable por año y por período con casillas (1.º cuatrimestre: anuales, cuatrimestrales, 1.er y 2.º bimestre, semestrales; 2.º cuatrimestre: cuatrimestrales, 3.er y 4.º bimestre, anuales, semestrales y Práctica Final; anuales y semestrales figuran en los dos porque se inscriben en marzo y cierran el acta en el 2.º). Abajo, el seguimiento de actas por turno, del 1.º al 8.º: en cada turno, qué materias llegan por primera vez y cuándo cierra su acta de cursada. |
 | Plan completo | El plan con el mismo formato de la planilla de correlativas (Excel). En «Mi propuesta» toma el cuatrimestre y el bimestre de la propuesta guardada y resalta en amarillo lo que cambia respecto de la planilla. Se imprime en PDF. |
 | Correlativas | Mapa de dependencias. Al elegir una materia marca de qué depende y qué habilita. |
 | Horas | Horas por año según campo de formación, régimen de acreditación o teórica/práctica. |
@@ -43,6 +43,16 @@ Los campos están bloqueados para no cambiar nada sin querer. Para modificar alg
 Mientras se edita también están **Deshacer** (de a un cambio, incluso después de cerrar el
 navegador) y **Borrar mis cambios** (también se puede deshacer). La etiqueta «movida» indica una
 diferencia con la planilla actual; «tu cambio», una diferencia con la propuesta base.
+
+## Bimestres en el diagrama
+
+En la Secuencia cada bimestre ocupa siempre sus dos meses (1.er marzo-abril, 2.º mayo-junio,
+3.er agosto-septiembre, 4.º octubre-noviembre), aunque la fecha precisa termine unos días en el
+mes siguiente (por ejemplo, el 1.er bimestre 2027 va del 15/03 al 07/05). La fecha exacta sale
+del calendario y es la que figura en el plan, en la tabla de SIU y en el PDF; aparece también al
+pasar el mouse por la barra. El bimestre de cada materia se identifica por su lugar, no por los
+meses: cambiar el mes de inicio de una bimestral la pasa al bimestre que corresponde, y cargarle
+una fecha a mano la ubica en el bimestre que contiene esa fecha.
 
 ## Calendario académico
 
