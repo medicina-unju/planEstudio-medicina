@@ -17,13 +17,31 @@ Es una sola página, sin backend ni instalación. Se puede publicar en GitHub Pa
 | Revisión | Sugerencias sobre correlatividades, inconsistencias entre la planilla y la resolución, y conflictos de calendario. |
 | Descargas | Excel con seis hojas, Excel de fechas para SIU Guaraní, imagen de la secuencia (PNG y SVG) y la configuración en JSON. |
 
-## Los dos escenarios
+## Los tres escenarios
 
 - **Planilla actual**: la planilla de correlativas tal cual está.
-- **Propuesta**: mueve 4.6 y 5.4 al 2.º bimestre (son los dos cuatrimestres con tres
-  bimestrales obligatorias) y ubica el Practicantado Rotatorio de agosto a junio del año siguiente.
+- **Propuesta**: ubica una bimestral por bimestre en 3.º, 4.º y 5.º año, sin paralelismo, y
+  pone el Practicantado Rotatorio de agosto a junio del año siguiente.
 
-El escenario se cambia desde la barra superior y recalcula el diagrama, las fechas y los conflictos.
+- **Mi propuesta**: la Propuesta más los cambios que haga cada persona en el tablero
+  (arrastrar una bimestral, cambiar meses o cargar fechas). Las materias que movió quedan
+  marcadas «tu cambio».
+
+«Planilla actual» y «Propuesta» no cambian nunca: si se mueve algo estando en una de ellas,
+el tablero pasa solo a «Mi propuesta». Así la propuesta original siempre queda para comparar.
+La etiqueta «movida» indica una diferencia con la planilla actual; «tu cambio», una diferencia
+con la Propuesta. En la barra del escenario están **Deshacer** (vuelve atrás de a un cambio,
+incluso después de cerrar el navegador), **Borrar mis cambios** (también se puede deshacer)
+e **Imprimir**. La pestaña Orden de bimestrales tiene además una lista «Tus cambios» con un
+botón para volver atrás cada materia por separado.
+
+## Imprimir
+
+El botón **Imprimir** arma una versión para papel o PDF del escenario que se esté viendo: la
+secuencia de cada año en una hoja apaisada, la tabla de cambios respecto de la planilla con su
+fundamento y las propuestas sobre correlatividades. En el diálogo de impresión se puede elegir
+«Guardar como PDF». Conviene hacerlo desde el sitio de GitHub Pages: dentro de la vista previa
+de Claude el navegador puede bloquear la impresión.
 
 ## Cómo se ubican las bimestrales
 
@@ -36,19 +54,29 @@ El año tiene cuatro bimestres, con fechas fijas tomadas del calendario académi
 | 3.er bimestre | 10/08 al 30/09 | 2.º |
 | 4.º bimestre | 01/10 al 27/11 | 2.º |
 
-El plan marca las materias como «B» pero no fija en cuál de los cuatro van. El criterio que
-usa el tablero sale del cronograma real de 1.º año (Res. CAESS N.º 09/2026):
+El plan marca las materias como «B» pero no fija en cuál de los cuatro van. En la planilla
+actual todas caen al final de su cuatrimestre y quedan en paralelo (hasta tres a la vez en
+4.º y 5.º año).
 
-- Por defecto van al **2.º o al 4.º bimestre**, que es donde las ubica el calendario vigente.
-- Cuando hay **dos en el mismo cuatrimestre, corren en paralelo**, no una atrás de la otra.
-  Es lo que ya hace el calendario vigente con 1.4 y 1.5, ambas de octubre a noviembre.
-- Cuando hay **tres**, no entran: hay que mover una al bimestre anterior del mismo año.
-  Pasa en el 2.º cuatrimestre de 4.º año (4.5, 4.6 y 4.7) y en el de 5.º (5.4, 5.5 y 5.7).
-  Los espacios optativos no cuentan, porque el apartado 10 de la resolución los deja libres
-  entre 1.º y 5.º año.
-- Cualquiera se puede cambiar de bimestre: arrastrándola del tirador ⠿ en la pestaña
-  Orden de bimestrales, o con el selector de esa pestaña y del panel de detalle. Al moverla,
-  toma las fechas predefinidas del bimestre nuevo y la barra del diagrama se corre sola.
+La **propuesta** ubica una por bimestre, sin paralelismo, como si las bimestrales de cada año
+formaran un anual en cuatro tramos. Para elegir el bimestre se miró:
+
+- **Correlativas**: cuándo termina la materia previa y cuántos turnos de examen quedan antes
+  de la semana de inscripción (09-13/03 para el 1.er cuatrimestre, 03-07/08 para el 2.º).
+- **Turnos de examen**: cada bimestre rinde en un turno distinto (junio, julio, octubre y
+  diciembre), así que una por bimestre reparte los finales.
+- **Carga mensual** del resto del año y afinidad de contenidos (Res. C.S. N.º 093-25).
+
+| Año | 1.er bim. | 2.º bim. | 3.er bim. | 4.º bim. |
+| --- | --- | --- | --- | --- |
+| 3.º | — | — | 3.6 | 3.5 |
+| 4.º | 4.4 | 4.6 | 4.7 | 4.5 |
+| 5.º | 5.4 | (libre, sugerido para el optativo IV) | 5.5 | 5.7 |
+
+6.º año no tiene bimestrales. 1.º y 2.º año siguen como en la planilla hasta incorporar lo
+que trabajó la coordinación. Cualquiera se puede cambiar de bimestre arrastrándola del
+tirador ⠿ en la pestaña Orden de bimestrales, o con el selector de esa pestaña y del panel
+de detalle: toma las fechas predefinidas del bimestre nuevo y la barra se corre sola.
 
 ## Publicarlo en GitHub Pages
 
@@ -113,8 +141,9 @@ Las fechas estimadas salen del Calendario Académico 2026 de la Escuela Superior
 - Bimestral: según el bimestre, 16/03 al 08/05, 07/05 al 03/07, 10/08 al 30/09 o 01/10 al 27/11.
 - Receso de invierno 13/07 al 24/07; receso de verano en enero. **En febrero no hay dictado
   de clases**: las fechas de febrero del calendario son de examen y de borrado de inscripción.
-- La semana de inscripción del 1.º cubre las anuales y las del 1.er cuatrimestre; la del 2.º,
-  el resto. El ciclo lectivo y ambas semanas se configuran en la pestaña Descargas.
+- La inscripción es única por cuatrimestre, como lo definió el equipo: una semana a principios
+  de marzo para las anuales y todas las del 1.er cuatrimestre, y otra en agosto para el 2.º. El ciclo lectivo y
+  ambas semanas se configuran en la pestaña Descargas.
 
 Cada espacio tiene en el panel de detalle dos campos de fecha (inicio y fin) para cargar la
 fecha definitiva cuando esté acordada. Mientras no se cargue, se usa la estimada; las cargadas

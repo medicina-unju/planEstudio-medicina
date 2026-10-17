@@ -579,7 +579,9 @@
     "fin": 11,
     "sr": false,
     "flex": false
-   }
+   },
+   "propBim": 4,
+   "propRazon": "4.º bimestre (01/10 al 27/11). Es de promoción, así que no suma un final. Va después de Epidemiología para no cursar las dos a la vez. Pide 2.5 aprobada, que también es de promoción y queda aprobada al terminar 2.º año."
   },
   {
    "anio": 3,
@@ -609,11 +611,13 @@
     "flex": false
    },
    "prop": {
-    "ini": 10,
-    "fin": 11,
+    "ini": 8,
+    "fin": 9,
     "sr": false,
     "flex": false
-   }
+   },
+   "propBim": 3,
+   "propRazon": "3.er bimestre (10/08 al 30/09). Es la bimestral del año con examen final: al ubicarla primero, rinde en el turno de octubre junto con Patología General y deja diciembre para los finales de las anuales (3.1 y 3.3). Sus correlativas (2.3 y 2.4 regulares) se cumplen al terminar 2.º año."
   },
   {
    "anio": 3,
@@ -817,11 +821,13 @@
     "flex": false
    },
    "prop": {
-    "ini": 5,
-    "fin": 7,
+    "ini": 3,
+    "fin": 4,
     "sr": false,
     "flex": false
-   }
+   },
+   "propBim": 1,
+   "propRazon": "1.er bimestre (16/03 al 08/05). Rinde en el turno de junio y evita julio, donde ya caen los finales de Clínica Quirúrgica y Bases para el Diagnóstico II. Sus correlativas (2.2 aprobada, 3.3 y 3.4 regulares) son de años anteriores. Si la cátedra prefiere cursarla con Clínica Quirúrgica más avanzada, se puede cambiar con 4.6."
   },
   {
    "anio": 4,
@@ -854,7 +860,9 @@
     "fin": 11,
     "sr": false,
     "flex": false
-   }
+   },
+   "propBim": 4,
+   "propRazon": "4.º bimestre (01/10 al 27/11). Pide 3.5 aprobada: en el 2.º cuatrimestre la inscripción es en agosto, así que quien no promocionó 3.5 tiene los turnos de diciembre a julio para rendirla, en vez de llegar con lo justo al de marzo. Es intercambiable con 4.7."
   },
   {
    "anio": 4,
@@ -889,8 +897,8 @@
     "sr": false,
     "flex": false
    },
-   "propCuat": 1,
-   "propRazon": "En el 2.º cuatrimestre de 4.º año hay tres bimestrales obligatorias (4.5, 4.6 y 4.7) para solo dos lugares en paralelo. 4.6 trata seguridad del paciente, gestión de crisis y conductas seguras, que es el complemento de Emergencias Médicas II y de Clínica Quirúrgica, ambas del 1.er cuatrimestre. Al moverla, queda en paralelo con 4.4 en el 2.º bimestre, y el 4.º bimestre libera lugar para que 4.5 y 4.7 corran en paralelo, como ya hace el calendario real con 1.4 y 1.5."
+   "propBim": 2,
+   "propRazon": "2.º bimestre (07/05 al 03/07). Es la más corta del año (30 h) y la que menos carga agrega al 1.er cuatrimestre, que es el más cargado. Sus contenidos (gestión de crisis y emergencias, seguridad del paciente) siguen a Emergencias Médicas II. Pide 3.1 y 3.6 regulares, ya cumplidas."
   },
   {
    "anio": 4,
@@ -920,11 +928,13 @@
     "flex": false
    },
    "prop": {
-    "ini": 10,
-    "fin": 11,
+    "ini": 8,
+    "fin": 9,
     "sr": false,
     "flex": false
-   }
+   },
+   "propBim": 3,
+   "propRazon": "3.er bimestre (10/08 al 30/09). El 2.º cuatrimestre de 4.º año es liviano (solo corren 4.1 y 4.8). Da el marco legal (historia clínica, consentimiento informado, directivas anticipadas) que retoma Relaciones Humanas III. Pide 3.1 y 3.5 regulares. Es intercambiable con 4.5: no hay correlativa entre ellas."
   },
   {
    "anio": 4,
@@ -1136,13 +1146,13 @@
     "flex": false
    },
    "prop": {
-    "ini": 5,
-    "fin": 7,
+    "ini": 3,
+    "fin": 4,
     "sr": false,
     "flex": false
    },
-   "propCuat": 1,
-   "propRazon": "En el 2.º cuatrimestre de 5.º año hay tres bimestrales obligatorias (5.4, 5.5 y 5.7). Sistemas de Salud cierra la línea Salud Poblacional I-II-III; su correlativa aprobada (3.6) ya está cumplida desde 3.º año, así que no necesita esperar al 2.º cuatrimestre. Al moverla al 2.º bimestre queda regularizada a mitad de año, que es lo que conviene para las rotaciones electivas de 6.º, y el 4.º bimestre libera lugar para que 5.5 y 5.7 corran en paralelo."
+   "propBim": 1,
+   "propRazon": "1.er bimestre (16/03 al 08/05). Es la más corta de las tres (40 h) y la que menos carga agrega al 1.er cuatrimestre, ocupado por Niñez y Mujer. Rinde en junio, antes de los finales de julio de 5.2 y 5.3. Sus correlativas (3.6 aprobada, 4.6 y 4.7 regulares) son de años anteriores, y queda regularizada con tiempo para 6.1, 6.2 y 6.3, que la piden."
   },
   {
    "anio": 5,
@@ -1175,11 +1185,13 @@
     "flex": false
    },
    "prop": {
-    "ini": 10,
-    "fin": 11,
+    "ini": 8,
+    "fin": 9,
     "sr": false,
     "flex": false
-   }
+   },
+   "propBim": 3,
+   "propRazon": "3.er bimestre (10/08 al 30/09). Sigue al bloque clínico del 1.er cuatrimestre (Niñez y Mujer), con el que comparte violencia y el abordaje por etapas de la vida. Rinde sola en el turno de octubre. Es intercambiable con 5.7."
   },
   {
    "anio": 5,
@@ -1248,7 +1260,9 @@
     "fin": 11,
     "sr": false,
     "flex": false
-   }
+   },
+   "propBim": 4,
+   "propRazon": "4.º bimestre (01/10 al 27/11). Cierra el año con el protocolo de investigación, que 6.2 retoma en 6.º año (investigación-acción participativa, investigación epidemiológica). Pide 2.4 aprobada y 4.5 regular, de años anteriores. Es intercambiable con 5.5. El 2.º bimestre de 5.º año queda libre: es un buen lugar para el optativo IV."
   },
   {
    "anio": 5,
@@ -1550,6 +1564,30 @@
    "p": "Hoy pide 4.5 aprobada y 5.4 regular. Atiende «individuos, familias y comunidades» y los «problemas de salud prevalentes» de la medicina general, lo que supone la clínica de 5.º año cursada. Conviene exigir regulares las materias clínicas de 5.º."
   },
   {
+   "code": "3.5",
+   "tipo": "Flexibilizar",
+   "campo": "aprobada → regular",
+   "valor": "2.5",
+   "t": "Relaciones Humanas II podría pedir RH I regular en vez de aprobada",
+   "p": "La línea Relaciones Humanas es progresiva pero no acumulativa en sentido estricto: RH II trabaja comunicación, ciclos vitales y relación médico-paciente-familia, que se apoyan en RH I sin necesitar su examen aprobado. RH I es de promoción, así que la diferencia solo afecta a quien no promocionó: con «regular» puede seguir la línea sin perder un año. Mismo criterio que se propone para 4.5."
+  },
+  {
+   "code": "4.5",
+   "tipo": "Flexibilizar",
+   "campo": "aprobada → regular",
+   "valor": "3.5",
+   "t": "Relaciones Humanas III podría pedir RH II regular en vez de aprobada",
+   "p": "RH III (profesionalismo, comunicación de malas noticias, muerte y cuidados paliativos) continúa RH II, que es de promoción. Pedirla regular alcanza para asegurar la secuencia y evita que quien no promocionó RH II quede afuera de RH III, que además es correlativa aprobada de 6.2. Con la ubicación propuesta (4.º bimestre, inscripción en agosto) el problema ya se atenúa; esta flexibilización lo resuelve del todo."
+  },
+  {
+   "code": "5.7",
+   "tipo": "Cambiar",
+   "campo": "regular",
+   "valor": "4.5 → 3.6",
+   "t": "Investigación en Ciencias de la Salud se apoya más en Epidemiología que en RH III",
+   "p": "Hoy pide 2.4 aprobada y 4.5 regular. De RH III comparte un solo tema (la comunicación en la investigación clínica). En cambio sus contenidos (estudios epidemiológicos, clínicos y de servicios de salud; bioestadística; validez y confiabilidad de pruebas diagnósticas) son la continuación directa de Salud Poblacional II: Epidemiología (investigación epidemiológica, epidemiología clínica). Se propone cambiar la regular 4.5 por 3.6, o al menos agregar 3.6."
+  },
+  {
    "code": "6.5",
    "tipo": "Reformular",
    "campo": "aprobada",
@@ -1607,9 +1645,12 @@
    ]
   },
   {
-   "t": "Tres bimestrales obligatorias en el mismo cuatrimestre, en 4.º y en 5.º año",
-   "p": "Contando solo las bimestrales troncales (sin los espacios optativos, que son de fecha libre): en el 2.º cuatrimestre de 4.º año hay tres (4.5, 4.6 y 4.7), y en el de 5.º año hay otras tres (5.4, 5.5 y 5.7). El cronograma real de 1.º año (Res. CAESS 09-26) muestra que dos bimestrales del mismo cuatrimestre corren en paralelo sin problema (1.4 y 1.5, ambas octubre-noviembre), pero tres no entran. La propuesta traslada una de cada grupo (4.6 y 5.4) al 2.º bimestre del mismo año. En 2.º y 3.º año, en cambio, cada cuatrimestre tiene solo dos bimestrales troncales (más un optativo de fecha libre), así que no hace falta mover nada ahí: si la lectura del equipo es otra, conviene revisarlo en conjunto con la planilla a la vista.",
+   "t": "El plan no fija en qué bimestre va cada bimestral",
+   "p": "La planilla y la resolución marcan las materias como «B» con su cuatrimestre, pero no dicen si van en el 1.º o 2.º bimestre del cuatrimestre. Hoy, por defecto, todas caen al final del cuatrimestre y quedan en paralelo (en 4.º y 5.º año, hasta tres a la vez). La propuesta ubica una por bimestre en 3.º, 4.º y 5.º año, mirando correlativas, turnos de examen y carga mensual; cada movimiento tiene su fundamento en la pestaña Orden de bimestrales. 6.º año no tiene bimestrales. 1.º y 2.º año quedan como en la planilla hasta incorporar lo que trabajó la coordinación. La inscripción es única por cuatrimestre (una semana a principios de marzo para todo el 1.er cuatrimestre y otra en agosto para el 2.º), según lo definió el equipo: por eso una materia del 2.º cuatrimestre deja más turnos para rendir sus correlativas.",
    "codes": [
+    "3.5",
+    "3.6",
+    "4.4",
     "4.5",
     "4.6",
     "4.7",
