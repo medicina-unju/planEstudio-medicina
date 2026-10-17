@@ -401,11 +401,12 @@
    },
    "prop": {
     "ini": 8,
-    "fin": 11,
+    "fin": 9,
     "sr": false,
     "flex": true
    },
-   "propRazon": "El apartado 10 de la resolución permite cursar los optativos entre 1.º y 5.º año. Se los deja como 25 h a ubicar donde convenga, en vez de fijarlos a un cuatrimestre."
+   "propBim": 3,
+   "propRazon": "3.er bimestre (10/08 al 30/09). Es el único bimestre de 2.º año sin materia troncal: no le suma carga a ningún otro. Sigue siendo de fecha libre; se puede mover a cualquier bimestre del año."
   },
   {
    "anio": 3,
@@ -677,12 +678,13 @@
     "flex": true
    },
    "prop": {
-    "ini": 8,
-    "fin": 11,
+    "ini": 5,
+    "fin": 7,
     "sr": false,
     "flex": true
    },
-   "propRazon": "El apartado 10 de la resolución permite cursar los optativos entre 1.º y 5.º año. Se los deja como 25 h a ubicar donde convenga, en vez de fijarlos a un cuatrimestre."
+   "propBim": 2,
+   "propRazon": "2.º bimestre (07/05 al 03/07). El 1.er cuatrimestre de 3.º año no tiene ninguna bimestral troncal: es el tramo con más lugar libre del año. Fecha libre; se puede mover a cualquier bimestre del año."
   },
   {
    "anio": 4,
@@ -994,12 +996,13 @@
     "flex": true
    },
    "prop": {
-    "ini": 8,
-    "fin": 11,
+    "ini": 5,
+    "fin": 7,
     "sr": false,
     "flex": true
    },
-   "propRazon": "El apartado 10 de la resolución permite cursar los optativos entre 1.º y 5.º año. Se los deja como 25 h a ubicar donde convenga, en vez de fijarlos a un cuatrimestre."
+   "propBim": 2,
+   "propRazon": "2.º bimestre (07/05 al 03/07). Es el bimestre con menos carga troncal de 4.º año (30 h, Calidad de la Atención Médica): sumarle 25 h es lo que menos aulas agrega. Fecha libre; se puede mover a cualquier bimestre del año."
   },
   {
    "anio": 5,
@@ -1322,12 +1325,13 @@
     "flex": true
    },
    "prop": {
-    "ini": 8,
-    "fin": 11,
+    "ini": 5,
+    "fin": 7,
     "sr": false,
     "flex": true
    },
-   "propRazon": "El apartado 10 de la resolución permite cursar los optativos entre 1.º y 5.º año. Se los deja como 25 h a ubicar donde convenga, en vez de fijarlos a un cuatrimestre."
+   "propBim": 2,
+   "propRazon": "2.º bimestre (07/05 al 03/07). Es el único bimestre de 5.º año sin materia troncal: no le suma carga a ningún otro. Fecha libre; se puede mover a cualquier bimestre del año."
   },
   {
    "anio": 6,
