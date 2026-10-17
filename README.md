@@ -9,12 +9,11 @@ Es una sola página, sin backend ni instalación. Se puede publicar en GitHub Pa
 
 | Pestaña | Para qué sirve |
 | --- | --- |
-| Secuencia | Diagrama mes a mes por año o por conjuntos de años. Muestra cuántos espacios corren en simultáneo y cuántas horas suman. |
+| Secuencia | Diagrama mes a mes, filtrable por año y por período (1.º cuatrimestre: anuales, cuatrimestrales, 1.er y 2.º bimestre, semestrales; 2.º cuatrimestre: cuatrimestrales, 3.er y 4.º bimestre, Práctica Final). Con un período elegido muestra el seguimiento de actas: fin de cursada, carga de resultados y turno de examen. |
 | Plan completo | El plan con el mismo formato de la planilla de correlativas (Excel). En «Mi propuesta» toma el cuatrimestre y el bimestre de la propuesta guardada y resalta en amarillo lo que cambia respecto de la planilla. Se imprime en PDF. |
 | Correlativas | Mapa de dependencias. Al elegir una materia marca de qué depende y qué habilita. |
 | Horas | Horas por año según campo de formación, régimen de acreditación o teórica/práctica. |
 | Calendario | Tabla de períodos lectivos para SIU Guaraní y el calendario académico con el formato de la resolución oficial (Anexo Único). Se imprime en PDF. |
-| Descargas | Excel con siete hojas (incluye el calendario académico), Excel de fechas para SIU Guaraní, imagen de la secuencia (PNG y SVG) y la configuración en JSON. |
 
 ## Los dos escenarios
 
@@ -25,6 +24,12 @@ Es una sola página, sin backend ni instalación. Se puede publicar en GitHub Pa
 
 «Planilla actual» no cambia nunca: si se mueve algo estando ahí, el tablero pasa solo a
 «Mi propuesta».
+
+## Copia de seguridad
+
+Lo que se cambia queda guardado en el navegador. Para llevarlo a otra computadora o pasárselo
+al equipo: **Guardar copia** descarga un archivo con la propuesta y las fechas; en el otro
+navegador, **✎ Editar → Cargar copia** y después **Guardar cambios**.
 
 ## Editar y guardar
 
@@ -157,38 +162,14 @@ En `data.json`, cada espacio curricular es un objeto con estos campos:
   `sr: true` significa que se cursa también en julio. `flex: true` lo dibuja rayado, a elección del estudiante.
 - `apr` y `reg`: códigos de las correlativas aprobadas y regulares.
 
-Los bloques `sugerencias` e `inconsistencias` alimentan la pestaña Revisión.
-
-## Compartir los cambios del equipo
-
-Lo que cada persona ajusta en el tablero (orden de bimestrales, fechas, ciclo lectivo)
-se guarda en su navegador y no viaja con el enlace. Para compartirlo:
-
-1. **Descargas → Descargar configuración (JSON)**.
-2. Subir ese archivo al repositorio o pasarlo al equipo.
-3. Cada persona lo carga con **Descargas → Cargar configuración**.
+Los bloques `sugerencias` e `inconsistencias` aparecen en el panel de cada materia y en el PDF
+«Imprimir todo».
 
 ## Fechas para SIU Guaraní
 
-Las fechas estimadas salen del Calendario Académico 2026 de la Escuela Superior de Salud
-(Res. CAESS N.º 06/2026) y de su ampliatoria para Medicina (Res. CAESS N.º 09/2026):
-
-| Período | Inscripción | Cursada |
-| --- | --- | --- |
-| 1.º cuatrimestre (16 semanas) | 09/03 al 13/03 | 16/03 al 03/07 |
-| 2.º cuatrimestre (16 semanas) | 03/08 al 07/08 | 10/08 al 27/11 |
-
-- Semestral: 16/03 al 11/09, como Ciencias Biológicas este año.
-- Bimestral: según el bimestre, 16/03 al 08/05, 07/05 al 03/07, 10/08 al 30/09 o 01/10 al 27/11.
-- Receso de invierno 13/07 al 24/07; receso de verano en enero. **En febrero no hay dictado
-  de clases**: las fechas de febrero del calendario son de examen y de borrado de inscripción.
-- La inscripción es única por cuatrimestre, como lo definió el equipo: una semana a principios
-  de marzo para las anuales y todas las del 1.er cuatrimestre, y otra en agosto para el 2.º. El ciclo lectivo y
-  ambas semanas se configuran en la pestaña Descargas.
-
-Cada espacio tiene en el panel de detalle dos campos de fecha (inicio y fin) para cargar la
-fecha definitiva cuando esté acordada. Mientras no se cargue, se usa la estimada; las cargadas
-a mano quedan marcadas como tales en el Excel.
+Están en la pestaña **Calendario** (ver arriba). Cada espacio tiene además, en el panel de
+detalle, dos campos de fecha (inicio y fin) para cargar la fecha definitiva cuando esté
+acordada; mientras no se cargue, se usa la estimada.
 
 ## Fuentes
 

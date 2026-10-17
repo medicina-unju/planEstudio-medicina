@@ -315,6 +315,18 @@ table.t .ysep td{background:var(--surface-4);font-weight:700;font-family:var(--f
 .dlcard h3{margin:0;font-size:15px;font-family:var(--f-b);font-weight:700}
 .dlcard p{margin:0;font-size:13px;color:var(--ink-2)}
 .dlcard .fmt{font-family:var(--f-m);font-size:11px;color:var(--muted);text-transform:uppercase;letter-spacing:.06em;font-weight:600}
+/* ---- filtro por período ---- */
+.pbar{gap:10px}
+.pgrp{display:inline-flex;flex-wrap:wrap;max-width:100%;min-width:0;gap:5px;align-items:center;padding:3px 6px 3px 3px;border:1.5px solid var(--line);border-radius:16px;background:var(--surface)}
+.pgrp-t{border:0;background:none;font:inherit;font-size:12px;font-weight:700;color:var(--ink-2);padding:4px 8px;border-radius:999px;cursor:pointer}
+.pgrp-t[aria-pressed=true]{background:var(--accent);color:#fff}
+.pchip{font-size:12.5px;padding:5px 11px}
+.pchip[aria-pressed=true]{background:var(--accent);color:#fff;border-color:var(--accent)}
+.pchip:disabled{opacity:.4;cursor:default}
+.pchip .pc{margin-left:6px;font-size:11px;font-weight:700;opacity:.75}
+.pgrp.g1{border-color:#1f5a96}.pgrp.g2{border-color:#2f7a4a}
+.pgrp.g1 .pgrp-t{color:#1f5a96}.pgrp.g2 .pgrp-t{color:#2f7a4a}
+.pgrp.g1 .pgrp-t[aria-pressed=true]{background:#1f5a96;color:#fff}.pgrp.g2 .pgrp-t[aria-pressed=true]{background:#2f7a4a;color:#fff}
 /* ---- modo edición ---- */
 body.editando .scen{outline:2px solid #b4570f;outline-offset:-2px}
 body.editando .scen .t::after{content:' · editando';color:#b4570f;font-weight:700}
@@ -349,8 +361,13 @@ input.dsm{padding:3px 5px;font-size:12px;width:128px}
 .siu{min-width:980px;font-family:var(--f-b);font-size:12.5px}
 .siu td{text-align:left;vertical-align:top}.siu th{font-size:11.5px}
 .siu th.sub{font-weight:600;font-size:10.5px;color:#444}
-.siu .g1{background:#eef4fb}.siu .g2{background:#eef8f0}.siu .g3{background:#fdf6e7}.siu .g4{background:#f4eefb}.siu .g5{background:#fbeeee}
-.siu th.g1,.siu th.g2,.siu th.g3,.siu th.g4,.siu th.g5{background:none}
+.siu tr.grp-h td{text-align:left;padding:7px 10px;font-size:12.5px;color:#fff;letter-spacing:.02em}
+.siu tr.grp-h.g1 td{background:#1f5a96}.siu tr.grp-h.g2 td{background:#2f7a4a}
+.siu tr.grp-h span{opacity:.92;font-weight:400}
+.siu tr.g1 td.per{border-left:5px solid #1f5a96}.siu tr.g2 td.per{border-left:5px solid #2f7a4a}
+.siu tr.g1 td.c1{background:#e8f0fa}.siu tr.g2 td.c1{background:#e7f4ec}
+.siu td.c3{background:#fdf6e7}.siu td.tn{background:#f4eefb;text-align:center}.siu td.c5{background:#f4eefb}.siu td.c6{background:#fbeeee}
+.siu .tnum{font-size:15px;font-weight:800;color:#3d2a73}
 /* ---- plan con formato de la planilla Excel ---- */
 .xls{width:100%;border-collapse:collapse;font-family:Arial,Helvetica,sans-serif;font-size:12.5px;background:#fff;color:#111}
 .xls th,.xls td{border:1px solid #777;padding:4px 6px;vertical-align:middle}
@@ -416,7 +433,7 @@ body.printing #print{display:block}
     <main id="main" style="min-width:0"></main>
     <aside class="detail card" id="detail" aria-label="Detalle del espacio curricular"></aside>
   </div>
-  <p class="foot">Las fechas son una estimación por mes, no un calendario académico aprobado. Lo que ajustes se guarda en tu navegador: para compartirlo con el equipo, descargá la configuración desde Descargas.</p>
+  <p class="foot">Las fechas son una estimación por mes, no un calendario académico aprobado. Lo que ajustes se guarda en tu navegador: para pasarlo a otra computadora o al equipo, usá «Guardar copia» y «Cargar copia».</p>
 </div>
 <div id="tip" role="tooltip"></div>
 
@@ -471,13 +488,14 @@ const col = s => COLOR[s.codigo] || {bg:'#888',fg:'#fff'};
 
 // ---------- estado ----------
 const LS='medunju-v2';
-const TABKEYS=['secuencia','plan','correlativas','horas','calendario','descargas'];
+const TABKEYS=['secuencia','plan','correlativas','horas','calendario'];
 const state={ tab:'secuencia', esc:'mia', years:new Set([1,2]), sel:null, overrides:{}, bim:{}, fechas:{},
   ciclo:new Date().getFullYear()+1, insc:{}, cal:{}, countOpt:false, chain:'cadena', hmode:'campo',
-  fAnio:'todos', fReg:'todos', fTexto:'', regimen:'todos' };
+  fAnio:'todos', fReg:'todos', fTexto:'', regimen:'todos', per:new Set() };
 function load(){ try{ const j=JSON.parse(localStorage.getItem(LS)||'{}'); apply(j); }catch(e){} }
 function apply(j){
   if(Array.isArray(j.years)&&j.years.length) state.years=new Set(j.years.filter(y=>y>=1&&y<=6));
+  if(Array.isArray(j.per)) state.per=new Set(j.per.filter(k=>typeof k==='string'));
   if(j.overrides&&typeof j.overrides==='object') state.overrides=j.overrides;
   if(j.bim&&typeof j.bim==='object') state.bim=j.bim;
   if(j.fechas&&typeof j.fechas==='object') state.fechas=j.fechas;
@@ -496,8 +514,15 @@ const ed = o => editando ? o : Object.assign({},o,{disabled:true});
 function entrarEdicion(){ previo=JSON.stringify(snapshot()); editando=true; render(); }
 function guardarEdicion(){ editando=false; previo=null; persist(); render();
   const n=document.getElementById('scen'); if(n){ const m=h('span',{class:'guardado',text:'Cambios guardados'}); n.append(m); setTimeout(()=>m.remove(),2600); } }
+function cargarCopia(){
+  const inp=h('input',{type:'file',accept:'.json,application/json',style:'display:none'});
+  inp.addEventListener('change',()=>{ const f=inp.files&&inp.files[0]; if(!f) return; const rd=new FileReader();
+    rd.onload=()=>{ try{ const j=JSON.parse(rd.result); apply(j.estado||j); persist(); render(); }catch(e){} inp.remove(); };
+    rd.readAsText(f); });
+  document.body.append(inp); inp.click();
+}
 function descartarEdicion(){ if(previo){ try{ apply(JSON.parse(previo)); }catch(e){} } editando=false; previo=null; persist(); render(); }
-const snapshot = () => ({v:4,years:[...state.years],overrides:state.overrides,bim:state.bim,fechas:state.fechas,insc:state.insc,cal:state.cal,ciclo:state.ciclo,esc:state.esc,tab:state.tab});
+const snapshot = () => ({v:4,years:[...state.years],per:[...state.per],overrides:state.overrides,bim:state.bim,fechas:state.fechas,insc:state.insc,cal:state.cal,ciclo:state.ciclo,esc:state.esc,tab:state.tab});
 // ---------- capa de cambios propios ----------
 // «Planilla actual» y «Propuesta» son fijas. Todo lo que se mueve a mano vive en una capa aparte
 // (bim, overrides, fechas) que solo se aplica en «Mi propuesta». Así la propuesta original
@@ -602,9 +627,9 @@ const HITOS = [
  ['jor3',2,'c2','III JORNADA INSTITUCIONAL POR CARRERA (a determinar dentro del período)',18,1,19,2],
 ];
 // Períodos lectivos, en el orden en que se cargan en SIU Guaraní.
-const PERIODOS = [['an','Anual'],['c1','1.º cuatrimestre'],['b1','1.er bimestre'],['b2','2.º bimestre'],
-  ['t1','Trimestral · 1.º cuat.'],['s1','Semestral'],['c2','2.º cuatrimestre'],['b3','3.er bimestre'],
-  ['b4','4.º bimestre'],['t2','Trimestral · 2.º cuat.'],['pfo','Práctica Final Obligatoria (agosto a junio)']];
+const PERIODOS = [['an','Anuales'],['c1','Cuatrimestrales del 1.º'],['b1','1.er bimestre'],['b2','2.º bimestre'],
+  ['s1','Semestrales'],['t1','Trimestrales del 1.º'],['c2','Cuatrimestrales del 2.º'],['b3','3.er bimestre'],
+  ['b4','4.º bimestre'],['t2','Trimestrales del 2.º'],['pfo','Práctica Final Obligatoria (agosto a junio)']];
 function calBase(y){
   const c1=lunCerca(mkDate(y,3,16)), c2=addDays(c1,SEM.c2*7);
   const L=(b,w)=>isoOf(addDays(b,w*7)), V=(b,w)=>isoOf(addDays(b,w*7+4));
@@ -663,9 +688,9 @@ function CAL(){
   P.periodos=PERIODOS.filter(([k])=>P[k]).map(([k,nombre])=>{
     const pe=P[k], enC1=pe.ini<P.c2.ini;
     const insB=enC1?P.i1:P.i2, carga=ins(pe.ini), res=Object.assign(resDe(pe.fin),oR[k]||{});
-    const insc=Object.assign({ini:insB.ini,fin:insB.fin},oI[k]||{});
+    const insc={ini:insB.ini,fin:insB.fin};   // una sola inscripción por cuatrimestre
     const tu=k==='pfo'?null:(P.turnos.find(x=>x.insIni>res.fin)||P.turnos[P.turnos.length-1]);
-    return {k,nombre,ini:pe.ini,fin:pe.fin,insc,carga:{ini:carga.pIni,fin:carga.pFin},res,turno:tu};
+    return {k,nombre,cu:enC1?1:2,ini:pe.ini,fin:pe.fin,insc,carga:{ini:carga.pIni,fin:carga.pFin},res,turno:tu};
   });
   P.fer=todosFer.filter(f=>f.f>=P.i1.ini&&f.f<=P.turnos[P.turnos.length-1].exFin);
   P.ferSet=ferSet;
@@ -830,9 +855,14 @@ function renderScen(){
     if(hist.length) acc.append(h('button',{class:'btn',type:'button',onclick:deshacer,title:'Vuelve al estado anterior al último cambio',text:'↶ Deshacer'}));
     if(n) acc.append(h('button',{class:'btn',type:'button',title:'Borra todos tus cambios (se puede deshacer)',
       onclick:()=>editar(()=>{state.overrides={};state.bim={};state.fechas={};}),text:'Borrar mis cambios'}));
+    acc.append(h('button',{class:'btn',type:'button',onclick:cargarCopia,title:'Trae una copia guardada (se puede descartar)',text:'Cargar copia'}));
     acc.append(h('button',{class:'btn',type:'button',onclick:descartarEdicion,title:'Vuelve a como estaba cuando tocaste Editar',text:'Descartar'}));
     acc.append(h('button',{class:'btn primary',type:'button',onclick:guardarEdicion,text:'✓ Guardar cambios'}));
   } else {
+    const bc=h('button',{class:'btn',type:'button',title:'Descarga un archivo con tu propuesta y tus fechas, para otra computadora o para el equipo',text:'Guardar copia'});
+    bc.addEventListener('click',()=>save(`mi-propuesta-medicina-${new Date().toISOString().slice(0,10)}.json`,
+      JSON.stringify({version:4,guardado:new Date().toISOString(),estado:snapshot()},null,1),bc));
+    acc.append(bc);
     acc.append(h('button',{class:'btn',type:'button',onclick:()=>imprimir(),title:'Versión completa para imprimir o guardar como PDF',text:'Imprimir todo'}));
     acc.append(h('button',{class:'btn primary',type:'button',onclick:entrarEdicion,text:'✎ Editar'}));
   }
@@ -841,7 +871,7 @@ function renderScen(){
   document.body.classList.toggle('editando',editando);
 }
 const TABS=[['secuencia','Secuencia','var(--y1)'],['plan','Plan completo','var(--y3)'],
-  ['correlativas','Correlativas','var(--y6)'],['horas','Horas','var(--y4)'],['calendario','Calendario','var(--y5)'],['descargas','Descargas','var(--accent-2)']];
+  ['correlativas','Correlativas','var(--y6)'],['horas','Horas','var(--y4)'],['calendario','Calendario','var(--y5)']];
 function renderTabs(){
   document.getElementById('tabs').replaceChildren(...TABS.map(([k,l,c])=>
     h('button',{class:'tab',role:'tab',type:'button','aria-selected':state.tab===k?'true':'false',style:'--tc:'+c,
@@ -850,7 +880,14 @@ function renderTabs(){
 }
 
 // ---------- Secuencia ----------
-const visible = () => S.filter(s=>state.years.has(s.anio)&&(state.regimen==='todos'||s.regimen===state.regimen));
+const perCat = s => perKeyW(win(s))||'otro';
+const visible = () => S.filter(s=>state.years.has(s.anio)&&(state.regimen==='todos'||s.regimen===state.regimen)
+  &&(!state.per.size||state.per.has(perCat(s))));
+const PERLBL = {c1:'Cuatrimestrales',b1:'1.er bimestre',b2:'2.º bimestre',t1:'Trimestrales',
+  c2:'Cuatrimestrales',b3:'3.er bimestre',b4:'4.º bimestre',t2:'Trimestrales',an:'Anuales',s1:'Semestrales',s2:'Semestrales',pfo:'Práctica Final'};
+// Dos bloques, según la semana de inscripción: lo que se inscribe en marzo y lo que se inscribe en agosto.
+const PERGRP = [['1.º cuatrimestre',['an','c1','b1','b2','s1','t1']],['2.º cuatrimestre',['c2','b3','b4','t2','s2','pfo']]];
+const PERFIJO = new Set(['c1','b1','b2','c2','b3','b4']);
 function yearsLabel(){ const ys=[...state.years].sort(); if(!ys.length) return 'ningún año';
   if(ys.length===1) return ORD[ys[0]-1]+' año';
   const cont=ys.every((y,i)=>i===0||y===ys[i-1]+1);
@@ -874,7 +911,42 @@ function ctrlSeq(){
       h('button',{type:'button','aria-pressed':state.regimen===k?'true':'false',onclick:()=>{state.regimen=k;render()},text:l}))));
   const sw=h('label',{class:'sw'},h('input',{type:'checkbox',...(state.countOpt?{checked:true}:{}),
     onchange:e=>{state.countOpt=e.target.checked;render()}}),'Contar optativos en la simultaneidad');
-  return h('div',null,h('div',{class:'bar'},chips,sel),h('div',{class:'bar'},reg,sw));
+  // Período: cuatrimestrales y bimestres de cada cuatrimestre por separado, para el seguimiento de actas.
+  const hay=new Set(S.filter(s=>state.years.has(s.anio)).map(perCat));
+  const setPer=n=>{state.per=n;persist();render()};
+  const tog=k=>{const n=new Set(state.per); n.has(k)?n.delete(k):n.add(k); setPer(n);};
+  const cnt=k=>S.filter(s=>state.years.has(s.anio)&&perCat(s)===k).length;
+  const grupos=PERGRP.map(([nom,ks],gi)=>{ const disp=ks.filter(k=>hay.has(k)||PERFIJO.has(k)); const llenos=disp.filter(k=>cnt(k));
+    const todos=llenos.length&&llenos.every(k=>state.per.has(k));
+    return h('div',{class:'pgrp g'+(gi+1)},
+      h('button',{type:'button',class:'pgrp-t','aria-pressed':todos?'true':'false',title:'Elegir o quitar todo el grupo',
+        onclick:()=>{const n=new Set(state.per); llenos.forEach(k=>todos?n.delete(k):n.add(k)); setPer(n);},text:nom}),
+      ...disp.map(k=>{ const c=cnt(k); return h('button',{type:'button',class:'chip pchip','aria-pressed':state.per.has(k)?'true':'false',
+        ...(c?{}:{disabled:true,title:'No hay materias de los años elegidos en este período'}),onclick:()=>tog(k)},PERLBL[k],h('span',{class:'pc',text:String(c)})); }));
+  }).filter(Boolean);
+  const per=h('div',{class:'bar pbar'},h('span',{class:'grp-l',text:'Período'}),
+    h('button',{type:'button',class:'chip pchip','aria-pressed':state.per.size?'false':'true',onclick:()=>setPer(new Set()),text:'Todos'}),
+    ...grupos);
+  return h('div',null,h('div',{class:'bar'},chips,sel),per,h('div',{class:'bar'},reg,sw));
+}
+// Seguimiento de actas: para cada período elegido, cuándo termina, cuándo cargan los docentes
+// el acta de cursada y a qué turno de examen llegan los alumnos.
+function seguimiento(){
+  if(!state.per.size) return null;
+  const P=CAL(), vis=visible();
+  const filas=P.periodos.filter(p=>state.per.has(p.k)).map(p=>{ const l=vis.filter(s=>perCat(s)===p.k); if(!l.length) return null;
+    return h('tr',null,
+      h('td',null,h('b',{text:p.nombre})),
+      h('td',null,h('div',{class:'rchips'},...l.map(s=>chipFor(s.codigo)))),
+      h('td',{class:'num',text:`${dsm(p.fin)} ${dmy(p.fin)}`}),
+      h('td',{class:'num',text:`${dsm(p.res.ini)} ${dm(p.res.ini)} al ${dsm(p.res.fin)} ${dm(p.res.fin)}`}),
+      h('td',null,p.turno?[h('b',{text:`${p.turno.n}.º turno (${p.turno.nombre})`}),h('div',{class:'mini',text:`Inscripción ${dm(p.turno.insIni)} al ${dm(p.turno.insFin)} · mesa ${dm(p.turno.exIni)} al ${dm(p.turno.exFin)}`})]
+        :h('span',{class:'mini',text:'Examen final integrador'}))); }).filter(Boolean);
+  if(!filas.length) return h('div',{class:'insight w'},h('div',null,'No hay materias de los años elegidos en esos períodos.'));
+  return h('div',{class:'card pad',style:'margin-bottom:14px'},h('h2',{style:'margin:0 0 4px',text:`Seguimiento de actas · ${state.ciclo}`}),
+    h('p',{class:'sub',text:'Para cada período elegido: cuándo termina el dictado, cuándo tienen que cargar y cerrar el acta de cursada los docentes, y a qué turno de examen llegan los alumnos con el acta cerrada.'}),
+    h('div',{class:'ov'},h('table',{class:'t'},h('thead',null,h('tr',null,...['Período','Materias','Fin de cursada','Carga de resultados','Turno de examen'].map(x=>h('th',{text:x})))),
+      h('tbody',null,...filas))));
 }
 function perMonth(list){
   const c=list.filter(s=>state.countOpt||!win(s).flex);
@@ -1063,11 +1135,11 @@ function armarImpresion(modo){
   modo=modo||'todo'; const ed0=editando; editando=false;
   let box=document.getElementById('print');
   if(!box){ box=h('div',{id:'print'}); document.body.append(box); }
-  const yrs=state.years, reg=state.regimen, sel=state.sel;
-  state.regimen='todos'; state.sel=null;
+  const yrs=state.years, reg=state.regimen, sel=state.sel, per0=state.per;
+  state.regimen='todos'; state.sel=null; state.per=new Set();
   const hoy=new Date().toLocaleDateString('es-AR',{day:'numeric',month:'long',year:'numeric'});
   const secs=[1,2,3,4,5,6].map(y=>{ state.years=new Set([y]); return h('section',{class:'pr-sec'},gantt()); });
-  state.years=yrs; state.regimen=reg; state.sel=sel;
+  state.years=yrs; state.regimen=reg; state.sel=sel; state.per=per0;
   const camb=sortS(S.filter(s=>{ const w=win(s); return w.ini!==s.base.ini||w.fin!==s.base.fin||!!w.cola!==!!s.base.cola; }));
   const tabla=h('table',{class:'pr-tab'},h('thead',null,h('tr',null,...['Código','Espacio curricular','Planilla actual',ESCN[state.esc],'Motivo'].map(x=>h('th',{text:x})))),
     h('tbody',null,...camb.map(s=>{ const tu=esTuyo(s.codigo), b=bimOf(s);
@@ -1373,24 +1445,35 @@ function tablaSIU(){
   const P=CAL();
   const usados=new Set(S.map(s=>perKeyW(win(s))).filter(Boolean));
   const editable={c1:1,c2:1,b1:1,b2:1,b3:1,b4:1};
-  const filas=P.periodos.filter(p=>['c1','c2','b1','b2','b3','b4'].includes(p.k)||usados.has(p.k));
   const n=k=>S.filter(s=>perKeyW(win(s))===k).length;
+  const filas=P.periodos.filter(p=>PERFIJO.has(p.k)||usados.has(p.k));
+  const tb=h('tbody');
+  [1,2].forEach(cu=>{
+    const l=filas.filter(p=>p.cu===cu); if(!l.length) return;
+    const i=inscOf(cu);
+    tb.append(h('tr',{class:'grp-h g'+cu},h('td',{colspan:'7'},
+      h('b',{text:`${cu}.º CUATRIMESTRE`}),
+      h('span',{text:cu===1?' · anuales, cuatrimestrales, 1.er y 2.º bimestre, semestrales y trimestrales':' · cuatrimestrales, 3.er y 4.º bimestre y Práctica Final'}))));
+    l.forEach((p,j)=>tb.append(h('tr',{class:'g'+cu},
+      h('td',{class:'per'},h('b',{text:p.nombre}),h('div',{class:'mini',text:`${n(p.k)} ${n(p.k)===1?'espacio':'espacios'} · ${habiles(p.ini,p.fin)} días hábiles`})),
+      j===0?h('td',{class:'c1',rowspan:String(l.length)},
+        fRango(i.d,i.h,v=>setInsc(cu,'d',v),v=>setInsc(cu,'h',v)),
+        h('div',{class:'mini',text:`Una sola inscripción para todo el bloque. Proceso y aula virtual: ${dsm(i.pd)} ${dm(i.pd)} y ${dsm(i.ph)} ${dm(i.ph)}.`})):null,
+      h('td',{class:'c2'},fRango(p.ini,p.fin,editable[p.k]?v=>setCalK(p.k,'ini',v):null,editable[p.k]?v=>setCalK(p.k,'fin',v):null),
+        p.carga.ini!==i.pd?h('div',{class:'mini',text:`Aula virtual: ${dsm(p.carga.ini)} ${dm(p.carga.ini)} y ${dsm(p.carga.fin)} ${dm(p.carga.fin)}`}):null),
+      h('td',{class:'c3'},fRango(p.res.ini,p.res.fin,v=>setCalSub('res',p.k,'ini',v),v=>setCalSub('res',p.k,'fin',v))),
+      p.turno?h('td',{class:'c4 tn'},h('div',{class:'tnum',text:`${p.turno.n}.º turno`}),h('div',{class:'mini',text:p.turno.nombre})):
+        h('td',{class:'c4',colspan:'3'},h('div',{class:'mini',text:'Examen final integrador: lo reglamenta la Escuela Superior de Salud (apartado 9 de la Res. C.S. 093-25).'})),
+      p.turno?h('td',{class:'c5'},fRango(p.turno.insIni,p.turno.insFin,v=>setCalSub('tur',p.turno.n,'insIni',v),v=>setCalSub('tur',p.turno.n,'insFin',v)),
+        h('div',{class:'mini',text:`Cierre de actas: ${dsm(p.turno.actIni)} ${dm(p.turno.actIni)} y ${dsm(p.turno.actFin)} ${dm(p.turno.actFin)}`})):null,
+      p.turno?h('td',{class:'c6'},fRango(p.turno.exIni,p.turno.exFin,v=>setCalSub('tur',p.turno.n,'exIni',v),v=>setCalSub('tur',p.turno.n,'exFin',v))):null)));
+  });
   return h('table',{class:'doc-tab siu'},
     h('thead',null,
-      h('tr',null,h('th',{rowspan:'2',text:'Período lectivo'}),h('th',{class:'g1',text:'1 · Inscripción a materias'}),h('th',{class:'g2',text:'2 · Período lectivo'}),
-        h('th',{class:'g3',text:'3 · Carga de resultados de cursada'}),h('th',{class:'g4',text:'4 · Inscripción a mesa de examen'}),h('th',{class:'g5',text:'5 · Mesa de examen'})),
-      h('tr',null,...['Alumnos se inscriben','Inicio y fin del dictado','Docentes cargan y cierran el acta','Primer turno al que llegan','Semana de examen'].map((x,i)=>h('th',{class:'sub g'+(i+1),text:x})))),
-    h('tbody',null,...filas.map(p=>h('tr',null,
-      h('td',null,h('b',{text:p.nombre}),h('div',{class:'mini',text:`${n(p.k)} ${n(p.k)===1?'espacio':'espacios'} · ${habiles(p.ini,p.fin)} días hábiles`})),
-      h('td',{class:'g1'},fRango(p.insc.ini,p.insc.fin,v=>setCalSub('ins',p.k,'ini',v),v=>setCalSub('ins',p.k,'fin',v)),
-        h('div',{class:'mini',text:`Aula virtual: ${dsm(p.carga.ini)} ${dm(p.carga.ini)} y ${dsm(p.carga.fin)} ${dm(p.carga.fin)}`})),
-      h('td',{class:'g2'},fRango(p.ini,p.fin,editable[p.k]?v=>setCalK(p.k,'ini',v):null,editable[p.k]?v=>setCalK(p.k,'fin',v):null)),
-      h('td',{class:'g3'},fRango(p.res.ini,p.res.fin,v=>setCalSub('res',p.k,'ini',v),v=>setCalSub('res',p.k,'fin',v))),
-      p.turno?h('td',{class:'g4'},h('div',{class:'mini',style:'font-weight:700',text:`Turno ${p.turno.n}.º · ${p.turno.nombre}`}),
-        fRango(p.turno.insIni,p.turno.insFin,v=>setCalSub('tur',p.turno.n,'insIni',v),v=>setCalSub('tur',p.turno.n,'insFin',v)),
-        h('div',{class:'mini',text:`Cierre de actas: ${dsm(p.turno.actIni)} ${dm(p.turno.actIni)} y ${dsm(p.turno.actFin)} ${dm(p.turno.actFin)}`}))
-        :h('td',{class:'g4',colspan:'2'},h('div',{class:'mini',text:'Examen final integrador: lo reglamenta la Escuela Superior de Salud (apartado 9 de la Res. C.S. 093-25).'})),
-      p.turno?h('td',{class:'g5'},fRango(p.turno.exIni,p.turno.exFin,v=>setCalSub('tur',p.turno.n,'exIni',v),v=>setCalSub('tur',p.turno.n,'exFin',v))):null))));
+      h('tr',null,h('th',{rowspan:'2',text:'Período lectivo'}),h('th',{text:'1 · Inscripción a materias'}),h('th',{text:'2 · Período lectivo'}),
+        h('th',{text:'3 · Carga de resultados de cursada'}),h('th',{text:'4 · Turno'}),h('th',{text:'5 · Inscripción a mesa'}),h('th',{text:'6 · Mesa de examen'})),
+      h('tr',null,...['Alumnos se inscriben','Inicio y fin del dictado','Docentes cargan y cierran el acta','Primer turno al que llegan','Cierra 2 días hábiles antes','Semana de examen'].map(x=>h('th',{class:'sub',text:x})))),
+    tb);
 }
 function renderCalendario(){
   const y=state.ciclo, tocado=Object.keys(state.cal||{}).length||Object.keys(state.insc||{}).length;
@@ -1578,58 +1661,18 @@ function dlSvg(btn){
   const r=svgSecuencia(); if(!r) return;
   save(`secuencia-medicina-${state.esc}.svg`,new XMLSerializer().serializeToString(r.node),btn);
 }
-function renderDescargas(){
-  const i1=inscOf(1), i2=inscOf(2);
-  const cfg=h('div',{class:'card pad'},h('h2',{text:'Ciclo lectivo'}),
-    h('p',{class:'sub',text:'Las fechas de los cuatrimestres, los bimestres, el receso, las inscripciones y los turnos de examen se configuran en la pestaña Calendario.'}),
-    h('div',{class:'bar'},
-      h('label',{class:'grp',for:'cic'},h('span',{class:'grp-l',text:'Ciclo lectivo'}),
-        h('input',ed({id:'cic',class:'selc',type:'number',min:'2024',max:'2099',style:'width:100px',value:String(state.ciclo),
-          onchange:e=>{const v=parseInt(e.target.value,10); if(v>2000&&v<2100){state.ciclo=v;persist();render()}}}))),
-      h('div',{class:'grp'},h('span',{class:'grp-l',text:'Inscripción 1.º cuat.'}),
-        h('span',{class:'num',text:`${dmy(i1.d)} al ${dmy(i1.h)}`})),
-      h('div',{class:'grp'},h('span',{class:'grp-l',text:'Inscripción 2.º cuat.'}),
-        h('span',{class:'num',text:`${dmy(i2.d)} al ${dmy(i2.h)}`}))));
-  const card=(t,p,f,fn,prim)=>{ const b=h('button',{class:'btn'+(prim?' primary':''),type:'button',text:t});
-    b.addEventListener('click',()=>fn(b)); return h('div',{class:'dlcard'},h('span',{class:'fmt',text:f}),h('h3',{text:t}),h('p',{text:p}),b); };
-  const estado=DL?null:h('div',{class:'insight w'},h('div',null,h('b',{text:'Las descargas no están disponibles en esta vista. '}),
-    'Abrí el tablero desde la computadora para bajar los archivos.'));
-  const cfgTxt=()=>JSON.stringify({version:2,guardado:new Date().toISOString(),estado:snapshot()},null,1);
-  const impt=h('input',{type:'file',accept:'.json,application/json',style:'display:none',
-    onchange:e=>{const f=e.target.files&&e.target.files[0]; if(!f) return; const rd=new FileReader();
-      rd.onload=()=>{ try{ const j=JSON.parse(rd.result); apply(j.estado||j); persist(); render(); }catch(err){ alertish('No se pudo leer el archivo.'); } };
-      rd.readAsText(f);}});
-  function alertish(t){ const n=document.getElementById('imp-msg'); if(n) n.textContent=t; }
-  return h('div',{class:'stack'}, cfg,
-    h('div',{class:'card pad'},h('h2',{text:'Descargas'}),
-      h('p',{class:'sub',text:'El Excel sale con una hoja por tema. La imagen toma la vista de la pestaña Secuencia tal como está, con los años y el escenario que tengas elegidos.'}),
-      estado,
-      h('div',{class:'dlgrid'},
-        card('Plan de estudios completo (Excel)','Seis hojas: plan completo, fechas para SIU, calendario mes a mes, horas, correlativas y los puntos a revisar. Es el archivo para compartir con la comisión o dejar a los estudiantes.','xlsx',dlXlsx,true),
-        card('Fechas para SIU Guaraní (Excel)','Solo la hoja de fechas: período, inscripción desde y hasta, inicio y fin de cursada de cada espacio en el ciclo elegido.','xlsx',dlSiu),
-        card('Imagen de la secuencia (PNG)','La grilla de cursada de la vista actual, lista para pegar en una presentación o un informe.','png',dlPng),
-        card('Imagen de la secuencia (SVG)','La misma grilla en vectorial, para imprimir en grande o editar en Illustrator o Inkscape.','svg',dlSvg))),
-    h('div',{class:'card pad'},h('h2',{text:'Configuración del tablero'}),
-      h('p',{class:'sub',text:'Los cambios que hacés (orden de bimestrales, fechas, ciclo lectivo) se guardan solo en tu navegador. Descargá la configuración para versionarla en GitHub o pasársela al equipo; cada quien la carga y ve lo mismo.'}),
-      h('div',{class:'bar'},
-        (()=>{const b=h('button',{class:'btn',type:'button',text:'Descargar configuración (JSON)'});
-          b.addEventListener('click',()=>save('config-plan-medicina.json',cfgTxt(),b)); return b;})(),
-        h('button',{class:'btn',type:'button',onclick:()=>impt.click(),text:'Cargar configuración'}), impt,
-        h('span',{id:'imp-msg',style:'color:var(--crit);font-size:13px'}))));
-}
-
 // ---------- render ----------
 function render(){
   const g=document.getElementById('gsc'); const keep=g?[g.scrollLeft,g.scrollTop]:null;
   colors(); renderTiles(); renderScen(); renderTabs(); hideTip();
   const main=document.getElementById('main');
   let v;
-  if(state.tab==='secuencia') v=h('div',null,ctrlSeq(),gantt());
+  if(state.tab==='secuencia') v=h('div',null,ctrlSeq(),seguimiento(),gantt());
   else if(state.tab==='plan') v=renderPlan();
   else if(state.tab==='correlativas') v=renderGraph();
   else if(state.tab==='horas') v=renderHoras();
   else if(state.tab==='calendario') v=renderCalendario();
-  else v=renderDescargas();
+  else v=h('div',null,ctrlSeq(),seguimiento(),gantt());
   main.replaceChildren(v);
   renderDetail();
   if(keep){ const n=document.getElementById('gsc'); if(n){n.scrollLeft=keep[0];n.scrollTop=keep[1];} }
