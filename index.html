@@ -902,7 +902,8 @@ const visible = () => S.filter(s=>state.years.has(s.anio)&&(state.regimen==='tod
 const PERLBL = {c1:'Cuatrimestrales',b1:'1.er bimestre',b2:'2.º bimestre',t1:'Trimestrales',
   c2:'Cuatrimestrales',b3:'3.er bimestre',b4:'4.º bimestre',t2:'Trimestrales',an:'Anuales',s1:'Semestrales',s2:'Semestrales',pfo:'Práctica Final'};
 // Dos bloques, según la semana de inscripción: lo que se inscribe en marzo y lo que se inscribe en agosto.
-const PERGRP = [['1.º cuatrimestre',['an','c1','b1','b2','s1','t1']],['2.º cuatrimestre',['c2','b3','b4','t2','s2','pfo']]];
+// Anuales y semestrales figuran en los dos: se inscriben en marzo y cierran su acta en el 2.º cuatrimestre.
+const PERGRP = [['1.º cuatrimestre',['an','c1','b1','b2','s1','t1']],['2.º cuatrimestre',['c2','b3','b4','an','s1','t2','s2','pfo']]];
 const PERFIJO = new Set(['c1','b1','b2','c2','b3','b4']);
 function yearsLabel(){ const ys=[...state.years].sort(); if(!ys.length) return 'ningún año';
   if(ys.length===1) return ORD[ys[0]-1]+' año';
@@ -942,7 +943,8 @@ function ctrlSeq(){
     const ch=head.querySelector('input'); if(ch&&some&&!all) ch.indeterminate=true;
     return h('div',{class:'pcol g'+(gi+1)},h('div',{class:'pcol-h'},head,
       ll.length?h('button',{type:'button',class:'linkbtn',onclick:()=>fijar(new Set(ll)),text:'ver solo este'}):null),
-      h('div',{class:'pcol-b'},...ks.map(k=>cb(efectivo.has(k)&&cnt(k)>0,()=>tog(k),PERLBL[k],cnt(k),!cnt(k)))));
+      h('div',{class:'pcol-b'},...ks.map(k=>{ const c=cb(efectivo.has(k)&&cnt(k)>0,()=>tog(k),PERLBL[k],cnt(k),!cnt(k));
+        if(k==='an'||k==='s1') c.title='Las mismas materias en las dos columnas: se inscriben en marzo y cierran el acta en el 2.º cuatrimestre.'; return c; })));
   });
   const per=h('div',{class:'pbox'},h('div',{class:'pbox-h'},h('span',{class:'grp-l',text:'Período'}),
       state.per.size?h('button',{type:'button',class:'linkbtn',onclick:()=>{state.per=new Set();persist();render()},text:'Mostrar todo'}):
