@@ -29,7 +29,9 @@
     "fin": 9,
     "sr": false,
     "flex": false
-   }
+   },
+   "aprP": [],
+   "regP": []
   },
   {
    "anio": 1,
@@ -60,7 +62,9 @@
     "fin": 7,
     "sr": false,
     "flex": false
-   }
+   },
+   "aprP": [],
+   "regP": []
   },
   {
    "anio": 1,
@@ -91,7 +95,9 @@
     "fin": 11,
     "sr": false,
     "flex": false
-   }
+   },
+   "aprP": [],
+   "regP": []
   },
   {
    "anio": 1,
@@ -122,7 +128,9 @@
     "fin": 11,
     "sr": false,
     "flex": false
-   }
+   },
+   "aprP": [],
+   "regP": []
   },
   {
    "anio": 1,
@@ -153,7 +161,9 @@
     "fin": 11,
     "sr": false,
     "flex": false
-   }
+   },
+   "aprP": [],
+   "regP": []
   },
   {
    "anio": 2,
@@ -190,7 +200,15 @@
     "fin": 11,
     "sr": false,
     "flex": false
-   }
+   },
+   "aprP": [
+    "1.1"
+   ],
+   "regP": [
+    "1.3",
+    "1.4",
+    "1.5"
+   ]
   },
   {
    "anio": 2,
@@ -227,7 +245,15 @@
     "fin": 7,
     "sr": false,
     "flex": false
-   }
+   },
+   "aprP": [
+    "1.1"
+   ],
+   "regP": [
+    "1.3",
+    "1.4",
+    "1.5"
+   ]
   },
   {
    "anio": 2,
@@ -264,7 +290,15 @@
     "fin": 7,
     "sr": false,
     "flex": false
-   }
+   },
+   "aprP": [
+    "1.2"
+   ],
+   "regP": [
+    "1.3",
+    "1.4",
+    "1.5"
+   ]
   },
   {
    "anio": 2,
@@ -299,7 +333,13 @@
     "fin": 11,
     "sr": false,
     "flex": false
-   }
+   },
+   "aprP": [],
+   "regP": [
+    "1.3",
+    "1.4",
+    "1.5"
+   ]
   },
   {
    "anio": 2,
@@ -335,7 +375,11 @@
     "fin": 11,
     "sr": false,
     "flex": false
-   }
+   },
+   "aprP": [],
+   "regP": [
+    "2.3"
+   ]
   },
   {
    "anio": 2,
@@ -373,7 +417,16 @@
     "fin": 11,
     "sr": false,
     "flex": false
-   }
+   },
+   "aprP": [
+    "1.5"
+   ],
+   "regP": [
+    "1.1",
+    "1.2",
+    "1.3",
+    "1.4"
+   ]
   },
   {
    "anio": 2,
@@ -406,7 +459,9 @@
     "flex": true
    },
    "propBim": 3,
-   "propRazon": "3.er bimestre (10/08 al 30/09). Es el único bimestre de 2.º año sin materia troncal: no le suma carga a ningún otro. Sigue siendo de fecha libre; se puede mover a cualquier bimestre del año."
+   "propRazon": "3.er bimestre (10/08 al 30/09). Es el único bimestre de 2.º año sin materia troncal: no le suma carga a ningún otro. Sigue siendo de fecha libre; se puede mover a cualquier bimestre del año.",
+   "aprP": [],
+   "regP": []
   },
   {
    "anio": 3,
@@ -442,7 +497,14 @@
     "fin": 11,
     "sr": false,
     "flex": false
-   }
+   },
+   "aprP": [
+    "2.3"
+   ],
+   "regP": [
+    "2.1",
+    "2.2"
+   ]
   },
   {
    "anio": 3,
@@ -478,7 +540,14 @@
     "fin": 9,
     "sr": false,
     "flex": false
-   }
+   },
+   "aprP": [
+    "2.3"
+   ],
+   "regP": [
+    "2.1",
+    "2.2"
+   ]
   },
   {
    "anio": 3,
@@ -514,7 +583,14 @@
     "fin": 11,
     "sr": false,
     "flex": false
-   }
+   },
+   "aprP": [
+    "2.3"
+   ],
+   "regP": [
+    "2.1",
+    "2.2"
+   ]
   },
   {
    "anio": 3,
@@ -547,7 +623,11 @@
     "fin": 7,
     "sr": false,
     "flex": false
-   }
+   },
+   "aprP": [],
+   "regP": [
+    "2.1"
+   ]
   },
   {
    "anio": 3,
@@ -582,7 +662,11 @@
     "flex": false
    },
    "propBim": 4,
-   "propRazon": "4.º bimestre (01/10 al 27/11). Es de promoción, así que no suma un final. Va después de Epidemiología para no cursar las dos a la vez. Pide 2.5 aprobada, que también es de promoción y queda aprobada al terminar 2.º año."
+   "propRazon": "4.º bimestre (01/10 al 27/11). Es de promoción, así que no suma un final. Va después de Epidemiología para no cursar las dos a la vez. Pide 2.5 aprobada, que también es de promoción y queda aprobada al terminar 2.º año.",
+   "aprP": [],
+   "regP": [
+    "2.5"
+   ]
   },
   {
    "anio": 3,
@@ -618,7 +702,12 @@
     "flex": false
    },
    "propBim": 3,
-   "propRazon": "3.er bimestre (10/08 al 30/09). Es la bimestral del año con examen final: al ubicarla primero, rinde en el turno de octubre junto con Patología General y deja diciembre para los finales de las anuales (3.1 y 3.3). Sus correlativas (2.3 y 2.4 regulares) se cumplen al terminar 2.º año."
+   "propRazon": "3.er bimestre (10/08 al 30/09). Es la bimestral del año con examen final: al ubicarla primero, rinde en el turno de octubre junto con Patología General y deja diciembre para los finales de las anuales (3.1 y 3.3). Sus correlativas (2.3 y 2.4 regulares) se cumplen al terminar 2.º año.",
+   "aprP": [],
+   "regP": [
+    "2.3",
+    "2.4"
+   ]
   },
   {
    "anio": 3,
@@ -651,7 +740,11 @@
     "fin": 11,
     "sr": false,
     "flex": false
-   }
+   },
+   "aprP": [
+    "2.6"
+   ],
+   "regP": []
   },
   {
    "anio": 3,
@@ -684,7 +777,9 @@
     "flex": true
    },
    "propBim": 2,
-   "propRazon": "2.º bimestre (07/05 al 03/07). El 1.er cuatrimestre de 3.º año no tiene ninguna bimestral troncal: es el tramo con más lugar libre del año. Fecha libre; se puede mover a cualquier bimestre del año."
+   "propRazon": "2.º bimestre (07/05 al 03/07). El 1.er cuatrimestre de 3.º año no tiene ninguna bimestral troncal: es el tramo con más lugar libre del año. Fecha libre; se puede mover a cualquier bimestre del año.",
+   "aprP": [],
+   "regP": []
   },
   {
    "anio": 4,
@@ -720,7 +815,14 @@
     "fin": 11,
     "sr": false,
     "flex": false
-   }
+   },
+   "aprP": [
+    "2.1"
+   ],
+   "regP": [
+    "3.1",
+    "3.3"
+   ]
   },
   {
    "anio": 4,
@@ -756,7 +858,14 @@
     "fin": 7,
     "sr": false,
     "flex": false
-   }
+   },
+   "aprP": [
+    "2.1"
+   ],
+   "regP": [
+    "3.1",
+    "3.3"
+   ]
   },
   {
    "anio": 4,
@@ -791,7 +900,13 @@
     "fin": 7,
     "sr": false,
     "flex": false
-   }
+   },
+   "aprP": [
+    "3.3"
+   ],
+   "regP": [
+    "3.4"
+   ]
   },
   {
    "anio": 4,
@@ -829,7 +944,14 @@
     "flex": false
    },
    "propBim": 1,
-   "propRazon": "1.er bimestre (16/03 al 08/05). Rinde en el turno de junio y evita julio, donde ya caen los finales de Clínica Quirúrgica y Bases para el Diagnóstico II. Sus correlativas (2.2 aprobada, 3.3 y 3.4 regulares) son de años anteriores. Si la cátedra prefiere cursarla con Clínica Quirúrgica más avanzada, se puede cambiar con 4.6."
+   "propRazon": "1.er bimestre (16/03 al 08/05). Rinde en el turno de junio y evita julio, donde ya caen los finales de Clínica Quirúrgica y Bases para el Diagnóstico II. Sus correlativas (2.2 aprobada, 3.3 y 3.4 regulares) son de años anteriores. Si la cátedra prefiere cursarla con Clínica Quirúrgica más avanzada, se puede cambiar con 4.6.",
+   "aprP": [
+    "2.2"
+   ],
+   "regP": [
+    "3.3",
+    "3.4"
+   ]
   },
   {
    "anio": 4,
@@ -864,7 +986,11 @@
     "flex": false
    },
    "propBim": 4,
-   "propRazon": "4.º bimestre (01/10 al 27/11). Pide 3.5 aprobada: en el 2.º cuatrimestre la inscripción es en agosto, así que quien no promocionó 3.5 tiene los turnos de diciembre a julio para rendirla, en vez de llegar con lo justo al de marzo. Es intercambiable con 4.7."
+   "propRazon": "4.º bimestre (01/10 al 27/11). Pide 3.5 aprobada: en el 2.º cuatrimestre la inscripción es en agosto, así que quien no promocionó 3.5 tiene los turnos de diciembre a julio para rendirla, en vez de llegar con lo justo al de marzo. Es intercambiable con 4.7.",
+   "aprP": [],
+   "regP": [
+    "3.5"
+   ]
   },
   {
    "anio": 4,
@@ -900,7 +1026,12 @@
     "flex": false
    },
    "propBim": 2,
-   "propRazon": "2.º bimestre (07/05 al 03/07). Es la más corta del año (30 h) y la que menos carga agrega al 1.er cuatrimestre, que es el más cargado. Sus contenidos (gestión de crisis y emergencias, seguridad del paciente) siguen a Emergencias Médicas II. Pide 3.1 y 3.6 regulares, ya cumplidas."
+   "propRazon": "2.º bimestre (07/05 al 03/07). Es la más corta del año (30 h) y la que menos carga agrega al 1.er cuatrimestre, que es el más cargado. Sus contenidos (gestión de crisis y emergencias, seguridad del paciente) siguen a Emergencias Médicas II. Pide 3.1 y 3.6 regulares, ya cumplidas.",
+   "aprP": [],
+   "regP": [
+    "3.1",
+    "3.6"
+   ]
   },
   {
    "anio": 4,
@@ -936,7 +1067,12 @@
     "flex": false
    },
    "propBim": 3,
-   "propRazon": "3.er bimestre (10/08 al 30/09). El 2.º cuatrimestre de 4.º año es liviano (solo corren 4.1 y 4.8). Da el marco legal (historia clínica, consentimiento informado, directivas anticipadas) que retoma Relaciones Humanas III. Pide 3.1 y 3.5 regulares. Es intercambiable con 4.5: no hay correlativa entre ellas."
+   "propRazon": "3.er bimestre (10/08 al 30/09). El 2.º cuatrimestre de 4.º año es liviano (solo corren 4.1 y 4.8). Da el marco legal (historia clínica, consentimiento informado, directivas anticipadas) que retoma Relaciones Humanas III. Pide 3.1 y 3.5 regulares. Es intercambiable con 4.5: no hay correlativa entre ellas.",
+   "aprP": [],
+   "regP": [
+    "3.1",
+    "3.5"
+   ]
   },
   {
    "anio": 4,
@@ -969,7 +1105,11 @@
     "fin": 11,
     "sr": false,
     "flex": false
-   }
+   },
+   "aprP": [
+    "3.7"
+   ],
+   "regP": []
   },
   {
    "anio": 4,
@@ -1002,7 +1142,9 @@
     "flex": true
    },
    "propBim": 2,
-   "propRazon": "2.º bimestre (07/05 al 03/07). Es el bimestre con menos carga troncal de 4.º año (30 h, Calidad de la Atención Médica): sumarle 25 h es lo que menos aulas agrega. Fecha libre; se puede mover a cualquier bimestre del año."
+   "propRazon": "2.º bimestre (07/05 al 03/07). Es el bimestre con menos carga troncal de 4.º año (30 h, Calidad de la Atención Médica): sumarle 25 h es lo que menos aulas agrega. Fecha libre; se puede mover a cualquier bimestre del año.",
+   "aprP": [],
+   "regP": []
   },
   {
    "anio": 5,
@@ -1037,7 +1179,13 @@
     "fin": 11,
     "sr": false,
     "flex": false
-   }
+   },
+   "aprP": [],
+   "regP": [
+    "4.1",
+    "4.2",
+    "4.3"
+   ]
   },
   {
    "anio": 5,
@@ -1077,7 +1225,17 @@
     "fin": 7,
     "sr": false,
     "flex": false
-   }
+   },
+   "aprP": [
+    "3.2",
+    "3.4"
+   ],
+   "regP": [
+    "4.1",
+    "4.2",
+    "4.3",
+    "4.7"
+   ]
   },
   {
    "anio": 5,
@@ -1117,7 +1275,17 @@
     "fin": 7,
     "sr": false,
     "flex": false
-   }
+   },
+   "aprP": [
+    "3.2",
+    "3.4"
+   ],
+   "regP": [
+    "4.1",
+    "4.2",
+    "4.3",
+    "4.7"
+   ]
   },
   {
    "anio": 5,
@@ -1155,7 +1323,14 @@
     "flex": false
    },
    "propBim": 1,
-   "propRazon": "1.er bimestre (16/03 al 08/05). Es la más corta de las tres (40 h) y la que menos carga agrega al 1.er cuatrimestre, ocupado por Niñez y Mujer. Rinde en junio, antes de los finales de julio de 5.2 y 5.3. Sus correlativas (3.6 aprobada, 4.6 y 4.7 regulares) son de años anteriores, y queda regularizada con tiempo para 6.1, 6.2 y 6.3, que la piden."
+   "propRazon": "1.er bimestre (16/03 al 08/05). Es la más corta de las tres (40 h) y la que menos carga agrega al 1.er cuatrimestre, ocupado por Niñez y Mujer. Rinde en junio, antes de los finales de julio de 5.2 y 5.3. Sus correlativas (3.6 aprobada, 4.6 y 4.7 regulares) son de años anteriores, y queda regularizada con tiempo para 6.1, 6.2 y 6.3, que la piden.",
+   "aprP": [
+    "3.6"
+   ],
+   "regP": [
+    "4.6",
+    "4.7"
+   ]
   },
   {
    "anio": 5,
@@ -1194,7 +1369,13 @@
     "flex": false
    },
    "propBim": 3,
-   "propRazon": "3.er bimestre (10/08 al 30/09). Sigue al bloque clínico del 1.er cuatrimestre (Niñez y Mujer), con el que comparte violencia y el abordaje por etapas de la vida. Rinde sola en el turno de octubre. Es intercambiable con 5.7."
+   "propRazon": "3.er bimestre (10/08 al 30/09). Sigue al bloque clínico del 1.er cuatrimestre (Niñez y Mujer), con el que comparte violencia y el abordaje por etapas de la vida. Rinde sola en el turno de octubre. Es intercambiable con 5.7.",
+   "aprP": [],
+   "regP": [
+    "4.1",
+    "4.3",
+    "4.7"
+   ]
   },
   {
    "anio": 5,
@@ -1228,7 +1409,12 @@
     "fin": 11,
     "sr": false,
     "flex": false
-   }
+   },
+   "aprP": [],
+   "regP": [
+    "4.1",
+    "4.3"
+   ]
   },
   {
    "anio": 5,
@@ -1265,7 +1451,13 @@
     "flex": false
    },
    "propBim": 4,
-   "propRazon": "4.º bimestre (01/10 al 27/11). Cierra el año con el protocolo de investigación, que 6.2 retoma en 6.º año (investigación-acción participativa, investigación epidemiológica). Pide 2.4 aprobada y 4.5 regular, de años anteriores. Es intercambiable con 5.5. El 2.º bimestre de 5.º año queda libre: es un buen lugar para el optativo IV."
+   "propRazon": "4.º bimestre (01/10 al 27/11). Cierra el año con el protocolo de investigación, que 6.2 retoma en 6.º año (investigación-acción participativa, investigación epidemiológica). Pide 2.4 aprobada y 4.5 regular, de años anteriores. Es intercambiable con 5.5. El 2.º bimestre de 5.º año queda libre: es un buen lugar para el optativo IV.",
+   "aprP": [
+    "2.4"
+   ],
+   "regP": [
+    "4.5"
+   ]
   },
   {
    "anio": 5,
@@ -1298,7 +1490,11 @@
     "fin": 11,
     "sr": false,
     "flex": false
-   }
+   },
+   "aprP": [
+    "4.8"
+   ],
+   "regP": []
   },
   {
    "anio": 5,
@@ -1331,7 +1527,9 @@
     "flex": true
    },
    "propBim": 2,
-   "propRazon": "2.º bimestre (07/05 al 03/07). Es el único bimestre de 5.º año sin materia troncal: no le suma carga a ningún otro. Fecha libre; se puede mover a cualquier bimestre del año."
+   "propRazon": "2.º bimestre (07/05 al 03/07). Es el único bimestre de 5.º año sin materia troncal: no le suma carga a ningún otro. Fecha libre; se puede mover a cualquier bimestre del año.",
+   "aprP": [],
+   "regP": []
   },
   {
    "anio": 6,
@@ -1368,7 +1566,14 @@
     "sr": false,
     "flex": true
    },
-   "propRazon": "El apartado 10 de la resolución ubica las rotaciones electivas durante la Práctica Final Obligatoria. Se las muestra dentro del tramo del Practicantado, a elección del estudiante."
+   "propRazon": "El apartado 10 de la resolución ubica las rotaciones electivas durante la Práctica Final Obligatoria. Se las muestra dentro del tramo del Practicantado, a elección del estudiante.",
+   "aprP": [],
+   "regP": [
+    "5.1",
+    "5.2",
+    "5.3",
+    "5.4"
+   ]
   },
   {
    "anio": 6,
@@ -1404,7 +1609,13 @@
     "sr": false,
     "flex": false
    },
-   "propRazon": "Mar-sep, igual que la planilla. Termina en septiembre, después de que el Practicantado ya arrancó en agosto: es la tensión de calendario que falta resolver en 6.º año (ver Revisión)."
+   "propRazon": "Mar-sep, igual que la planilla. Termina en septiembre, después de que el Practicantado ya arrancó en agosto: es la tensión de calendario que falta resolver en 6.º año (ver Revisión).",
+   "aprP": [
+    "4.5"
+   ],
+   "regP": [
+    "5.4"
+   ]
   },
   {
    "anio": 6,
@@ -1441,7 +1652,14 @@
     "sr": false,
     "flex": true
    },
-   "propRazon": "El apartado 10 de la resolución ubica las rotaciones electivas durante la Práctica Final Obligatoria. Se las muestra dentro del tramo del Practicantado, a elección del estudiante."
+   "propRazon": "El apartado 10 de la resolución ubica las rotaciones electivas durante la Práctica Final Obligatoria. Se las muestra dentro del tramo del Practicantado, a elección del estudiante.",
+   "aprP": [],
+   "regP": [
+    "5.1",
+    "5.2",
+    "5.3",
+    "5.4"
+   ]
   },
   {
    "anio": 6,
@@ -1474,7 +1692,11 @@
     "fin": 7,
     "sr": false,
     "flex": false
-   }
+   },
+   "aprP": [
+    "5.8"
+   ],
+   "regP": []
   },
   {
    "anio": 6,
@@ -1507,7 +1729,57 @@
     "flex": false,
     "cola": "junio"
    },
-   "propRazon": "Arranca en agosto de 6.º año y termina en junio del año siguiente: así el plan cierra en seis años y medio, como indica la resolución."
+   "propRazon": "Arranca en agosto de 6.º año y termina en junio del año siguiente: así el plan cierra en seis años y medio, como indica la resolución.",
+   "aprP": [],
+   "regP": []
+  }
+ ],
+ "corrCambios": [
+  {
+   "code": "5.2",
+   "campo": "apr",
+   "quita": "3.3",
+   "t": "Se quita 3.3 aprobada por redundante",
+   "p": "5.2 pide 4.3 regular, y para cursar 4.3 ya hay que tener 3.3 aprobada: la exigencia queda garantizada."
+  },
+  {
+   "code": "5.3",
+   "campo": "apr",
+   "quita": "3.3",
+   "t": "Se quita 3.3 aprobada por redundante",
+   "p": "5.3 pide 4.3 regular, y para cursar 4.3 ya hay que tener 3.3 aprobada: la exigencia queda garantizada."
+  },
+  {
+   "code": "5.5",
+   "campo": "apr",
+   "quita": "3.3",
+   "t": "Se quita 3.3 aprobada por redundante",
+   "p": "5.5 pide 4.3 regular, y para cursar 4.3 ya hay que tener 3.3 aprobada: la exigencia queda garantizada."
+  },
+  {
+   "code": "2.5",
+   "campo": "reg",
+   "quitaReg": [
+    "1.3",
+    "1.4",
+    "1.5"
+   ],
+   "t": "Se quitan 1.3, 1.4 y 1.5 regulares por redundantes",
+   "p": "2.5 pide 2.3 regular, y para cursar 2.3 ya hay que tener 1.3, 1.4 y 1.5 regulares: quedan garantizadas. No cambia quién puede cursar; simplifica la planilla."
+  },
+  {
+   "code": "3.5",
+   "campo": "apr",
+   "pasa": "2.5",
+   "t": "Relaciones Humanas I pasa de aprobada a regular",
+   "p": "La línea Relaciones Humanas es progresiva: RH II se apoya en RH I sin necesitar su examen aprobado. RH I es de promoción, así que solo cambia algo para quien no promocionó, que puede seguir la línea sin perder un año."
+  },
+  {
+   "code": "4.5",
+   "campo": "apr",
+   "pasa": "3.5",
+   "t": "Relaciones Humanas II pasa de aprobada a regular",
+   "p": "RH III continúa RH II, que es de promoción. Pedirla regular asegura la secuencia y evita que quien no promocionó RH II quede afuera de RH III, que además es correlativa aprobada de 6.2."
   }
  ],
  "sugerencias": [
@@ -1566,22 +1838,6 @@
    "valor": "5.2, 5.3, 5.6",
    "t": "Salud Comunitaria se puede cursar sin tener regular Niñez ni Mujer",
    "p": "Hoy pide 4.5 aprobada y 5.4 regular. Atiende «individuos, familias y comunidades» y los «problemas de salud prevalentes» de la medicina general, lo que supone la clínica de 5.º año cursada. Conviene exigir regulares las materias clínicas de 5.º."
-  },
-  {
-   "code": "3.5",
-   "tipo": "Flexibilizar",
-   "campo": "aprobada → regular",
-   "valor": "2.5",
-   "t": "Relaciones Humanas II podría pedir RH I regular en vez de aprobada",
-   "p": "La línea Relaciones Humanas es progresiva pero no acumulativa en sentido estricto: RH II trabaja comunicación, ciclos vitales y relación médico-paciente-familia, que se apoyan en RH I sin necesitar su examen aprobado. RH I es de promoción, así que la diferencia solo afecta a quien no promocionó: con «regular» puede seguir la línea sin perder un año. Mismo criterio que se propone para 4.5."
-  },
-  {
-   "code": "4.5",
-   "tipo": "Flexibilizar",
-   "campo": "aprobada → regular",
-   "valor": "3.5",
-   "t": "Relaciones Humanas III podría pedir RH II regular en vez de aprobada",
-   "p": "RH III (profesionalismo, comunicación de malas noticias, muerte y cuidados paliativos) continúa RH II, que es de promoción. Pedirla regular alcanza para asegurar la secuencia y evita que quien no promocionó RH II quede afuera de RH III, que además es correlativa aprobada de 6.2. Con la ubicación propuesta (4.º bimestre, inscripción en agosto) el problema ya se atenúa; esta flexibilización lo resuelve del todo."
   },
   {
    "code": "5.7",

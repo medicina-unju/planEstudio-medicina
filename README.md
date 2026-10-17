@@ -44,6 +44,24 @@ Mientras se edita también están **Deshacer** (de a un cambio, incluso después
 navegador) y **Borrar mis cambios** (también se puede deshacer). La etiqueta «movida» indica una
 diferencia con la planilla actual; «tu cambio», una diferencia con la propuesta base.
 
+## Correlativas modificadas en la propuesta
+
+En «Mi propuesta» rigen estas correlativas (la planilla original no se toca; en el plan se ven
+en amarillo, con el valor original al pasar el mouse):
+
+| Espacio | Planilla | Propuesta | Motivo |
+| --- | --- | --- | --- |
+| 2.5 Relaciones Humanas I | 1.3 - 1.4 - 1.5 - 2.3 regulares | 2.3 regular | 1.3, 1.4 y 1.5 redundantes: las garantiza 2.3 regular |
+| 3.5 Relaciones Humanas II | 2.5 aprobada | 2.5 regular | Flexibilización de la línea RH |
+| 4.5 Relaciones Humanas III | 3.5 aprobada | 3.5 regular | Flexibilización de la línea RH |
+| 5.2 Salud de la Niñez y Adolescencia | 3.2 - 3.3 - 3.4 aprobadas | 3.2 - 3.4 aprobadas | 3.3 redundante: la garantiza 4.3 regular |
+| 5.3 Salud de la Mujer | 3.2 - 3.3 - 3.4 aprobadas | 3.2 - 3.4 aprobadas | ídem |
+| 5.5 Clínica Psiquiátrica | 3.3 aprobada | — | ídem |
+
+La quita de 3.3 en 5.º año tiene una salvedad: un alumno que llegue a 4.3 por el Art. 29 del
+Reglamento (seis veces rendida la correlativa anterior) podría estar regular en 4.3 sin tener 3.3
+aprobada. Queda para que lo considere la comisión.
+
 ## Bimestres en el diagrama
 
 En la Secuencia cada bimestre ocupa siempre sus dos meses (1.er marzo-abril, 2.º mayo-junio,
