@@ -10,55 +10,72 @@ Es una sola página, sin backend ni instalación. Se puede publicar en GitHub Pa
 | Pestaña | Para qué sirve |
 | --- | --- |
 | Secuencia | Diagrama mes a mes por año o por conjuntos de años. Muestra cuántos espacios corren en simultáneo y cuántas horas suman. |
-| Orden de bimestrales | Propuesta de ubicación de cada materia bimestral, con el motivo. Se puede mover cualquiera a otro bimestre. |
-| Plan completo | Tabla filtrable con códigos, duración, campo de formación, horas y correlativas. |
+| Plan completo | El plan con el mismo formato de la planilla de correlativas (Excel). En «Mi propuesta» toma el cuatrimestre y el bimestre de la propuesta guardada y resalta en amarillo lo que cambia respecto de la planilla. Se imprime en PDF. |
 | Correlativas | Mapa de dependencias. Al elegir una materia marca de qué depende y qué habilita. |
 | Horas | Horas por año según campo de formación, régimen de acreditación o teórica/práctica. |
-| Calendario | Calendario académico estimado del ciclo: inscripciones, cursada, receso, turnos de examen y feriados, más la fecha de cada espacio curricular. Se configura desde ahí. |
+| Calendario | Tabla de períodos lectivos para SIU Guaraní y el calendario académico con el formato de la resolución oficial (Anexo Único). Se imprime en PDF. |
 | Descargas | Excel con siete hojas (incluye el calendario académico), Excel de fechas para SIU Guaraní, imagen de la secuencia (PNG y SVG) y la configuración en JSON. |
 
 ## Los dos escenarios
 
 - **Planilla actual**: la planilla de correlativas tal cual está.
-- **Propuesta**: ubica una bimestral por bimestre en 3.º, 4.º y 5.º año, sin paralelismo, y
-  pone el Practicantado Rotatorio de agosto a junio del año siguiente.
-
-- **Mi propuesta**: una bimestral por bimestre en 3.º, 4.º y 5.º año, más los cambios que haga
-  cada persona en el tablero (arrastrar una bimestral, cambiar meses o cargar fechas). Las
-  materias que movió quedan marcadas «tu cambio».
+- **Mi propuesta**: una bimestral por bimestre en 3.º, 4.º y 5.º año, el Practicantado de agosto
+  a junio del año siguiente, y encima los cambios que haga cada persona (cambiar el bimestre o
+  las fechas de una materia). Las materias que movió quedan marcadas «tu cambio».
 
 «Planilla actual» no cambia nunca: si se mueve algo estando ahí, el tablero pasa solo a
 «Mi propuesta».
-La etiqueta «movida» indica una diferencia con la planilla actual; «tu cambio», una diferencia
-con la Propuesta. En la barra del escenario están **Deshacer** (vuelve atrás de a un cambio,
-incluso después de cerrar el navegador), **Borrar mis cambios** (también se puede deshacer)
-e **Imprimir**. La pestaña Orden de bimestrales tiene además una lista «Tus cambios» con un
-botón para volver atrás cada materia por separado.
+
+## Editar y guardar
+
+Los campos están bloqueados para no cambiar nada sin querer. Para modificar algo:
+
+1. **✎ Editar**, arriba a la derecha.
+2. Cambiar lo que haga falta: el bimestre de una materia o sus fechas (en el panel de detalle),
+   o cualquier fecha del calendario.
+3. **✓ Guardar cambios**, o **Descartar** para volver a como estaba al tocar Editar.
+
+Mientras se edita también están **Deshacer** (de a un cambio, incluso después de cerrar el
+navegador) y **Borrar mis cambios** (también se puede deshacer). La etiqueta «movida» indica una
+diferencia con la planilla actual; «tu cambio», una diferencia con la propuesta base.
 
 ## Calendario académico
 
-La pestaña **Calendario** estima el ciclo completo a partir del Calendario Académico 2026
-(Res. CAESS N.º 06/2026): mantiene la misma posición del año y corre cada hito al lunes o
-viernes que corresponde. Incluye inscripciones, cursada de cada período, receso, ocho turnos
-de examen, feriados y la fecha de cada espacio curricular.
+La pestaña **Calendario** estima el ciclo a partir del Calendario Académico 2026
+(Res. CAESS N.º 06/2026). Cada hito del calendario oficial cae en una semana fija respecto del
+inicio de su cuatrimestre; se verificó que con esas posiciones se reproducen exactamente todas
+las fechas de 2026, y se aplicaron las mismas al ciclo siguiente.
 
-**Regla administrativa aplicada** (definida por la coordinación): la inscripción —a materias y
-a exámenes— abre el lunes de la semana anterior y cierra dejando **dos días hábiles libres**.
-Esos dos días son para cerrar el acta, descargar la lista definitiva, procesar las inscripciones
-por sistema y matricular en el aula virtual. El cursado o la mesa arrancan el lunes siguiente
-con la lista ya cerrada. Normalmente el margen cae jueves y viernes; si alguno es feriado, se
-corre hacia atrás y la inscripción se acorta.
+Tiene dos partes:
 
-Los días hábiles que informa cada período descuentan fines de semana, feriados y el receso de
-invierno. Los feriados nacionales salen de la Ley 27.399, con los trasladables ya corridos al
-lunes que corresponde. Los **días no laborables con fines turísticos** los fija el Poder
-Ejecutivo por decreto y no estaban publicados al armar esta estimación, así que no están
-descontados.
+- **Períodos lectivos para SIU Guaraní**: una fila por período (anual, cuatrimestres, bimestres,
+  semestral, Práctica Final Obligatoria), con las cinco etapas en orden: inscripción a materias,
+  período lectivo, carga de resultados de cursada por los docentes, inscripción a la mesa de
+  examen y mesa de examen. Cada período queda enlazado con el primer turno al que llegan los
+  alumnos una vez cerrada el acta de cursada.
+- **El calendario con el formato de la resolución** (Anexo Único): primer cuatrimestre, receso,
+  segundo cuatrimestre, turnos de examen y feriados, con los mismos rótulos que el oficial y
+  los agregados de Medicina (bimestres y matriculación en el aula virtual).
 
-En **Configuración del ciclo** se editan el año, los dos cuatrimestres, el receso y los cuatro
-bimestres. Todo lo demás se recalcula a partir de eso: semanas de inscripción, días de proceso,
-turnos de examen y fechas de cada materia. Si una bimestral se mueve de bimestre, toma las
-fechas del bimestre nuevo; si además cambia de cuatrimestre, le cambia la semana de inscripción.
+En modo edición todas las fechas son editables, y lo que depende de ellas se recalcula.
+
+**Regla administrativa** (definida por la coordinación): la inscripción, a materias y a
+exámenes, abre el lunes de la semana anterior y cierra dejando **dos días hábiles libres**
+para cerrar el acta, descargar la lista definitiva, procesarla y matricular en el aula virtual.
+El cursado o la mesa arrancan el lunes con la lista cerrada. Si cae un feriado, el margen se
+corre hacia atrás.
+
+**Período de borrado.** El calendario 2026 lo extendía hasta 48 h antes del examen, lo que
+permitiría bajarse de la mesa hasta el sábado y abriría el acta ya cerrada. El Art. 27 del
+Reglamento (Res. C.S. N.º 066-22) deja ese plazo al Calendario Académico, así que en la
+estimación 2027 el borrado cierra con la inscripción. Es un cambio de criterio respecto de 2026
+que tiene que aprobar la comisión.
+
+**Planilla de resultados.** Para los cuatrimestres se toman las fechas del calendario oficial;
+para bimestres y semestral, la semana hábil siguiente a su cierre.
+
+Los días no laborables con fines turísticos los fija el Poder Ejecutivo por decreto y no estaban
+publicados al armar esta estimación, así que no están descontados.
 
 ## Imprimir
 
@@ -99,9 +116,8 @@ formaran un anual en cuatro tramos. Para elegir el bimestre se miró:
 | 5.º | 5.4 | (libre, sugerido para el optativo IV) | 5.5 | 5.7 |
 
 6.º año no tiene bimestrales. 1.º y 2.º año siguen como en la planilla hasta incorporar lo
-que trabajó la coordinación. Cualquiera se puede cambiar de bimestre arrastrándola del
-tirador ⠿ en la pestaña Orden de bimestrales, o con el selector de esa pestaña y del panel
-de detalle: toma las fechas predefinidas del bimestre nuevo y la barra se corre sola.
+que trabajó la coordinación. Cualquiera se puede cambiar de bimestre desde el panel de detalle, en modo edición: toma las fechas
+predefinidas del bimestre nuevo y la barra del diagrama se corre sola.
 
 ## Publicarlo en GitHub Pages
 

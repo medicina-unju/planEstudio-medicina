@@ -307,18 +307,6 @@ table.t .ysep td{background:var(--surface-4);font-weight:700;font-family:var(--f
 .bimrow p{margin:3px 0 0;font-size:13px;color:var(--ink-2)}
 .moved{font-size:10.5px;font-weight:700;background:var(--accent-2);color:#fff;border-radius:4px;padding:1px 6px;text-transform:uppercase}
 /* Arrastrar una bimestral de un bloque a otro */
-.bimitem{margin-bottom:10px;padding:6px 8px;margin-left:-8px;border-radius:8px}
-.bimitem.opt{border:1px dashed var(--line)}
-.tag.opt{background:none;border:1px solid var(--muted);color:var(--muted);font-weight:600;text-transform:none;letter-spacing:0}
-.bimitem.dragging{opacity:.45;background:var(--surface-3)}
-.grip{cursor:grab;touch-action:none;color:var(--muted);font-size:13px;line-height:1;padding:3px 5px;border-radius:5px;background:none;border:1px solid transparent}
-.grip:hover{background:var(--surface-3);color:var(--ink);border-color:var(--line)}
-.grip:active{cursor:grabbing}
-.bimrow[data-slot]{outline:2px solid transparent;outline-offset:-2px;border-radius:8px;transition:background .12s,outline-color .12s}
-.bimrow.over{background:var(--good-bg);outline-color:var(--accent)}
-.dragghost{position:fixed;z-index:60;pointer-events:none;background:var(--ink);color:var(--surface);font-size:12.5px;
-  font-weight:600;padding:5px 10px;border-radius:7px;box-shadow:var(--sh-2);font-family:var(--f-b)}
-body.dragging-on{user-select:none}
 #tip{position:fixed;z-index:100;pointer-events:none;background:var(--ink);color:var(--bg);border-radius:9px;padding:9px 11px;font-size:12.5px;max-width:320px;box-shadow:0 10px 28px rgba(0,0,0,.35);display:none}
 #tip .tl{opacity:.82} #tip .tm{font-family:var(--f-m)}
 .foot{margin-top:26px;color:var(--muted);font-size:12.5px;max-width:92ch}
@@ -327,6 +315,52 @@ body.dragging-on{user-select:none}
 .dlcard h3{margin:0;font-size:15px;font-family:var(--f-b);font-weight:700}
 .dlcard p{margin:0;font-size:13px;color:var(--ink-2)}
 .dlcard .fmt{font-family:var(--f-m);font-size:11px;color:var(--muted);text-transform:uppercase;letter-spacing:.06em;font-weight:600}
+/* ---- modo edición ---- */
+body.editando .scen{outline:2px solid #b4570f;outline-offset:-2px}
+body.editando .scen .t::after{content:' · editando';color:#b4570f;font-weight:700}
+.guardado{margin-left:10px;background:var(--good-bg);color:var(--ink);border-radius:6px;padding:4px 10px;font-size:12.5px;font-weight:700}
+select:disabled,input:disabled{opacity:.6;cursor:not-allowed}
+/* ---- calendario ---- */
+.cal-top{min-width:0;display:flex;gap:14px;align-items:flex-start;justify-content:space-between;flex-wrap:wrap}
+.cal-top h2{margin:0 0 4px}.cal-acc{display:flex;gap:8px;flex-wrap:wrap;align-items:center}
+.fr{white-space:nowrap}.fr.ed{display:inline-flex;gap:4px;align-items:center;flex-wrap:wrap;white-space:normal}
+.fr .al{color:var(--muted);font-size:12px}.wd{color:var(--muted);font-size:.86em}
+input.dsm{padding:3px 5px;font-size:12px;width:128px}
+.mini{font-size:11.5px;color:var(--muted);margin-top:2px}
+.doc-card{background:#fff;color:#111;overflow-x:auto;min-width:0}
+.doc{max-width:860px;margin:0 auto;font-family:Arial,Helvetica,sans-serif;color:#111;font-size:13.5px;line-height:1.5}
+.doc-head{text-align:center;margin-bottom:14px}
+.doc-inst{font-size:12px;color:#444;margin-bottom:10px}
+.doc-t1{font-weight:700;text-decoration:underline;font-style:italic;margin:4px 0}
+.doc-t2{font-weight:700;text-decoration:underline;margin:3px 0}
+.doc-est{font-size:11.5px;color:#555;margin-top:6px}
+.doc-bar{border:1px solid #333;text-align:center;font-weight:700;text-decoration:underline;padding:5px;margin:18px 0 10px}
+.doc-it{margin:0 0 9px}.doc-l{font-weight:700;text-transform:uppercase}
+.doc-v{padding-left:22px}.doc-v .dash{margin-right:14px}
+.doc-row{display:flex;gap:16px;align-items:center;flex-wrap:wrap}.doc-row .doc-v{padding-left:0}
+.doc-n{font-size:12px;color:#555;padding-left:22px}
+.doc-sub{font-weight:700;text-decoration:underline;margin:18px 0 8px}
+.doc-tab{width:100%;border-collapse:collapse;font-size:12.5px;margin-bottom:6px}
+.doc-tab th,.doc-tab td{border:1px solid #444;padding:5px 8px;text-align:center;vertical-align:middle}
+.doc-tab th{font-weight:700;background:#f2f2f2}
+.doc-box{border:1px solid #444;padding:8px 10px;font-size:11.5px;font-weight:700;text-align:center;margin:6px 0 4px}
+.doc-card .wd,.doc-card .doc-n{color:#555}
+/* tabla SIU */
+.siu{min-width:980px;font-family:var(--f-b);font-size:12.5px}
+.siu td{text-align:left;vertical-align:top}.siu th{font-size:11.5px}
+.siu th.sub{font-weight:600;font-size:10.5px;color:#444}
+.siu .g1{background:#eef4fb}.siu .g2{background:#eef8f0}.siu .g3{background:#fdf6e7}.siu .g4{background:#f4eefb}.siu .g5{background:#fbeeee}
+.siu th.g1,.siu th.g2,.siu th.g3,.siu th.g4,.siu th.g5{background:none}
+/* ---- plan con formato de la planilla Excel ---- */
+.xls{width:100%;border-collapse:collapse;font-family:Arial,Helvetica,sans-serif;font-size:12.5px;background:#fff;color:#111}
+.xls th,.xls td{border:1px solid #777;padding:4px 6px;vertical-align:middle}
+.xls th{background:#e8e8e8;font-weight:700;text-align:center}
+.xls td.cen{text-align:center}.xls td.c{font-weight:700}
+.xls td.anio{writing-mode:vertical-rl;transform:rotate(180deg);text-align:center;font-weight:700;width:28px;background:#fafafa}
+.xls tr.tot td{font-weight:700;background:#f4f4f4}.xls tr.tot.fin td{background:#e8e8e8}
+.xls td.dif{background:#fff2a8;font-weight:700}
+.xls tr.row{cursor:pointer}.xls tr.row:hover td{background:#f3f7ff}.xls tr.row:hover td.dif{background:#ffe97a}
+.xls tr.sel td{background:#e6efff}
 #print{display:none}
 body.printing .wrap,body.printing #tip{display:none!important}
 body.printing #print{display:block}
@@ -350,6 +384,15 @@ body.printing #print{display:block}
 .pr-tab tr{break-inside:avoid}
 .pr-tab tr.tuyo td{background:#fdf0e3}
 .pr-nota{font-size:11.5px;color:var(--ink-2)}
+#print .pr-doc .doc{max-width:none;font-size:12px}
+#print .pr-plan .xls{font-size:10.5px}
+#print .pr-plan .xls th,#print .pr-plan .xls td{padding:2px 4px}
+#print .siu{min-width:0;font-size:10.5px}
+#print section.pr-sec.pr-doc,#print section.pr-sec.pr-plan{zoom:1;break-inside:auto;page-break-inside:auto}
+#print header.pr-head+section.pr-sec,#print section.pr-sec:first-child{break-before:auto;page-break-before:auto}
+#print section.pr-doc{page:retrato}
+#print .xls tr{break-inside:avoid}
+@page retrato{size:A4 portrait;margin:12mm}
 @media print{
   @page{size:A4 landscape;margin:9mm}
   *{-webkit-print-color-adjust:exact;print-color-adjust:exact}
@@ -428,7 +471,7 @@ const col = s => COLOR[s.codigo] || {bg:'#888',fg:'#fff'};
 
 // ---------- estado ----------
 const LS='medunju-v2';
-const TABKEYS=['secuencia','propuesta','plan','correlativas','horas','calendario','descargas'];
+const TABKEYS=['secuencia','plan','correlativas','horas','calendario','descargas'];
 const state={ tab:'secuencia', esc:'mia', years:new Set([1,2]), sel:null, overrides:{}, bim:{}, fechas:{},
   ciclo:new Date().getFullYear()+1, insc:{}, cal:{}, countOpt:false, chain:'cadena', hmode:'campo',
   fAnio:'todos', fReg:'todos', fTexto:'', regimen:'todos' };
@@ -445,6 +488,15 @@ function apply(j){
   if(j.esc==='base') state.esc='base'; else if(j.esc) state.esc='mia';
   if(TABKEYS.includes(j.tab)) state.tab=j.tab;
 }
+// ---------- modo edición ----------
+// Fuera del modo edición los campos se ven como texto y no se pueden tocar: así no se cambia
+// nada sin querer. «Editar» los desbloquea; «Guardar cambios» vuelve a bloquear.
+let editando=false, previo=null;
+const ed = o => editando ? o : Object.assign({},o,{disabled:true});
+function entrarEdicion(){ previo=JSON.stringify(snapshot()); editando=true; render(); }
+function guardarEdicion(){ editando=false; previo=null; persist(); render();
+  const n=document.getElementById('scen'); if(n){ const m=h('span',{class:'guardado',text:'Cambios guardados'}); n.append(m); setTimeout(()=>m.remove(),2600); } }
+function descartarEdicion(){ if(previo){ try{ apply(JSON.parse(previo)); }catch(e){} } editando=false; previo=null; persist(); render(); }
 const snapshot = () => ({v:4,years:[...state.years],overrides:state.overrides,bim:state.bim,fechas:state.fechas,insc:state.insc,cal:state.cal,ciclo:state.ciclo,esc:state.esc,tab:state.tab});
 // ---------- capa de cambios propios ----------
 // «Planilla actual» y «Propuesta» son fijas. Todo lo que se mueve a mano vive en una capa aparte
@@ -529,6 +581,30 @@ function feriados(y){
 // Semanas de referencia tomadas del calendario 2026, contadas desde el inicio del 1.er cuatrimestre.
 const SEM = {c2:21, cuatFin:15, bimFin:7, bimIni:8, recIni:17, recFin:18, semFin:4, triFin:12, semFin2:25};
 const TURNOS = [[5,'abril'],[11,'junio'],[19,'julio'],[29,'octubre'],[33,'noviembre'],[39,'diciembre'],[48,'febrero'],[51,'marzo']];
+// Hitos del Calendario Académico oficial, ubicados por semana respecto del inicio del cuatrimestre
+// (semana 0 = la del inicio; día 1 = lunes … 5 = viernes). Reproducen exactamente las fechas de 2026.
+// [clave, bloque, base, etiqueta, semIni, díaIni, semFin, díaFin]
+const HITOS = [
+ ['jor1',1,'c1','I JORNADA INSTITUCIONAL POR ESCUELA',-2,5,null,null],
+ ['ren1',1,'c1','RENUNCIA DE REGULARIDAD PARA MATERIAS DEL 1.º CUATRIMESTRE',-4,3,-3,2],
+ ['pro1',1,'c1','PRESENTACIÓN DE PROGRAMAS',2,1,6,4],
+ ['inv1',1,'c1','PRESENTACIÓN DE PROPUESTAS DE PROYECTOS DE INVESTIGACIÓN Y/O EXTENSIÓN',3,1,6,5],
+ ['equ1',1,'c1','PERÍODO PARA LA PRESENTACIÓN DE SOLICITUDES DE EQUIVALENCIAS',1,3,4,5],
+ ['res1',1,'c1','PRESENTACIÓN DE PLANILLA DE RESULTADOS',16,1,17,2],
+ ['rep1',1,'c1','PRESENTACIÓN DE PLANILLA DE RESULTADOS (únicamente Prácticas y Seminarios)',16,1,18,5],
+ ['jor2',2,'c2','II JORNADA INSTITUCIONAL POR ESCUELA (a determinar dentro de la semana)',-1,1,-1,5],
+ ['ren2',2,'c1','RENUNCIA DE REGULARIDAD PARA MATERIAS DEL 2.º CUATRIMESTRE',15,3,16,3],
+ ['pro2',2,'c2','PRESENTACIÓN DE PROGRAMAS',3,1,7,3],
+ ['inv2',2,'c2','PRESENTACIÓN DE PROPUESTAS DE PROYECTOS DE INVESTIGACIÓN Y/O EXTENSIÓN',3,1,7,3],
+ ['equ2',2,'c2','PERÍODO PARA LA PRESENTACIÓN DE SOLICITUDES DE EQUIVALENCIAS',3,2,5,5],
+ ['res2',2,'c2','PRESENTACIÓN DE PLANILLA DE RESULTADOS',16,1,16,5],
+ ['rep2',2,'c2','PRESENTACIÓN DE PLANILLA DE RESULTADOS (únicamente Prácticas y Seminarios)',17,3,18,5],
+ ['jor3',2,'c2','III JORNADA INSTITUCIONAL POR CARRERA (a determinar dentro del período)',18,1,19,2],
+];
+// Períodos lectivos, en el orden en que se cargan en SIU Guaraní.
+const PERIODOS = [['an','Anual'],['c1','1.º cuatrimestre'],['b1','1.er bimestre'],['b2','2.º bimestre'],
+  ['t1','Trimestral · 1.º cuat.'],['s1','Semestral'],['c2','2.º cuatrimestre'],['b3','3.er bimestre'],
+  ['b4','4.º bimestre'],['t2','Trimestral · 2.º cuat.'],['pfo','Práctica Final Obligatoria (agosto a junio)']];
 function calBase(y){
   const c1=lunCerca(mkDate(y,3,16)), c2=addDays(c1,SEM.c2*7);
   const L=(b,w)=>isoOf(addDays(b,w*7)), V=(b,w)=>isoOf(addDays(b,w*7+4));
@@ -551,6 +627,7 @@ function CAL(){
   P.s2={ini:P.c2.ini,fin:V(c2,SEM.semFin2)};
   P.t1={ini:P.c1.ini,fin:V(c1,SEM.triFin)};
   P.t2={ini:P.c2.ini,fin:V(c2,SEM.triFin)};
+  P.pfo={ini:P.c2.ini,fin:isoOf(ultViernes(y+1,6))};
   const todosFer=feriados(y).concat(feriados(y+1));
   const ferSet=new Set(todosFer.map(f=>f.f));
   // Inscripción y margen administrativo en la semana anterior al inicio, contando solo días hábiles:
@@ -569,9 +646,27 @@ function CAL(){
   }
   P.i1=ins(P.c1.ini); P.i2=ins(P.c2.ini);
   P.cb2=ins(P.b2.ini); P.cb4=ins(P.b4.ini);
-  P.turnos=TURNOS.map(([w,nom],i)=>{ const ex=addDays(c1,w*7), q=ins(isoOf(ex));
-    return {n:i+1,nombre:nom,exIni:isoOf(ex),exFin:isoOf(addDays(ex,4)),
-      insIni:q.ini,insFin:q.fin,actIni:q.pIni,actFin:q.pFin}; });
+  const oT=o.tur||{};
+  P.turnos=TURNOS.map(([w,nom],i)=>{ const ex=addDays(c1,w*7), q=ins(isoOf(ex)), ov=oT[i+1]||{};
+    return {n:i+1,nombre:nom,exIni:ov.exIni||isoOf(ex),exFin:ov.exFin||isoOf(addDays(ex,4)),
+      insIni:ov.insIni||q.ini,insFin:ov.insFin||q.fin,actIni:q.pIni,actFin:q.pFin}; });
+  const oH=o.hit||{}; P.hit={};
+  HITOS.forEach(([k,bl,base,lab,w1,d1,w2,d2])=>{ const B=lunDe(dOf(P[base].ini));
+    const a=isoOf(addDays(B,w1*7+d1-1)), z=w2==null?a:isoOf(addDays(B,w2*7+d2-1));
+    P.hit[k]=Object.assign({ini:a,fin:z},oH[k]||{}); });
+  // Planilla de resultados: si el período cierra con el cuatrimestre, la del calendario oficial;
+  // si no (bimestres, semestral), la semana hábil siguiente a su cierre.
+  const resDe=fin=>{ if(fin===P.c1.fin) return {ini:P.hit.res1.ini,fin:P.hit.res1.fin};
+    if(fin===P.c2.fin) return {ini:P.hit.res2.ini,fin:P.hit.res2.fin};
+    const L=addDays(lunDe(dOf(fin)),7); return {ini:isoOf(L),fin:isoOf(addDays(L,4))}; };
+  const oI=o.ins||{}, oR=o.res||{};
+  P.periodos=PERIODOS.filter(([k])=>P[k]).map(([k,nombre])=>{
+    const pe=P[k], enC1=pe.ini<P.c2.ini;
+    const insB=enC1?P.i1:P.i2, carga=ins(pe.ini), res=Object.assign(resDe(pe.fin),oR[k]||{});
+    const insc=Object.assign({ini:insB.ini,fin:insB.fin},oI[k]||{});
+    const tu=k==='pfo'?null:(P.turnos.find(x=>x.insIni>res.fin)||P.turnos[P.turnos.length-1]);
+    return {k,nombre,ini:pe.ini,fin:pe.fin,insc,carga:{ini:carga.pIni,fin:carga.pFin},res,turno:tu};
+  });
   P.fer=todosFer.filter(f=>f.f>=P.i1.ini&&f.f<=P.turnos[P.turnos.length-1].exFin);
   P.ferSet=ferSet;
   _calk=key; _cal=P; return P;
@@ -605,7 +700,7 @@ function win(s){
     const b = lay().bim[s.codigo];
     if(b && s.dur==='B'){ const m=mesesBim(b); w={ini:m[0], fin:m[1], sr:false, flex:!!s.optativo, pk:'b'+b}; }
     else { const x = defOf(s);
-           w={ini:x.ini, fin:x.fin, sr:!!x.sr, flex:!!x.flex, cola:x.cola, pk:PERKEY[x.ini+'-'+x.fin]||null}; }
+           w={ini:x.ini, fin:x.fin, sr:!!x.sr, flex:!!x.flex, cola:x.cola, pk:x.cola?'pfo':(PERKEY[x.ini+'-'+x.fin]||null)}; }
   }
   // Las fechas cargadas a mano mandan sobre la estimación: la barra se mueve con ellas.
   const f = lay().fechas[s.codigo];
@@ -731,14 +826,21 @@ function renderScen(){
       h('button',{type:'button','aria-pressed':state.esc===k?'true':'false',onclick:()=>{state.esc=k;persist();render()},text:l}))),
     h('span',{class:'d',text:d})];
   const acc=h('div',{class:'scen-acc'});
-  if(hist.length) acc.append(h('button',{class:'btn',type:'button',onclick:deshacer,title:'Vuelve al estado anterior al último cambio',text:'↶ Deshacer'}));
-  if(n) acc.append(h('button',{class:'btn',type:'button',title:'Borra todos tus cambios (se puede deshacer)',
-    onclick:()=>editar(()=>{state.overrides={};state.bim={};state.fechas={};}),text:'Borrar mis cambios'}));
-  acc.append(h('button',{class:'btn',type:'button',onclick:imprimir,title:'Arma una versión para imprimir o guardar como PDF',text:'Imprimir'}));
+  if(editando){
+    if(hist.length) acc.append(h('button',{class:'btn',type:'button',onclick:deshacer,title:'Vuelve al estado anterior al último cambio',text:'↶ Deshacer'}));
+    if(n) acc.append(h('button',{class:'btn',type:'button',title:'Borra todos tus cambios (se puede deshacer)',
+      onclick:()=>editar(()=>{state.overrides={};state.bim={};state.fechas={};}),text:'Borrar mis cambios'}));
+    acc.append(h('button',{class:'btn',type:'button',onclick:descartarEdicion,title:'Vuelve a como estaba cuando tocaste Editar',text:'Descartar'}));
+    acc.append(h('button',{class:'btn primary',type:'button',onclick:guardarEdicion,text:'✓ Guardar cambios'}));
+  } else {
+    acc.append(h('button',{class:'btn',type:'button',onclick:()=>imprimir(),title:'Versión completa para imprimir o guardar como PDF',text:'Imprimir todo'}));
+    acc.append(h('button',{class:'btn primary',type:'button',onclick:entrarEdicion,text:'✎ Editar'}));
+  }
   kids.push(acc);
   document.getElementById('scen').replaceChildren(...kids);
+  document.body.classList.toggle('editando',editando);
 }
-const TABS=[['secuencia','Secuencia','var(--y1)'],['propuesta','Orden de bimestrales','var(--y2)'],['plan','Plan completo','var(--y3)'],
+const TABS=[['secuencia','Secuencia','var(--y1)'],['plan','Plan completo','var(--y3)'],
   ['correlativas','Correlativas','var(--y6)'],['horas','Horas','var(--y4)'],['calendario','Calendario','var(--y5)'],['descargas','Descargas','var(--accent-2)']];
 function renderTabs(){
   document.getElementById('tabs').replaceChildren(...TABS.map(([k,l,c])=>
@@ -876,7 +978,7 @@ function chipFor(code){
 }
 function renderDetail(){
   const box=document.getElementById('detail'), shell=document.getElementById('shell');
-  const has=['secuencia','plan','correlativas','propuesta'].includes(state.tab);
+  const has=['secuencia','plan','correlativas'].includes(state.tab);
   shell.classList.toggle('has-panel',has); box.hidden=!has;
   const s=state.sel?byCode[state.sel]:null;
   box.classList.toggle('open',!!s&&has);
@@ -886,7 +988,7 @@ function renderDetail(){
   const c=col(s), ms=months(s), w=win(s), f=fechas(s), pt=Math.round(s.teo/s.hs*100);
   const cf=conflicts().filter(x=>x.code===s.codigo);
   const opts=COLS.filter(m=>w.sr||m!==7);
-  const mSel=(id,val,fn)=>h('select',{id,class:'selc',onchange:fn},...opts.map(m=>
+  const mSel=(id,val,fn)=>h('select',ed({id,class:'selc',onchange:fn}),...opts.map(m=>
     h('option',{value:String(m),...(m===val?{selected:true}:{}),text:MF[m][0].toUpperCase()+MF[m].slice(1)})));
   const setW=(a,b)=>{ if(b<a) b=a; const d=s.prop;
     editar(()=>{ if(a===d.ini&&b===d.fin) delete state.overrides[s.codigo]; else state.overrides[s.codigo]={ini:a,fin:b,sr:w.sr,flex:w.flex,cola:w.cola};
@@ -902,7 +1004,7 @@ function renderDetail(){
   const b=bimOf(s);
   const bimCtl = (s.dur==='B') ? h('div',null,h('h3',{text:'Bimestre'}),
     h('div',{class:'sub',style:'margin-bottom:8px',text:'Al elegir otro bimestre se actualizan las fechas de abajo y se corre la barra del diagrama. El 1.º y el 2.º son del primer cuatrimestre; el 3.º y el 4.º, del segundo.'}),
-    h('select',{class:'selc','aria-label':'Bimestre',onchange:e=>moveBim(s.codigo,+e.target.value)},
+    h('select',ed({class:'selc','aria-label':'Bimestre',onchange:e=>moveBim(s.codigo,+e.target.value)}),
       ...[1,2,3,4].map(k=>h('option',{value:String(k),...(b===k?{selected:true}:{}),
         text:`${BIMS[k].n} · ${bimRango(k)} (${BIMS[k].c}.º cuat.)`})))) : null;
   const sug=D.sugerencias.filter(x=>x.code===s.codigo);
@@ -927,15 +1029,15 @@ function renderDetail(){
         f.manual?' Ahora manda la fecha que cargaste abajo; si cambiás los meses acá, se borra y vuelve la estimación.':''),
       h('div',{class:'row2'},h('label',{for:'w-i'},'Inicio',mSel('w-i',w.ini,e=>setW(+e.target.value,w.fin))),
         h('label',{for:'w-f'},'Fin',mSel('w-f',w.fin,e=>setW(w.ini,+e.target.value)))),
-      esTuyo(s.codigo)?h('div',{style:'margin-top:6px'},h('button',{class:'linkbtn',type:'button',
+      editando&&esTuyo(s.codigo)?h('div',{style:'margin-top:6px'},h('button',{class:'linkbtn',type:'button',
         onclick:()=>editar(()=>{delete state.overrides[s.codigo];delete state.bim[s.codigo];delete state.fechas[s.codigo];}),text:'Volver a como estaba en la Propuesta'})):null),
     h('div',null,h('h3',{text:'Fechas para SIU Guaraní'}),
       h('div',{class:'sub',style:'margin-bottom:8px'},`Inscripción: ${dmy(inscOf(periodoIns(s)).d)} al ${dmy(inscOf(periodoIns(s)).h)}. `,
         f.manual?'Fechas cargadas a mano: la barra del diagrama las sigue.':(b?`Fechas predefinidas del ${BIMS[b].n}. Si las cambiás, la barra se corre.`:'Fechas estimadas. Si las cambiás, la barra se corre.')),
       h('div',{class:'row2'},
-        h('label',{for:'d-i'},'Inicio',h('input',{id:'d-i',class:'selc',type:'date',value:f.ini,onchange:e=>setFecha(s.codigo,'ini',e.target.value)})),
-        h('label',{for:'d-f'},'Fin',h('input',{id:'d-f',class:'selc',type:'date',value:f.fin,onchange:e=>setFecha(s.codigo,'fin',e.target.value)}))),
-      f.manual?h('div',{style:'margin-top:6px'},h('button',{class:'linkbtn',type:'button',
+        h('label',{for:'d-i'},'Inicio',h('input',ed({id:'d-i',class:'selc',type:'date',value:f.ini,onchange:e=>setFecha(s.codigo,'ini',e.target.value)}))),
+        h('label',{for:'d-f'},'Fin',h('input',ed({id:'d-f',class:'selc',type:'date',value:f.fin,onchange:e=>setFecha(s.codigo,'fin',e.target.value)})))),
+      editando&&f.manual?h('div',{style:'margin-top:6px'},h('button',{class:'linkbtn',type:'button',
         onclick:()=>editar(()=>{delete state.fechas[s.codigo];}),text:'Volver a la fecha estimada'})):null),
     h('div',null,h('h3',{text:'Correlativas para cursar'}),...cor),
     h('div',null,h('h3',{text:'Habilita a'}),deps[s.codigo].length
@@ -955,127 +1057,10 @@ function moveBim(code,k){
   editar(()=>{ if((PERKEY[d.ini+'-'+d.fin]||'')==='b'+k) delete state.bim[code]; else state.bim[code]=k;
     delete state.overrides[code]; delete state.fechas[code]; });
 }
-let dragB=null;
-function filaBajo(x,y){
-  const el=document.elementFromPoint(x,y);
-  const row=el&&el.closest?el.closest('.bimrow[data-slot]'):null;
-  return (row&&dragB&&+row.dataset.anio===dragB.anio)?row:null;
-}
-function limpiarOver(){ document.querySelectorAll('.bimrow.over').forEach(n=>n.classList.remove('over')); }
-function dragIni(e,code,anio,node){
-  if(e.pointerType==='mouse'&&e.button!==0) return;
-  dragB={code,anio,node,x0:e.clientX,y0:e.clientY,movido:false,ghost:null};
-  try{ e.currentTarget.setPointerCapture(e.pointerId); }catch(_){}
-}
-function dragMov(e){
-  if(!dragB) return;
-  if(!dragB.movido){
-    if(Math.hypot(e.clientX-dragB.x0,e.clientY-dragB.y0)<5) return;
-    dragB.movido=true; dragB.node.classList.add('dragging');
-    dragB.ghost=h('div',{class:'dragghost',text:dragB.code+' · '+byCode[dragB.code].nombre});
-    document.body.append(dragB.ghost); document.body.classList.add('dragging-on');
-  }
-  e.preventDefault();
-  dragB.ghost.style.left=(e.clientX+14)+'px'; dragB.ghost.style.top=(e.clientY+14)+'px';
-  const row=filaBajo(e.clientX,e.clientY);
-  limpiarOver(); if(row) row.classList.add('over');
-}
-function dragFin(e){
-  if(!dragB) return;
-  const movido=dragB.movido, code=dragB.code;
-  const row=movido?filaBajo(e.clientX,e.clientY):null;
-  if(dragB.ghost) dragB.ghost.remove();
-  dragB.node.classList.remove('dragging');
-  limpiarOver(); document.body.classList.remove('dragging-on');
-  dragB=null;
-  if(movido&&row) moveBim(code,+row.dataset.slot);
-}
-function renderPropuesta(){
-  const cards=[];
-  for(let y=1;y<=6;y++){
-    const list=S.filter(s=>s.anio===y&&s.dur==='B');
-    if(!list.length) continue;
-    const card=h('div',{class:'bimcard'},h('h4',null,h('span',{class:'dot',style:'--c:'+YCOL[y].bg}),ORD[y-1]+' año',
-      h('span',{style:'font-weight:400;color:var(--ink-2);font-size:12.5px;font-family:var(--f-b)',text:`${list.length} bimestrales`})));
-    [1,2,3,4].forEach(k=>{
-      const here=list.filter(s=>bimOf(s)===k);
-      const slot=h('div',{class:'sl'},h('span',{class:'bname',text:BIMS[k].n}),
-        h('span',{class:'num',style:'font-size:12px;color:var(--muted)',text:`${bimRango(k)} · ${BIMS[k].c}.º cuat.`}));
-      const body=h('div',null);
-      if(!here.length) body.append(h('span',{style:'color:var(--muted);font-size:13px',text:'Soltá acá una materia'}));
-      here.forEach(s=>{
-        const mover=h('select',{class:'selc','aria-label':'Mover '+s.codigo,
-          onchange:e=>moveBim(s.codigo,+e.target.value)},
-          ...[1,2,3,4].map(j=>h('option',{value:String(j),...(j===k?{selected:true}:{}),text:'Mover a '+BIMS[j].n+' · '+bimRango(j)})));
-        const grip=h('button',{class:'grip',type:'button','aria-label':'Arrastrar '+s.codigo+' a otro bloque',
-          title:'Arrastrá a otro bloque del mismo año',text:'⠿'});
-        const item=h('div',{class:'bimitem'+(s.optativo?' opt':'')},
-          h('div',{style:'display:flex;gap:8px;align-items:center'},grip,
-            h('button',{class:'mat',type:'button',style:`--c:${col(s).bg};background:none;border:0;padding:0;text-align:left`,
-              onclick:()=>{state.tab='secuencia';sel(s.codigo)}},
-              h('span',{class:'swc'}),h('span',{class:'num',style:'font-size:12px',text:s.codigo}),s.nombre,
-              h('span',{class:'num',style:'color:var(--muted);font-size:12px',text:fmt(s.hs)+' h'}),
-              s.optativo?h('span',{class:'tag opt',text:'optativo · fecha libre'}):null,
-              esTuyo(s.codigo)?h('span',{class:'moved yo',text:'tu cambio'}):((PERKEY[s.base.ini+'-'+s.base.fin]||'')!=='b'+k?h('span',{class:'moved',text:'movida'}):null))),
-          (s.propRazon&&state.esc!=='base'&&!esTuyo(s.codigo))?h('p',{text:s.propRazon}):null,
-          h('div',{style:'margin-top:6px'},mover));
-        grip.addEventListener('pointerdown',e=>dragIni(e,s.codigo,y,item));
-        grip.addEventListener('pointermove',dragMov);
-        grip.addEventListener('pointerup',dragFin);
-        grip.addEventListener('pointercancel',dragFin);
-        body.append(item);
-      });
-      card.append(h('div',{class:'bimrow','data-slot':String(k),'data-anio':String(y)},slot,body));
-    });
-    cards.push(card);
-  }
-  const ch=bimChoque();
-  const pares=ch.filter(x=>x.par), atencion=ch.filter(x=>!x.par);
-  const avisos=[];
-  if(atencion.length) avisos.push(h('div',{class:'insight w'},h('div',null,h('b',{text:'Tres o más a la vez: '}),
-    atencion.map(x=>`${ORD[x.anio-1]} año, ${BIMS[x.bim].n} (${x.list.map(s=>s.codigo).join(', ')})`).join('; ')+
-    '. Hay que repartirlas en otros bimestres del mismo año.')));
-  if(pares.length) avisos.push(h('div',{class:'insight'},h('div',null,h('b',{text:'En paralelo, conviene separarlas: '}),
-    pares.map(x=>`${ORD[x.anio-1]} año, ${BIMS[x.bim].n} (${x.list.map(s=>s.codigo).join(' y ')})`).join('; ')+
-    '. Cursar dos a la vez pide más aulas y obliga al estudiante a acomodar dos horarios; si hay un bimestre libre en ese año, conviene moverla ahí.')));
-  if(!ch.length) avisos.push(h('div',{class:'insight'},h('div',null,h('b',{text:'Sin cruces: '}),'cada bimestre tiene como máximo una materia por año.')));
-  return h('div',{class:'stack'},
-    h('div',{class:'card pad'},h('h2',{text:'Orden propuesto de las bimestrales'}),
-      h('p',{class:'sub',text:'El año tiene cuatro bimestres: el 1.º y el 2.º en el primer cuatrimestre, el 3.º y el 4.º en el segundo. El plan marca las materias como B pero no fija en cuál van. Criterio de la propuesta: una por bimestre, sin paralelismo, como si las bimestrales de cada año formaran un anual en cuatro tramos. Para elegir el bimestre se miró cuándo termina cada correlativa y cuántos turnos de examen quedan antes de la inscripción, que cada bimestre rinde en un turno distinto (junio, julio, octubre y diciembre) y la carga del resto del año. 1.º y 2.º año siguen como en la planilla.'}),
-      h('p',{class:'sub',text:'Los espacios optativos (marcados «optativo · fecha libre») son libres entre 1.º y 5.º año según el apartado 10 de la resolución, pero acá también se ubican en un bimestre real de 2 meses: el que menos carga troncal tiene en ese año. Así se ve cuánto suman a las aulas de cada bimestre, en vez de diluirse en los 4 meses del cuatrimestre. Se pueden mover igual que cualquier bimestral, sin que eso dispare un aviso de paralelismo.'}),
-      h('p',{class:'sub',text:'Para cambiar una de bimestre, arrastrala del tirador ⠿ y soltala en otro bimestre del mismo año, o elegilo en el selector. Las fechas pasan a las predefinidas de ese bimestre y la barra del diagrama se corre sola.'}),
-      ...avisos, h('div',{class:'bimtab'},...cards)),
-    h('div',{class:'card pad'},h('h2',{text:'Qué cambia respecto de la planilla'}),
-      h('p',{class:'sub',text:'Movimientos que propone el escenario, con el motivo.'}),
-      h('div',{class:'chk'},...S.filter(s=>s.propRazon&&(s.prop.ini!==s.base.ini||s.prop.fin!==s.base.fin)).map(s=>
-        h('div',{class:'item'},h('span',{class:'st info',text:s.codigo}),
-          h('div',null,h('h3',{text:s.nombre}),
-            h('p',{text:`De ${MES[s.base.ini]}–${MES[s.base.fin]} a ${MES[s.prop.ini]}–${MES[s.prop.fin]}. ${s.propRazon}`})))))),
-    cardTuyos());
-}
-// Lista de lo que la persona movió respecto de la Propuesta, con un botón para volver atrás cada uno.
-function cardTuyos(){
-  const codes=[...new Set([...Object.keys(state.bim),...Object.keys(state.overrides),...Object.keys(state.fechas)])].filter(c=>byCode[c]);
-  if(!codes.length) return h('div',{class:'card pad'},h('h2',{text:'Tus cambios'}),
-    h('p',{class:'sub',text:'Todavía no moviste nada. Cuando muevas una materia, aparece acá qué cambiaste respecto de la Propuesta, con un botón para volver atrás cada cambio. También está «Deshacer» arriba, en la barra del escenario.'}));
-  const ver=state.esc; state.esc='mia';
-  const filas=sortS(codes.map(c=>byCode[c])).map(s=>{
-    const tuyo=rango(s), b=bimOf(s);
-    return h('div',{class:'item'},h('span',{class:'st rev',text:s.codigo}),
-      h('div',null,h('h3',{text:s.nombre}),
-        h('p',{text:`Propuesta: ${rangoW(s.prop)}${bimDe(s.prop)?' ('+BIMS[bimDe(s.prop)].n+')':''}. Tuyo: ${tuyo}${b?' ('+BIMS[b].n+')':''}.`+(state.fechas[s.codigo]?' Con fechas cargadas a mano.':'')}),
-        h('button',{class:'linkbtn',type:'button',onclick:()=>editar(()=>{delete state.bim[s.codigo];delete state.overrides[s.codigo];delete state.fechas[s.codigo];}),text:'Volver a la Propuesta en esta materia'})));
-  });
-  state.esc=ver;
-  return h('div',{class:'card pad'},h('h2',{text:'Tus cambios'}),
-    h('p',{class:'sub',text:`${codes.length} ${codes.length===1?'materia movida':'materias movidas'} respecto de la Propuesta. Se ven en el escenario «Mi propuesta»; la Propuesta original no se modifica.`}),
-    h('div',{class:'chk'},...filas));
-}
-const bimDe = w => { const k=PERKEY[w.ini+'-'+w.fin]; return (k&&k[0]==='b')?+k[1]:null; };
-
 // ---------- impresión ----------
 const ESCN={base:'Planilla actual',prop:'Mi propuesta',mia:'Mi propuesta'};
-function armarImpresion(){
+function armarImpresion(modo){
+  modo=modo||'todo'; const ed0=editando; editando=false;
   let box=document.getElementById('print');
   if(!box){ box=h('div',{id:'print'}); document.body.append(box); }
   const yrs=state.years, reg=state.regimen, sel=state.sel;
@@ -1092,6 +1077,13 @@ function armarImpresion(){
   const sug=h('table',{class:'pr-tab'},h('thead',null,h('tr',null,...['Código','Propuesta','Correlativa','Fundamento'].map(x=>h('th',{text:x})))),
     h('tbody',null,...D.sugerencias.map(x=>h('tr',null,h('td',{text:x.code}),h('td',{text:x.tipo}),h('td',{text:`${x.campo}: ${x.valor}`}),
       h('td',null,h('b',{text:x.t+'. '}),x.p)))));
+  const cabPlan=h('header',{class:'pr-head'},h('div',{class:'eyebrow',text:'Escuela Superior de Salud · UNJu · Carrera de Medicina'}),
+      h('h1',{text:'Plan de estudios de Medicina — '+ESCN[state.esc]}),
+      h('p',{text:`Distribución por cuatrimestre y bimestre según ${ESCN[state.esc].toLowerCase()}. Documento de trabajo, ${hoy}. En amarillo, lo que cambia respecto de la planilla original.`}));
+  if(modo==='cal'){ box.replaceChildren(h('section',{class:'pr-sec pr-doc'},docCal()),
+      h('section',{class:'pr-sec pr-brk'},h('h2',{text:`Períodos lectivos para SIU Guaraní · ${state.ciclo}`}),tablaSIU()));
+    editando=ed0; return; }
+  if(modo==='plan'){ box.replaceChildren(cabPlan,h('section',{class:'pr-sec pr-plan'},tablaPlan(S,true))); editando=ed0; return; }
   box.replaceChildren(
     h('header',{class:'pr-head'},h('div',{class:'eyebrow',text:'Escuela Superior de Salud · UNJu · Carrera de Medicina'}),
       h('h1',{text:'Plan de estudios de Medicina — '+ESCN[state.esc]}),
@@ -1105,27 +1097,58 @@ function armarImpresion(){
       h('table',{class:'pr-tab'},h('thead',null,h('tr',null,...['Espacios','Punto a revisar'].map(x=>h('th',{text:x})))),
         h('tbody',null,...D.inconsistencias.map(x=>h('tr',null,h('td',{text:(x.codes||[]).join(', ')||'—'}),
           h('td',null,h('b',{text:x.t+'. '}),x.p)))))),
-    h('section',{class:'pr-sec pr-brk'},h('h2',{text:`Calendario académico estimado ${state.ciclo}`}),
-      h('table',{class:'pr-tab'},h('thead',null,h('tr',null,...['Tipo','Período','Desde','Hasta','Días hábiles','Detalle'].map(x=>h('th',{text:x})))),
-        h('tbody',null,...filasCal().map(f=>h('tr',null,h('td',{text:f.t}),h('td',null,h('b',{text:f.n})),
-          h('td',{text:`${dmy(f.ini)} (${diaSem(f.ini).slice(0,3)})`}),h('td',{text:`${dmy(f.fin)} (${diaSem(f.fin).slice(0,3)})`}),
-          h('td',{text:f.t==='Receso'?'—':String(habiles(f.ini,f.fin))}),h('td',{text:f.nota}))))),
-      h('h2',{style:'margin-top:14px',text:'Turnos de examen'}),
-      h('table',{class:'pr-tab'},h('thead',null,h('tr',null,...['Turno','Inscripción','Cierre de actas','Semana de examen'].map(x=>h('th',{text:x})))),
-        h('tbody',null,...CAL().turnos.map(x=>h('tr',null,h('td',{text:`${x.n}.º · ${x.nombre}`}),
-          h('td',{text:`${dmy(x.insIni)} al ${dmy(x.insFin)}`}),h('td',{text:`${dmy(x.actIni)} al ${dmy(x.actFin)}`}),
-          h('td',{text:`${dmy(x.exIni)} al ${dmy(x.exFin)}`})))))));
+    h('section',{class:'pr-sec pr-brk pr-plan'},h('h2',{text:'Plan de estudios'}),tablaPlan(S,true)),
+    h('section',{class:'pr-sec pr-brk pr-doc'},docCal()),
+    h('section',{class:'pr-sec pr-brk'},h('h2',{text:`Períodos lectivos para SIU Guaraní · ${state.ciclo}`}),tablaSIU()));
+  editando=ed0;
 }
-function imprimir(){
+function imprimir(modo){
   const th=document.documentElement.getAttribute('data-theme');
   document.documentElement.setAttribute('data-theme','light'); colors();
-  armarImpresion(); document.body.classList.add('printing');
+  armarImpresion(modo); document.body.classList.add('printing');
   const fin=()=>{ document.body.classList.remove('printing'); if(th) document.documentElement.setAttribute('data-theme',th); else document.documentElement.removeAttribute('data-theme'); render(); window.removeEventListener('afterprint',fin); };
   window.addEventListener('afterprint',fin);
   setTimeout(()=>{ try{ window.print(); }catch(e){ fin(); } },60);
 }
 
 // ---------- Plan ----------
+// Plan de estudios con el mismo formato de la planilla de correlativas (Excel), pero tomando la
+// ubicación del escenario que se está viendo: en «Mi propuesta» refleja cada cambio guardado.
+const cuatIni = w => w.ini<=7?1:2;
+function tablaPlan(list,imp){
+  const ACR = s => s.regimen==='Promoción'?'Promoción':'Ex. Final';
+  const tb=h('tbody');
+  [1,2,3,4,5,6].forEach(y=>{
+    const l=list.filter(s=>s.anio===y); if(!l.length) return;
+    l.forEach((s,i)=>{
+      const w=win(s), b=bimOf(s), cq=cuatIni(w), cqB=cuatIni(s.base);
+      const kB=PERKEY[s.base.ini+'-'+s.base.fin], bB=(kB&&kB[0]==='b')?+kB[1]:null;
+      const difC=cq!==cqB, difB=s.dur==='B'&&b!==bB;
+      const sinC=!s.apr.length&&!s.reg.length&&!s.todoAprobado&&!s.segunReglamento;
+      tb.append(h('tr',{class:'row'+(state.sel===s.codigo?' sel':''),onclick:imp?null:()=>sel(s.codigo)},
+        i===0?h('td',{class:'anio',rowspan:String(l.length)},h('span',{text:`${ORD[y-1]} AÑO`})):null,
+        h('td',{class:'cen',text:s.dur}),
+        h('td',{class:'cen c',text:s.codigo}),
+        h('td',{class:'cen'+(difC?' dif':''),title:difC?`Planilla: ${cqB}.º C`:null,text:`${cq}.º C`}),
+        h('td',{class:'cen'+(difB?' dif':''),title:difB?`Planilla: ${bB?BIMS[bB].n:'—'}`:null,text:b?`${b}.º`:'—'}),
+        h('td',{class:'cen',text:s.cf}),
+        h('td',{text:s.nombre}),
+        h('td',{class:'cen',text:s.cursado}),
+        h('td',{class:'cen n',text:fmt(s.hs)}),
+        h('td',{class:'cen',text:s.todoAprobado?'Todo aprobado':(s.apr.join(' - ')||(sinC?'':'—'))}),
+        h('td',{class:'cen',text:s.segunReglamento?'Según reglamento':(s.reg.join(' - ')||(sinC?'S/C':'—'))}),
+        h('td',{class:'cen',text:ACR(s)})));
+    });
+    const tot=S.filter(s=>s.anio===y).reduce((a,s)=>a+s.hs,0);
+    tb.append(h('tr',{class:'tot'},h('td',{colspan:'12',text:`TOTAL DE HORAS ${ORD[y-1]} AÑO: ${fmt(tot)}`})));
+  });
+  if(list.length===S.length) tb.append(h('tr',{class:'tot fin'},h('td',{colspan:'12',text:`TOTAL DE HORAS DE LA CARRERA: ${fmt(S.reduce((a,s)=>a+s.hs,0))} HORAS RELOJ`})));
+  return h('table',{class:'xls'},
+    h('thead',null,
+      h('tr',null,...[['Año',2],['Duración',2],['Código',2],['Cuatrimestre',2],['Bimestre',2],['CF',2],['Espacio curricular',2],['Cursado',2],['CHT',2]].map(([x,r])=>h('th',{rowspan:String(r),text:x})),
+        h('th',{colspan:'2',text:'Régimen de correlatividades para cursar'}),h('th',{rowspan:'2',text:'Acreditación'})),
+      h('tr',null,h('th',{text:'Aprobada'}),h('th',{text:'Regular'}))),tb);
+}
 function renderPlan(){
   const list=S.filter(s=>(state.fAnio==='todos'||s.anio===+state.fAnio)&&(state.fReg==='todos'||s.regimen===state.fReg)&&
     (!state.fTexto||(s.codigo+' '+s.nombre).toLowerCase().includes(state.fTexto.toLowerCase())));
@@ -1135,24 +1158,13 @@ function renderPlan(){
     h('label',{class:'grp',for:'fr'},h('span',{class:'grp-l',text:'Régimen'}),mk('fr',state.fReg,[['todos','Todos'],['Promoción','Promoción'],['Examen final','Examen final']],e=>{state.fReg=e.target.value;render()})),
     h('label',{class:'grp',for:'ft'},h('span',{class:'grp-l',text:'Buscar'}),h('input',{id:'ft',class:'selc',type:'search',placeholder:'Código o nombre',value:state.fTexto,
       oninput:e=>{state.fTexto=e.target.value;const p=e.target.selectionStart;render();const n=document.getElementById('ft');if(n){n.focus();n.setSelectionRange(p,p)}}})),
-    h('span',{class:'num',style:'color:var(--muted);font-size:13px',text:`${list.length} de ${S.length} · ${fmt(list.reduce((a,s)=>a+s.hs,0))} h`}));
-  const tb=h('tbody'); let last=0;
-  list.forEach(s=>{
-    if(s.anio!==last){ last=s.anio; const t=S.filter(x=>x.anio===s.anio).reduce((a,x)=>a+x.hs,0);
-      tb.append(h('tr',{class:'ysep'},h('td',{colspan:'13'},h('span',{class:'dot',style:`--c:${YCOL[s.anio].bg};display:inline-block;margin-right:9px`}),ORD[s.anio-1]+' año · '+fmt(t)+' h'))); }
-    tb.append(h('tr',{class:'row'+(state.sel===s.codigo?' sel':''),onclick:()=>sel(s.codigo)},
-      h('td',{class:'c'},h('span',{style:`display:inline-block;width:10px;height:10px;border-radius:3px;background:${col(s).bg};margin-right:7px`}),s.codigo),
-      h('td',{text:s.nombre}),h('td',{text:DURS[s.dur]}),h('td',{text:perLbl(s).replace(' cuatrimestre','')}),
-      h('td',{text:bimOf(s)?BIMS[bimOf(s)].n:'—'}),
-      h('td',{text:s.cf}),h('td',{text:s.cursado}),
-      h('td',{class:'n',text:fmt(s.teo)}),h('td',{class:'n',text:fmt(s.pra)}),h('td',{class:'n',style:'font-weight:700',text:fmt(s.hs)}),
-      h('td',{text:s.regimen}),h('td',{class:'cc',text:s.todoAprobado?'Todo aprobado':(s.apr.join(', ')||'—')}),
-      h('td',{class:'cc',text:s.segunReglamento?'Según reglamento':(s.reg.join(', ')||'—')})));
-  });
-  const th=['Código','Espacio curricular','Duración','Cuat.','Bimestre','Campo','Cursado','Teór.','Práct.','Total h','Régimen','Aprobada','Regular'];
-  return h('div',null,bar,h('div',{class:'tbl-wrap'},h('table',{class:'t'},
-    h('thead',null,h('tr',null,th.map((x,i)=>h('th',{style:i>=7&&i<=9?'text-align:right':'',text:x})))),tb)),
-    h('div',{class:'legend'},h('span',{class:'lg',text:'FBC: formación básica y clínica · FO: formación optativa · PFO: práctica final obligatoria.'})));
+    h('button',{class:'btn primary',type:'button',style:'margin-left:auto',onclick:()=>imprimir('plan'),text:'Imprimir plan (PDF)'}));
+  return h('div',null,bar,
+    h('p',{class:'sub',style:'margin:0 0 10px',text:state.esc==='mia'
+      ?'Plan de estudios según «Mi propuesta»: cuatrimestre y bimestre salen de tu propuesta guardada. En amarillo, lo que cambia respecto de la planilla original (pasá el mouse para ver el valor original).'
+      :'Plan de estudios tal como está en la planilla original.'}),
+    h('div',{class:'tbl-wrap'},tablaPlan(list)),
+    h('div',{class:'legend'},h('span',{class:'lg',text:'Duración: A anual · S semestral · C cuatrimestral · T trimestral · B bimestral. CF: FBC formación básica y clínica · FO formación optativa · PFO práctica final obligatoria. S/C: sin correlativas.'})));
 }
 
 // ---------- Correlativas ----------
@@ -1273,100 +1285,130 @@ function rangoDias(ini,fin){
   const n=Math.round((dOf(fin)-dOf(ini))/86400000)+1;
   return (n<=2?`${a} y ${b}`:`${a} a ${b}`).replace(/^./,c=>c.toUpperCase());
 }
-function filasCal(){
-  const P=CAL(), F=[];
+// ---------- edición de fechas del calendario ----------
+function setCalK(k,f,v){ if(!v) return; state.cal=Object.assign({},state.cal); state.cal[k]=Object.assign({},state.cal[k],{[f]:v}); persist(); render(); }
+function setCalSub(g,k,f,v){ if(!v) return; state.cal=Object.assign({},state.cal); const s=Object.assign({},state.cal[g]);
+  s[k]=Object.assign({},s[k],{[f]:v}); state.cal[g]=s; persist(); render(); }
+function setInsc(k,f,v){ if(!v) return; state.insc=Object.assign({},state.insc); state.insc[k]=Object.assign({},state.insc[k],{[f]:v}); persist(); render(); }
+const dm = x => { const p=String(x).split('-'); return p.length===3?`${p[2]}/${p[1]}`:x; };
+const dsm = x => diaSem(x).slice(0,3);
+// Un rango de fechas: texto fuera de edición, dos campos de fecha en edición (si se puede editar).
+function fRango(ini,fin,onI,onF,modo){
+  if(editando&&onI){
+    const a=h('input',{type:'date',class:'selc dsm','aria-label':'desde',value:ini,onchange:e=>onI(e.target.value)});
+    if(ini===fin&&!onF) return h('span',{class:'fr ed'},a);
+    return h('span',{class:'fr ed'},a,h('span',{class:'al',text:'al'}),
+      h('input',{type:'date',class:'selc dsm','aria-label':'hasta',value:fin,onchange:e=>(onF||onI)(e.target.value)}));
+  }
+  if(modo==='doc') return h('span',{class:'fr'},ini===fin?dmy(ini):`Desde el ${dm(ini)} hasta el ${dmy(fin)}`,
+    h('span',{class:'wd',text:ini===fin?` (${dsm(ini)})`:` (${dsm(ini)} a ${dsm(fin)})`}));
+  return h('span',{class:'fr'},ini===fin?`${dsm(ini)} ${dm(ini)}`:`${dsm(ini)} ${dm(ini)} al ${dsm(fin)} ${dm(fin)}`);
+}
+// ---------- documento oficial (Anexo Único) ----------
+function docCal(){
+  const P=CAL(), y=state.ciclo, i1=inscOf(1), i2=inscOf(2);
   const usados=new Set(S.map(s=>perKeyW(win(s))).filter(Boolean));
-  const push=(t,n,r,nota,k)=>{ if(k&&!usados.has(k)) return; F.push({t,n,ini:r.ini,fin:r.fin,nota:nota||''}); };
-  push('Inscripción','Inscripción a materias · 1.º cuatrimestre',P.i1,`${rangoDias(P.i1.ini,P.i1.fin)}. Cubre anuales, 1.º cuatrimestre y bimestres 1 y 2.`);
-  push('Administrativo','Proceso de inscripciones y carga en el aula virtual',{ini:P.i1.pIni,fin:P.i1.pFin},`${rangoDias(P.i1.pIni,P.i1.pFin)}. Se descarga la lista definitiva, se procesa por sistema y se matricula en el aula virtual.`);
-  push('Cursada','1.º cuatrimestre',P.c1);
-  push('Cursada','1.er bimestre',P.b1);
-  push('Administrativo','Carga en el aula virtual · 2.º bimestre',{ini:P.cb2.pIni,fin:P.cb2.pFin},`${rangoDias(P.cb2.pIni,P.cb2.pFin)} previos al inicio del 2.º bimestre.`);
-  push('Cursada','2.º bimestre',P.b2);
-  push('Cursada','Trimestral · 1.º cuatrimestre',P.t1,'','t1');
-  push('Cursada','Semestral · inicio en marzo',P.s1,'','s1');
-  push('Cursada','Anual',P.an,'','an');
-  push('Receso','Receso de invierno',P.rec,'Sin dictado de clases.');
-  push('Inscripción','Inscripción a materias · 2.º cuatrimestre',P.i2,`${rangoDias(P.i2.ini,P.i2.fin)}. Cubre 2.º cuatrimestre y bimestres 3 y 4.`);
-  push('Administrativo','Proceso de inscripciones y carga en el aula virtual',{ini:P.i2.pIni,fin:P.i2.pFin},`${rangoDias(P.i2.pIni,P.i2.pFin)}. Los estudiantes quedan cargados antes del lunes de inicio.`);
-  push('Cursada','2.º cuatrimestre',P.c2);
-  push('Cursada','3.er bimestre',P.b3);
-  push('Administrativo','Carga en el aula virtual · 4.º bimestre',{ini:P.cb4.pIni,fin:P.cb4.pFin},`${rangoDias(P.cb4.pIni,P.cb4.pFin)} previos al inicio del 4.º bimestre.`);
-  push('Cursada','4.º bimestre',P.b4);
-  push('Cursada','Trimestral · 2.º cuatrimestre',P.t2,'','t2');
-  return F.sort((x,y)=>x.ini<y.ini?-1:x.ini>y.ini?1:0);
+  const it=(lab,ini,fin,onI,onF,nota)=>h('div',{class:'doc-it'},h('div',{class:'doc-l',text:lab}),
+    h('div',{class:'doc-v'},h('span',{class:'dash',text:'–'}),fRango(ini,fin,onI,onF,'doc')),
+    nota?h('div',{class:'doc-n',text:nota}):null);
+  const lin=(lab,v,on)=>h('div',{class:'doc-it doc-row'},h('span',{class:'doc-l',text:lab+':'}),
+    editando&&on?h('input',{type:'date',class:'selc dsm',value:v,onchange:e=>on(e.target.value)}):h('span',{class:'doc-v',text:dmy(v)}),
+    editando?null:h('span',{class:'wd',text:` (${dsm(v)})`}));
+  const hit=k=>{ const x=HITOS.find(z=>z[0]===k); return it(x[3],P.hit[k].ini,P.hit[k].fin,v=>setCalSub('hit',k,'ini',v),
+    x[6]==null?null:v=>setCalSub('hit',k,'fin',v)); };
+  const bar=txt=>h('div',{class:'doc-bar',text:txt});
+  const sem=k=>Math.round(semanas(P[k].ini,P[k].fin));
+  const bloque1=[
+    bar(`PRIMER CUATRIMESTRE ${y} (${sem('c1')} SEMANAS)`),
+    it('REINSCRIPCIÓN ANUAL (1.º PERÍODO) E INSCRIPCIÓN POR MATERIAS DEL 1.º CUATRIMESTRE',i1.d,i1.h,v=>setInsc(1,'d',v),v=>setInsc(1,'h',v),
+      'Comprende las materias anuales, semestrales, cuatrimestrales y bimestrales del 1.º cuatrimestre.'),
+    it('CIERRE DE INSCRIPCIÓN, PROCESAMIENTO Y MATRICULACIÓN EN EL AULA VIRTUAL',i1.pd,i1.ph,null,null,
+      'Dos días hábiles sin inscripción para descargar la lista definitiva y cargarla en el aula virtual.'),
+    lin('INICIO DE CUATRIMESTRE',P.c1.ini,v=>setCalK('c1','ini',v)),
+    lin('FINALIZACIÓN DE CUATRIMESTRE',P.c1.fin,v=>setCalK('c1','fin',v)),
+    it('1.ER BIMESTRE',P.b1.ini,P.b1.fin,v=>setCalK('b1','ini',v),v=>setCalK('b1','fin',v)),
+    it('MATRICULACIÓN EN EL AULA VIRTUAL · 2.º BIMESTRE',P.cb2.pIni,P.cb2.pFin,null,null),
+    it('2.º BIMESTRE',P.b2.ini,P.b2.fin,v=>setCalK('b2','ini',v),v=>setCalK('b2','fin',v)),
+    usados.has('s1')?it('MATERIAS SEMESTRALES',P.s1.ini,P.s1.fin,null,null,'Del inicio del 1.º cuatrimestre a mediados del 2.º.'):null,
+    hit('jor1'),hit('ren1'),hit('pro1'),hit('inv1'),hit('equ1'),hit('res1'),hit('rep1')];
+  const receso=[bar(`RECESO DE INVIERNO`),
+    it('RECESO DE INVIERNO (sin dictado de clases)',P.rec.ini,P.rec.fin,v=>setCalK('rec','ini',v),v=>setCalK('rec','fin',v))];
+  const bloque2=[
+    bar(`SEGUNDO CUATRIMESTRE ${y} (${sem('c2')} SEMANAS)`),
+    it('REINSCRIPCIÓN ANUAL (2.º PERÍODO) E INSCRIPCIÓN POR MATERIAS DEL 2.º CUATRIMESTRE',i2.d,i2.h,v=>setInsc(2,'d',v),v=>setInsc(2,'h',v),
+      'Comprende las materias cuatrimestrales y bimestrales del 2.º cuatrimestre.'),
+    it('CIERRE DE INSCRIPCIÓN, PROCESAMIENTO Y MATRICULACIÓN EN EL AULA VIRTUAL',i2.pd,i2.ph,null,null),
+    lin('INICIO DE CUATRIMESTRE',P.c2.ini,v=>setCalK('c2','ini',v)),
+    lin('FINALIZACIÓN DE CUATRIMESTRE',P.c2.fin,v=>setCalK('c2','fin',v)),
+    it('3.ER BIMESTRE',P.b3.ini,P.b3.fin,v=>setCalK('b3','ini',v),v=>setCalK('b3','fin',v)),
+    it('MATRICULACIÓN EN EL AULA VIRTUAL · 4.º BIMESTRE',P.cb4.pIni,P.cb4.pFin,null,null),
+    it('4.º BIMESTRE',P.b4.ini,P.b4.fin,v=>setCalK('b4','ini',v),v=>setCalK('b4','fin',v)),
+    hit('jor2'),hit('ren2'),hit('pro2'),hit('inv2'),hit('equ2'),hit('res2'),hit('rep2'),hit('jor3')];
+  const tur=h('table',{class:'doc-tab'},h('thead',null,h('tr',null,...['TURNO','INSCRIPCIÓN','CIERRE DE ACTAS','SEMANA DE EXAMEN'].map(x=>h('th',{text:x})))),
+    h('tbody',null,...P.turnos.map(x=>h('tr',null,
+      h('td',null,h('b',{text:`${x.n}.º`}),h('br'),x.nombre.toUpperCase()),
+      h('td',null,fRango(x.insIni,x.insFin,v=>setCalSub('tur',x.n,'insIni',v),v=>setCalSub('tur',x.n,'insFin',v))),
+      h('td',null,fRango(x.actIni,x.actFin,null,null)),
+      h('td',null,fRango(x.exIni,x.exFin,v=>setCalSub('tur',x.n,'exIni',v),v=>setCalSub('tur',x.n,'exFin',v)))))));
+  const nac=P.fer.filter(f=>f.f.slice(0,4)===String(y)&&f.t!=='provincial'&&f.t!=='universitario');
+  const pro=P.fer.filter(f=>f.f.slice(0,4)===String(y)&&(f.t==='provincial'||f.t==='universitario'));
+  const MESL=['','Enero','Febrero','Marzo','Abril','Mayo','Junio','Julio','Agosto','Septiembre','Octubre','Noviembre','Diciembre'];
+  const tabFer=l=>h('table',{class:'doc-tab'},h('tbody',null,...l.map(f=>{ const d=dOf(f.f);
+    return h('tr',null,h('td',{text:MESL[d.getMonth()+1]}),h('td',{text:`${DIASEM[d.getDay()].replace(/^./,c=>c.toUpperCase())} ${d.getDate()}`}),
+      h('td',{text:f.n+(f.t==='no laborable'?' (día no laborable)':'')})); })));
+  return h('div',{class:'doc'},
+    h('div',{class:'doc-head'},h('div',{class:'doc-inst',text:'Escuela Superior de Salud · Universidad Nacional de Jujuy'}),
+      h('div',{class:'doc-t1',text:'ANEXO ÚNICO'}),h('div',{class:'doc-t2',text:`PROPUESTA DE CALENDARIO ACADÉMICO ${y}`}),
+      h('div',{class:'doc-t2',text:'ESCUELA SUPERIOR DE SALUD · CARRERA DE MEDICINA'}),
+      h('div',{class:'doc-est',text:`Estimación sobre el Calendario Académico 2026 (Res. CAESS N.º 06/2026). Documento de trabajo, no aprobado.`})),
+    ...bloque1,...receso,...bloque2,
+    h('div',{class:'doc-sub',text:'Turnos de exámenes'}),tur,
+    h('div',{class:'doc-box',text:'CONFORME A LO DISPUESTO POR EL ART. 27 DEL REGLAMENTO VIGENTE (RES. C.S. N.º 066-22), EL PERÍODO DE BORRADO A LA MESA DE EXAMEN SE EXTIENDE HASTA EL ÚLTIMO DÍA DE INSCRIPCIÓN DE CADA TURNO, PARA QUE LAS ACTAS QUEDEN CERRADAS ANTES DE LA SEMANA DE EXAMEN.'}),
+    h('div',{class:'doc-sub',text:'Feriados nacionales'}),tabFer(nac),
+    h('div',{class:'doc-sub',text:'Feriados provinciales, fiestas patronales y asuetos'}),tabFer(pro),
+    h('div',{class:'doc-n',style:'margin-top:8px',text:`Los días no laborables con fines turísticos de ${y} los fija el Poder Ejecutivo por decreto y no estaban publicados al armar esta estimación.`}));
+}
+// ---------- tabla de períodos lectivos para SIU Guaraní ----------
+function tablaSIU(){
+  const P=CAL();
+  const usados=new Set(S.map(s=>perKeyW(win(s))).filter(Boolean));
+  const editable={c1:1,c2:1,b1:1,b2:1,b3:1,b4:1};
+  const filas=P.periodos.filter(p=>['c1','c2','b1','b2','b3','b4'].includes(p.k)||usados.has(p.k));
+  const n=k=>S.filter(s=>perKeyW(win(s))===k).length;
+  return h('table',{class:'doc-tab siu'},
+    h('thead',null,
+      h('tr',null,h('th',{rowspan:'2',text:'Período lectivo'}),h('th',{class:'g1',text:'1 · Inscripción a materias'}),h('th',{class:'g2',text:'2 · Período lectivo'}),
+        h('th',{class:'g3',text:'3 · Carga de resultados de cursada'}),h('th',{class:'g4',text:'4 · Inscripción a mesa de examen'}),h('th',{class:'g5',text:'5 · Mesa de examen'})),
+      h('tr',null,...['Alumnos se inscriben','Inicio y fin del dictado','Docentes cargan y cierran el acta','Primer turno al que llegan','Semana de examen'].map((x,i)=>h('th',{class:'sub g'+(i+1),text:x})))),
+    h('tbody',null,...filas.map(p=>h('tr',null,
+      h('td',null,h('b',{text:p.nombre}),h('div',{class:'mini',text:`${n(p.k)} ${n(p.k)===1?'espacio':'espacios'} · ${habiles(p.ini,p.fin)} días hábiles`})),
+      h('td',{class:'g1'},fRango(p.insc.ini,p.insc.fin,v=>setCalSub('ins',p.k,'ini',v),v=>setCalSub('ins',p.k,'fin',v)),
+        h('div',{class:'mini',text:`Aula virtual: ${dsm(p.carga.ini)} ${dm(p.carga.ini)} y ${dsm(p.carga.fin)} ${dm(p.carga.fin)}`})),
+      h('td',{class:'g2'},fRango(p.ini,p.fin,editable[p.k]?v=>setCalK(p.k,'ini',v):null,editable[p.k]?v=>setCalK(p.k,'fin',v):null)),
+      h('td',{class:'g3'},fRango(p.res.ini,p.res.fin,v=>setCalSub('res',p.k,'ini',v),v=>setCalSub('res',p.k,'fin',v))),
+      p.turno?h('td',{class:'g4'},h('div',{class:'mini',style:'font-weight:700',text:`Turno ${p.turno.n}.º · ${p.turno.nombre}`}),
+        fRango(p.turno.insIni,p.turno.insFin,v=>setCalSub('tur',p.turno.n,'insIni',v),v=>setCalSub('tur',p.turno.n,'insFin',v)),
+        h('div',{class:'mini',text:`Cierre de actas: ${dsm(p.turno.actIni)} ${dm(p.turno.actIni)} y ${dsm(p.turno.actFin)} ${dm(p.turno.actFin)}`}))
+        :h('td',{class:'g4',colspan:'2'},h('div',{class:'mini',text:'Examen final integrador: lo reglamenta la Escuela Superior de Salud (apartado 9 de la Res. C.S. 093-25).'})),
+      p.turno?h('td',{class:'g5'},fRango(p.turno.exIni,p.turno.exFin,v=>setCalSub('tur',p.turno.n,'exIni',v),v=>setCalSub('tur',p.turno.n,'exFin',v))):null))));
 }
 function renderCalendario(){
-  const P=CAL(), y=state.ciclo;
-  const setCal=(k,f,v)=>{ if(!v) return; state.cal=Object.assign({},state.cal); state.cal[k]=Object.assign({},state.cal[k],{[f]:v}); persist(); render(); };
-  const par=(lbl,k)=>h('label',{class:'grp'},h('span',{class:'grp-l',text:lbl}),
-    h('input',{class:'selc',type:'date','aria-label':lbl+' desde',value:P[k].ini,onchange:e=>setCal(k,'ini',e.target.value)}),
-    h('span',{style:'color:var(--muted)',text:'al'}),
-    h('input',{class:'selc',type:'date','aria-label':lbl+' hasta',value:P[k].fin,onchange:e=>setCal(k,'fin',e.target.value)}));
-  const tocado=Object.keys(state.cal||{}).length;
-  const cfg=h('div',{class:'card pad'},h('h2',{text:'Configuración del ciclo'}),
-    h('p',{class:'sub',text:'Todo lo demás se calcula a partir de estas fechas: las semanas de inscripción, los días de proceso y carga en el aula virtual, los turnos de examen y las fechas de cada materia. Si movés una bimestral de bimestre, toma las fechas del bimestre nuevo.'}),
-    h('div',{class:'bar'},
-      h('label',{class:'grp',for:'cic2'},h('span',{class:'grp-l',text:'Ciclo lectivo'}),
-        h('input',{id:'cic2',class:'selc',type:'number',min:'2024',max:'2099',style:'width:100px',value:String(y),
-          onchange:e=>{const v=parseInt(e.target.value,10); if(v>2000&&v<2100){state.ciclo=v;persist();render()}}})),
-      par('1.º cuatrimestre','c1'), par('2.º cuatrimestre','c2'), par('Receso de invierno','rec')),
-    h('div',{class:'bar'}, par('1.er bimestre','b1'), par('2.º bimestre','b2')),
-    h('div',{class:'bar'}, par('3.er bimestre','b3'), par('4.º bimestre','b4')),
-    tocado?h('div',{style:'margin-top:4px'},h('button',{class:'linkbtn',type:'button',
-      onclick:()=>{state.cal={};persist();render()},text:'Volver a la estimación automática'})):null);
-  const ST={'Inscripción':'rev','Administrativo':'info','Cursada':'ok','Receso':'err'};
-  const filas=filasCal();
-  const tabla=h('div',{class:'ov'},h('table',{class:'t'},
-    h('thead',null,h('tr',null,...['Tipo','Período','Desde','Hasta','Días hábiles','Detalle'].map(x=>h('th',{text:x})))),
-    h('tbody',null,...filas.map(f=>h('tr',null,
-      h('td',null,h('span',{class:'st '+(ST[f.t]||'info'),text:f.t})),
-      h('td',null,h('b',{text:f.n})),
-      h('td',{class:'num',text:`${dmy(f.ini)} · ${diaSem(f.ini).slice(0,3)}`}),
-      h('td',{class:'num',text:`${dmy(f.fin)} · ${diaSem(f.fin).slice(0,3)}`}),
-      h('td',{class:'num',text:f.t==='Cursada'?`${habiles(f.ini,f.fin)} (${semanas(f.ini,f.fin)} sem.)`:(f.t==='Receso'?'—':String(habiles(f.ini,f.fin)))}),
-      h('td',{text:f.nota}))))));
-  const cal=h('div',{class:'card pad'},h('h2',{text:`Calendario académico estimado ${y}`}),
-    h('p',{class:'sub',text:'Estimado sobre el Calendario Académico 2026 (Res. CAESS N.º 06/2026), manteniendo la misma posición del año y corriendo cada hito al lunes o viernes que corresponde. Los días hábiles descuentan fines de semana, feriados y el receso de invierno.'}),
-    h('div',{class:'insight'},h('div',null,h('b',{text:'Regla aplicada: '}),
-      'la inscripción abre el lunes de la semana anterior y cierra dejando dos días hábiles libres para cerrar el acta, procesar las inscripciones por sistema y matricular en el aula virtual. El cursado arranca el lunes siguiente con la lista ya definitiva. Normalmente el margen son el jueves y el viernes; si alguno cae feriado, se corre hacia atrás y la inscripción se acorta.')),
-    tabla);
-  const turnos=h('div',{class:'card pad'},h('h2',{text:'Turnos de examen estimados'}),
-    h('p',{class:'sub',text:'Ocho turnos, en la misma posición del año que los del calendario 2026. La inscripción cierra dejando siempre dos días hábiles para armar y cerrar las actas: el lunes a primera hora el docente ya tiene la lista definitiva de inscriptos.'}),
-    h('div',{class:'ov'},h('table',{class:'t'},
-      h('thead',null,h('tr',null,...['Turno','Inscripción','Cierre de actas (2 días hábiles)','Semana de examen','Feriados en la semana'].map(x=>h('th',{text:x})))),
-      h('tbody',null,...P.turnos.map(x=>{
-        const fer=P.fer.filter(f=>f.f>=x.exIni&&f.f<=x.exFin);
-        return h('tr',null,h('td',null,h('b',{text:`${x.n}.º · ${x.nombre}`})),
-          h('td',{class:'num',text:`${dmy(x.insIni)} al ${dmy(x.insFin)}`}),
-          h('td',{class:'num',text:`${dmy(x.actIni)} al ${dmy(x.actFin)}`}),
-          h('td',{class:'num',text:`${dmy(x.exIni)} al ${dmy(x.exFin)}`}),
-          h('td',{text:fer.length?fer.map(f=>`${dmy(f.f)} ${f.n}`).join('; '):'—'}));
-      })))));
-  const fer=h('div',{class:'card pad'},h('h2',{text:`Feriados y días no laborables ${y}`}),
-    h('p',{class:'sub',text:'Feriados nacionales según la Ley 27.399 (los trasladables ya están corridos al lunes que corresponde), más los provinciales y universitarios que figuran en el calendario 2026.'}),
-    h('div',{class:'ov'},h('table',{class:'t'},
-      h('thead',null,h('tr',null,...['Fecha','Día','Feriado','Tipo','Cae dentro de'].map(x=>h('th',{text:x})))),
-      h('tbody',null,...P.fer.filter(f=>f.f.slice(0,4)===String(y)).map(f=>{
-        const dentro=filas.filter(r=>r.t!=='Administrativo'&&f.f>=r.ini&&f.f<=r.fin).map(r=>r.n);
-        return h('tr',null,h('td',{class:'num',text:dmy(f.f)}),h('td',{text:diaSem(f.f)}),
-          h('td',{text:f.n}),h('td',{text:f.t}),h('td',{text:dentro.length?dentro.join(', '):'—'}));
-      })))),
-    h('div',{class:'note warn'},h('b',{text:'Faltan los días no laborables con fines turísticos. '}),
-      `Los "puentes" los fija el Poder Ejecutivo por decreto, hasta tres por año y siempre en lunes o viernes. Al momento de armar esta estimación todavía no estaban publicados los de ${y}, así que no están descontados de los días hábiles.`));
-  const mats=h('div',{class:'card pad'},h('h2',{text:'Fechas de cada espacio curricular'}),
-    h('p',{class:'sub',text:'Salen del calendario de arriba. Si movés una materia de bimestre, o le cargás una fecha a mano en el panel de detalle, esta tabla y el Excel de SIU Guaraní la siguen.'}),
-    h('div',{class:'ov',style:'max-height:520px'},h('table',{class:'t'},
-      h('thead',null,h('tr',null,...['Código','Espacio curricular','Período','Inscripción','Inicio','Fin','Origen'].map(x=>h('th',{text:x})))),
-      h('tbody',null,...sortS(S).map(s=>{ const f=fechas(s), i=inscOf(periodoIns(s)), b=bimOf(s);
-        return h('tr',{class:'row'+(state.sel===s.codigo?' sel':''),onclick:()=>sel(s.codigo)},
-          h('td',{class:'c'},s.codigo),h('td',{text:s.nombre}),
-          h('td',{text:b?BIMS[b].n:perLbl(s)}),
-          h('td',{class:'num',text:`${dmy(i.d)} al ${dmy(i.h)}`}),
-          h('td',{class:'num',text:dmy(f.ini)}),h('td',{class:'num',text:dmy(f.fin)}),
-          h('td',null,f.manual?h('span',{class:'tag yo',text:'a mano'}):'estimada'));
-      })))));
-  return h('div',{class:'stack'},cfg,cal,turnos,fer,mats);
+  const y=state.ciclo, tocado=Object.keys(state.cal||{}).length||Object.keys(state.insc||{}).length;
+  const cab=h('div',{class:'card pad'},h('div',{class:'cal-top'},
+    h('div',null,h('h2',{text:`Calendario académico ${y}`}),
+      h('p',{class:'sub',text:editando
+        ?'Estás editando: cambiá cualquier fecha y lo que depende de ella se recalcula. Cuando termines, «Guardar cambios» arriba.'
+        :'Estimado sobre el calendario 2026. Para cambiar una fecha, tocá «Editar» arriba. Las inscripciones cierran dejando siempre dos días hábiles libres antes del inicio.'})),
+    h('div',{class:'cal-acc'},
+      editando?h('label',{class:'grp',for:'cic2'},h('span',{class:'grp-l',text:'Ciclo'}),
+        h('input',{id:'cic2',class:'selc',type:'number',min:'2024',max:'2099',style:'width:90px',value:String(y),
+          onchange:e=>{const v=parseInt(e.target.value,10); if(v>2000&&v<2100){state.ciclo=v;persist();render()}}})):null,
+      editando&&tocado?h('button',{class:'btn',type:'button',onclick:()=>{state.cal={};state.insc={};persist();render()},text:'Volver a la estimación'}):null,
+      h('button',{class:'btn primary',type:'button',onclick:()=>imprimir('cal'),text:'Imprimir calendario (PDF)'}))));
+  const siu=h('div',{class:'card pad'},h('h2',{text:'Períodos lectivos para cargar en SIU Guaraní'}),
+    h('p',{class:'sub',text:'Una fila por período, en el orden en que pasa cada cosa: los alumnos se inscriben, se dicta, los docentes cargan el acta de cursada y, con el acta cerrada, los alumnos se inscriben al primer turno de examen que les queda.'}),
+    h('div',{class:'ov'},tablaSIU()));
+  return h('div',{class:'stack'},cab,siu,h('div',{class:'card pad doc-card'},docCal()));
 }
 
 // ---------- Descargas ----------
@@ -1425,10 +1467,17 @@ function sheetRevision(){
 }
 function sheetCalAcad(){
   const P=CAL();
-  const r=[['Ciclo lectivo',state.ciclo],[],['Tipo','Período','Desde','Día','Hasta','Día','Días hábiles','Detalle']];
-  filasCal().forEach(f=>r.push([f.t,f.n,f.ini,diaSem(f.ini),f.fin,diaSem(f.fin),f.t==='Receso'?'':habiles(f.ini,f.fin),f.nota]));
+  const r=[['Calendario académico estimado',state.ciclo],[],
+    ['Períodos lectivos para SIU Guaraní'],
+    ['Período lectivo','Inscripción desde','Inscripción hasta','Aula virtual desde','Aula virtual hasta','Inicio','Fin','Días hábiles',
+     'Resultados desde','Resultados hasta','Turno','Inscripción a mesa desde','Inscripción a mesa hasta','Cierre de actas desde','Cierre de actas hasta','Mesa desde','Mesa hasta']];
+  P.periodos.forEach(p=>r.push([p.nombre,p.insc.ini,p.insc.fin,p.carga.ini,p.carga.fin,p.ini,p.fin,habiles(p.ini,p.fin),
+    p.res.ini,p.res.fin,...(p.turno?[`${p.turno.n}.º ${p.turno.nombre}`,p.turno.insIni,p.turno.insFin,p.turno.actIni,p.turno.actFin,p.turno.exIni,p.turno.exFin]:['Examen final integrador (a reglamentar)'])]));
   r.push([],['Turnos de examen'],['Turno','Inscripción desde','Inscripción hasta','Cierre de actas desde','Cierre de actas hasta','Examen desde','Examen hasta']);
   P.turnos.forEach(x=>r.push([`${x.n}.º ${x.nombre}`,x.insIni,x.insFin,x.actIni,x.actFin,x.exIni,x.exFin]));
+  r.push([],['Otros hitos del calendario'],['Cuatrimestre','Hito','Desde','Hasta']);
+  HITOS.forEach(([k,bl,,lab])=>r.push([`${bl}.º`,lab,P.hit[k].ini,P.hit[k].fin]));
+  r.push(['','Receso de invierno',P.rec.ini,P.rec.fin]);
   r.push([],['Feriados y días no laborables'],['Fecha','Día','Feriado','Tipo']);
   P.fer.filter(f=>f.f.slice(0,4)===String(state.ciclo)).forEach(f=>r.push([f.f,diaSem(f.f),f.n,f.t]));
   r.push([],['Los días no laborables con fines turísticos los fija el Poder Ejecutivo por decreto y no estaban publicados al armar esta estimación.']);
@@ -1439,7 +1488,7 @@ function wbook(){
   const add=(rows,name,w)=>{const ws=XLSX.utils.aoa_to_sheet(rows); if(w) ws['!cols']=w.map(x=>({wch:x})); XLSX.utils.book_append_sheet(wb,ws,name)};
   add(sheetPlan(),'Plan completo',[5,8,42,14,12,14,26,12,9,9,9,16,20,22]);
   add(sheetSiu(),'Fechas SIU',[7,5,8,42,20,14,14,14,13,13,15,7,16,12]);
-  add(sheetCalAcad(),'Calendario académico',[16,46,12,11,12,11,13,70]);
+  add(sheetCalAcad(),'Calendario académico',[26,13,13,13,13,12,12,9,13,13,14,13,13,13,13,12,12]);
   add(sheetCalendario(),'Cursada por mes',[5,8,42,14,7,...Array(11).fill(7)]);
   add(sheetHoras(),'Horas',[12,13,11,11,12,13,26,19,26,9]);
   add(sheetCorrel(),'Correlativas',[8,42,5,16,10,42,8]);
@@ -1535,8 +1584,8 @@ function renderDescargas(){
     h('p',{class:'sub',text:'Las fechas de los cuatrimestres, los bimestres, el receso, las inscripciones y los turnos de examen se configuran en la pestaña Calendario.'}),
     h('div',{class:'bar'},
       h('label',{class:'grp',for:'cic'},h('span',{class:'grp-l',text:'Ciclo lectivo'}),
-        h('input',{id:'cic',class:'selc',type:'number',min:'2024',max:'2099',style:'width:100px',value:String(state.ciclo),
-          onchange:e=>{const v=parseInt(e.target.value,10); if(v>2000&&v<2100){state.ciclo=v;persist();render()}}})),
+        h('input',ed({id:'cic',class:'selc',type:'number',min:'2024',max:'2099',style:'width:100px',value:String(state.ciclo),
+          onchange:e=>{const v=parseInt(e.target.value,10); if(v>2000&&v<2100){state.ciclo=v;persist();render()}}}))),
       h('div',{class:'grp'},h('span',{class:'grp-l',text:'Inscripción 1.º cuat.'}),
         h('span',{class:'num',text:`${dmy(i1.d)} al ${dmy(i1.h)}`})),
       h('div',{class:'grp'},h('span',{class:'grp-l',text:'Inscripción 2.º cuat.'}),
@@ -1576,7 +1625,6 @@ function render(){
   const main=document.getElementById('main');
   let v;
   if(state.tab==='secuencia') v=h('div',null,ctrlSeq(),gantt());
-  else if(state.tab==='propuesta') v=renderPropuesta();
   else if(state.tab==='plan') v=renderPlan();
   else if(state.tab==='correlativas') v=renderGraph();
   else if(state.tab==='horas') v=renderHoras();
@@ -1589,7 +1637,7 @@ function render(){
 function boot(){ S=D.subjects; byCode={}; S.forEach(s=>byCode[s.codigo]=s); rels(); load(); render();
   const q=new URLSearchParams(location.search);
   if(q.has('imprimir')){ const e=q.get('esc'); if(e==='base'||e==='prop'||e==='mia') state.esc=e;
-    document.documentElement.setAttribute('data-theme','light'); colors(); armarImpresion(); document.body.classList.add('printing'); } }
+    document.documentElement.setAttribute('data-theme','light'); colors(); armarImpresion(q.get('modo')||'todo'); document.body.classList.add('printing'); } }
 document.addEventListener('keydown',e=>{ if(e.key==='Escape'&&state.sel) clearSel(); });
 window.addEventListener('resize',()=>{ if(state.tab==='correlativas') render(); });
 try{ matchMedia('(prefers-color-scheme: dark)').addEventListener('change',render); }catch(e){}
