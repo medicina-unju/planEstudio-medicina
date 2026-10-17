@@ -9,7 +9,7 @@ Es una sola página, sin backend ni instalación. Se puede publicar en GitHub Pa
 
 | Pestaña | Para qué sirve |
 | --- | --- |
-| Secuencia | Diagrama mes a mes, filtrable por año y por período (1.º cuatrimestre: anuales, cuatrimestrales, 1.er y 2.º bimestre, semestrales; 2.º cuatrimestre: cuatrimestrales, 3.er y 4.º bimestre, Práctica Final). Con un período elegido muestra el seguimiento de actas: fin de cursada, carga de resultados y turno de examen. |
+| Secuencia | Diagrama mes a mes, filtrable por año y por período con casillas (1.º cuatrimestre: anuales, cuatrimestrales, 1.er y 2.º bimestre, semestrales; 2.º cuatrimestre: cuatrimestrales, 3.er y 4.º bimestre, Práctica Final). Abajo, el seguimiento de actas por turno, del 1.º al 8.º: en cada turno, qué materias llegan por primera vez y cuándo cierra su acta de cursada. |
 | Plan completo | El plan con el mismo formato de la planilla de correlativas (Excel). En «Mi propuesta» toma el cuatrimestre y el bimestre de la propuesta guardada y resalta en amarillo lo que cambia respecto de la planilla. Se imprime en PDF. |
 | Correlativas | Mapa de dependencias. Al elegir una materia marca de qué depende y qué habilita. |
 | Horas | Horas por año según campo de formación, régimen de acreditación o teórica/práctica. |
