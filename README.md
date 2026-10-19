@@ -304,3 +304,8 @@ la organización del dictado. No son un calendario académico aprobado para el p
 Para generar los archivos Excel, la página carga
 [SheetJS](https://cdnjs.cloudflare.com/ajax/libs/xlsx/0.18.5/xlsx.full.min.js) desde cdnjs.
 Sin conexión, el resto del tablero funciona igual y solo quedan sin generarse los Excel.
+
+**Propuesta oficial.** `oficial.json` es la copia guardada de la Propuesta de la coordinación; `build.py`
+la incorpora a `index.html`. Quien abre el sitio publicado ve siempre esa propuesta y, mientras no se
+aparte de ella, el Plan completo no marca cambios. Para actualizarla: «Guardar copia» en la página
+(con `?editar`), reemplazar `oficial.json` y volver a generar `index.html`.
