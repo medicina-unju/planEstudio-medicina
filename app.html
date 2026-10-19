@@ -974,7 +974,7 @@ function renderScen(){
 const TABS=[['secuencia','Secuencia','var(--y1)'],['plan','Plan completo','var(--y3)'],
   ['correlativas','Correlativas','var(--y6)'],['horas','Horas','var(--y4)'],['calendario','Calendario','var(--y5)']];
 function renderTabs(){
-  document.getElementById('tabs').replaceChildren(...TABS.map(([k,l,c])=>
+  document.getElementById('tabs').replaceChildren(...TABS.filter(t=>puedeEditar||t[0]!=='calendario').map(([k,l,c])=>
     h('button',{class:'tab',role:'tab',type:'button','aria-selected':state.tab===k?'true':'false',style:'--tc:'+c,
       onclick:()=>{state.tab=k;persist();hideTip();render()}},
       h('span',{class:'bar'}), l, k==='calendario'?h('span',{class:'cnt',text:String(state.ciclo)}):null)));
@@ -1308,8 +1308,8 @@ function armarImpresion(modo){
         h('tbody',null,...D.inconsistencias.map(x=>h('tr',null,h('td',{text:(x.codes||[]).join(', ')||'—'}),
           h('td',null,h('b',{text:x.t+'. '}),x.p)))))),
     h('section',{class:'pr-sec pr-brk pr-plan'},h('h2',{text:'Plan de estudios'}),tablaPlan(S,true)),
-    h('section',{class:'pr-sec pr-brk pr-doc'},docCal()),
-    h('section',{class:'pr-sec pr-brk'},h('h2',{text:`Períodos lectivos para SIU Guaraní · ${state.ciclo}`}),tablaSIU()));
+    puedeEditar?h('section',{class:'pr-sec pr-brk pr-doc'},docCal()):null,
+    puedeEditar?h('section',{class:'pr-sec pr-brk'},h('h2',{text:`Períodos lectivos para SIU Guaraní · ${state.ciclo}`}),tablaSIU()):null);
   editando=ed0;
 }
 function imprimir(modo,ori){
@@ -1972,12 +1972,13 @@ function render(){
   colors(); renderTiles(); renderScen(); renderTabs(); hideTip();
   const main=document.getElementById('main');
   let v;
-  if(state.tab==='secuencia') v=h('div',null,ctrlSeq(),gantt(),seguimiento());
+  if(state.tab==='calendario'&&!puedeEditar) state.tab='secuencia';
+  if(state.tab==='secuencia') v=h('div',null,ctrlSeq(),gantt(),puedeEditar?seguimiento():null);
   else if(state.tab==='plan') v=renderPlan();
   else if(state.tab==='correlativas') v=renderGraph();
   else if(state.tab==='horas') v=renderHoras();
   else if(state.tab==='calendario') v=renderCalendario();
-  else v=h('div',null,ctrlSeq(),gantt(),seguimiento());
+  else v=h('div',null,ctrlSeq(),gantt(),puedeEditar?seguimiento():null);
   main.replaceChildren(v);
   renderDetail();
   if(keep){ const n=document.getElementById('gsc'); if(n){n.scrollLeft=keep[0];n.scrollTop=keep[1];} }
