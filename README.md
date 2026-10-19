@@ -10,7 +10,7 @@ Es una sola página, sin backend ni instalación. Se puede publicar en GitHub Pa
 | Pestaña | Para qué sirve |
 | --- | --- |
 | Secuencia | Diagrama mes a mes, filtrable por año y por período con casillas (1.º cuatrimestre: anuales, cuatrimestrales, 1.er y 2.º bimestre, semestrales; 2.º cuatrimestre: cuatrimestrales, 3.er y 4.º bimestre, anuales, semestrales y Práctica Final; anuales y semestrales figuran en los dos porque se inscriben en marzo y cierran el acta en el 2.º). Abajo, el seguimiento de actas por turno, del 1.º al 8.º: en cada turno, qué materias llegan por primera vez y cuándo cierra su acta de cursada. |
-| Plan completo | El plan con el mismo formato de la planilla de correlativas (Excel). En «Propuesta» toma el cuatrimestre y el bimestre de la propuesta guardada y resalta en amarillo lo que cambia respecto de la planilla. Se imprime en PDF. |
+| Plan completo | El plan con el mismo formato de la planilla de correlativas (Excel). En modo edición cada casilla de texto (espacio curricular, cursado, horas, correlativas, acreditación) se puede reescribir en «Propuesta»; lo cambiado queda en amarillo y la flecha ↺ devuelve esa casilla a como estaba. En «Propuesta» toma el cuatrimestre y el bimestre de la propuesta guardada y resalta en amarillo lo que cambia respecto de la planilla. Se imprime en PDF. |
 | Correlativas | Mapa de dependencias. Al elegir una materia marca de qué depende y qué habilita. |
 | Horas | Horas por año según campo de formación, régimen de acreditación o teórica/práctica. |
 | Calendario | Tabla de períodos lectivos para SIU Guaraní y el calendario académico con el formato de la resolución oficial (Anexo Único). Se imprime en PDF. |
@@ -22,8 +22,8 @@ Es una sola página, sin backend ni instalación. Se puede publicar en GitHub Pa
   a junio del año siguiente, y encima los cambios que haga cada persona (cambiar el bimestre o
   las fechas de una materia). Las materias que movió quedan marcadas «tu cambio».
   Las Rotaciones Electivas (6.1 y 6.3) quedan en el 1.º cuatrimestre, como en la planilla. La
-  trimestral (6.3) empieza con el cuatrimestre y termina con él (02/07 en 2027), en vez de a los
-  tres meses; en el SIU figura como «Trimestrales del 1.º · cierran con el cuatrimestre».
+  trimestral (6.3) empieza en la 4.ª semana del cuatrimestre (05/04 en 2027) y termina con él
+  (02/07), para tener una sola planilla de resultados de cursada en el SIU; la fecha es editable; en el SIU figura como «Trimestrales del 1.º · cierran con el cuatrimestre».
 
 «Planilla actual» no cambia nunca: si se mueve algo estando ahí, el tablero pasa solo a
 «Propuesta».

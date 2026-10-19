@@ -1648,13 +1648,13 @@
     "flex": false
    },
    "prop": {
-    "ini": 3,
+    "ini": 4,
     "fin": 7,
     "sr": false,
     "flex": false,
     "pk": "t1c"
    },
-   "propRazon": "Trimestral. Queda en el 1.º cuatrimestre como en la planilla, pero termina con el cierre del cuatrimestre (02/07 en 2027) en vez de a los tres meses.",
+   "propRazon": "Trimestral. Queda en el 1.º cuatrimestre como en la planilla, pero empieza en la 4.ª semana (05/04 en 2027) y termina con el cierre del cuatrimestre (02/07), para cargar una sola planilla de resultados de cursada en SIU Guaraní.",
    "aprP": [],
    "regP": [
     "5.1",
