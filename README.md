@@ -42,6 +42,26 @@ aviso que lo dice y ofrece «Volver a la propuesta» para esa materia. Si una ma
 fechas que no coinciden con ningún período, se lista aparte en el cuadro bajo «Sin período
 lectivo», así nunca queda invisible.
 
+## Solo lectura en el sitio publicado
+
+El tablero se abre en **modo lectura**: se puede mirar, filtrar e imprimir, pero el botón
+«Editar» no aparece y ningún campo se puede escribir. Para habilitar la edición en una
+computadora se abre una vez con `?editar` al final de la dirección:
+
+    https://medicina-unju.github.io/planEstudio-medicina/?editar
+
+Queda recordado en ese navegador. Para volver a bloquearlo, `?editar=no`. El pie de la página
+dice en qué modo está.
+
+Es un recaudo para que nadie toque sin querer, **no una contraseña**: todo el código viaja al
+navegador de quien abre la página, así que quien sepa buscarlo puede habilitar la edición igual.
+De todos modos, lo que cualquiera edite queda solo en su navegador y no afecta al archivo
+publicado ni a la propuesta de nadie más.
+
+**Lo que ve el público es la propuesta que trae el archivo**, no los cambios guardados en un
+navegador. Para que una propuesta armada a mano se publique, hay que incorporarla al archivo
+(exportarla con «Guardar copia» y regenerar `index.html`).
+
 Abajo de todo figura la **versión** del archivo (fecha y hora de compilación): sirve para
 confirmar que el navegador no está mostrando una copia vieja en caché.
 
