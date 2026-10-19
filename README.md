@@ -42,6 +42,11 @@ aviso que lo dice y ofrece «Volver a la propuesta» para esa materia. Si una ma
 fechas que no coinciden con ningún período, se lista aparte en el cuadro bajo «Sin período
 lectivo», así nunca queda invisible.
 
+**Fechas cargadas a mano y la barra del diagrama.** La barra ocupa meses enteros, así que un mes
+del borde cuenta solo si la materia lo cubre más o menos hasta la mitad: una materia que termina
+el 02/07 llega hasta junio y no pinta julio, y una que empieza el 20/04 arranca en mayo. La fecha
+exacta se lee al lado del nombre y es la que va al plan, al SIU y a los PDF.
+
 ## Solo lectura en el sitio publicado
 
 El tablero se abre en **modo lectura**: se puede mirar, filtrar e imprimir, pero el botón
