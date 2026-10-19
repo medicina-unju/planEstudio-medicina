@@ -21,6 +21,9 @@ Es una sola página, sin backend ni instalación. Se puede publicar en GitHub Pa
 - **Propuesta**: una bimestral por bimestre en 3.º, 4.º y 5.º año, el Practicantado de agosto
   a junio del año siguiente, y encima los cambios que haga cada persona (cambiar el bimestre o
   las fechas de una materia). Las materias que movió quedan marcadas «tu cambio».
+  Las Rotaciones Electivas (6.1 y 6.3) quedan en el 1.º cuatrimestre, como en la planilla. La
+  trimestral (6.3) empieza con el cuatrimestre y termina con él (02/07 en 2027), en vez de a los
+  tres meses; en el SIU figura como «Trimestrales del 1.º · cierran con el cuatrimestre».
 
 «Planilla actual» no cambia nunca: si se mueve algo estando ahí, el tablero pasa solo a
 «Propuesta».

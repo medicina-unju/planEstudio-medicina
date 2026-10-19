@@ -1562,12 +1562,12 @@
     "flex": false
    },
    "prop": {
-    "ini": 8,
-    "fin": 11,
+    "ini": 3,
+    "fin": 7,
     "sr": false,
-    "flex": true
+    "flex": false
    },
-   "propRazon": "El apartado 10 de la resolución ubica las rotaciones electivas durante la Práctica Final Obligatoria. Se las muestra dentro del tramo del Practicantado, a elección del estudiante.",
+   "propRazon": "1.º cuatrimestre de 6.º año, igual que la planilla: del inicio del cuatrimestre hasta su cierre (02/07 en 2027).",
    "aprP": [],
    "regP": [
     "5.1",
@@ -1648,12 +1648,13 @@
     "flex": false
    },
    "prop": {
-    "ini": 8,
-    "fin": 11,
+    "ini": 3,
+    "fin": 7,
     "sr": false,
-    "flex": true
+    "flex": false,
+    "pk": "t1c"
    },
-   "propRazon": "El apartado 10 de la resolución ubica las rotaciones electivas durante la Práctica Final Obligatoria. Se las muestra dentro del tramo del Practicantado, a elección del estudiante.",
+   "propRazon": "Trimestral. Queda en el 1.º cuatrimestre como en la planilla, pero termina con el cierre del cuatrimestre (02/07 en 2027) en vez de a los tres meses.",
    "aprP": [],
    "regP": [
     "5.1",
@@ -1794,7 +1795,7 @@
   },
   {
    "t": "Las rotaciones electivas están fuera del Practicantado",
-   "p": "El apartado 10 de la resolución dice que los estudiantes «contarán con espacios optativos durante la PFO» y que «consistirán en rotaciones electivas». En la planilla, 6.1 y 6.3 figuran en el 1.º cuatrimestre de 6.º año, antes del Practicantado. O se las ubica dentro del tramo de la PFO, o se corrige el apartado 10.",
+   "p": "El apartado 10 de la resolución dice que los estudiantes «contarán con espacios optativos durante la PFO» y que «consistirán en rotaciones electivas». En la planilla, 6.1 y 6.3 figuran en el 1.º cuatrimestre de 6.º año, antes del Practicantado, y la Propuesta las mantiene ahí por decisión de la coordinación. Falta ubicarlas dentro del tramo de la PFO o corregir el apartado 10.",
    "codes": [
     "6.1",
     "6.3"
