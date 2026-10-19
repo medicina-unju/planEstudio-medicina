@@ -93,10 +93,20 @@ Tiene dos partes:
 En modo edición todas las fechas son editables, y lo que depende de ellas se recalcula.
 
 **Regla administrativa** (definida por la coordinación): la inscripción, a materias y a
-exámenes, abre el lunes de la semana anterior y cierra dejando **dos días hábiles libres**
+exámenes, dura **cinco días hábiles corridos** —jueves y viernes de dos semanas antes, y lunes a
+miércoles de la anterior— y deja libres los **dos días hábiles siguientes** (jueves y viernes)
 para cerrar el acta, descargar la lista definitiva, procesarla y matricular en el aula virtual.
-El cursado o la mesa arrancan el lunes con la lista cerrada. Si cae un feriado, el margen se
-corre hacia atrás.
+Hasta el miércoles los alumnos pueden darse de baja; el lunes la mesa o el cursado arrancan con
+la lista definitiva. Si cae un feriado, la ventana se corre hacia atrás y se mantienen los cinco
+días de inscripción y los dos de margen.
+
+**Ingresantes.** Se inscriben en la misma ventana que las materias (para 2027, del 04/03 al
+10/03) y se los matricula en el aula virtual en los mismos dos días hábiles. La jornada de
+ambientación y las clases inaugurales se superponen con las primeras semanas de dictado; las
+fechas exactas las define la Escuela y en el tablero son editables.
+
+**Ciclo lectivo.** El calendario 2026 fija el inicio del ciclo 2027 el 15/03/2027, que es la
+misma fecha que da la estimación.
 
 **Período de borrado.** El calendario 2026 lo extendía hasta 48 h antes del examen, lo que
 permitiría bajarse de la mesa hasta el sábado y abriría el acta ya cerrada. El Art. 27 del
@@ -158,8 +168,9 @@ predefinidas del bimestre nuevo y la barra del diagrama se corre sola.
 2. En **Settings → Pages**, elegir *Deploy from a branch*, rama `main`, carpeta `/ (root)`.
 3. A los pocos minutos queda en `https://<usuario>.github.io/<repositorio>/`.
 
-La página carga primero los datos que trae embebidos y después intenta leer `data.json`.
-Si el archivo está, manda `data.json`. Así se pueden corregir los datos sin tocar el HTML.
+`index.html` es autosuficiente: trae los datos adentro. **Para actualizar el sitio alcanza con
+reemplazar `index.html`**; `data.json` y este README quedan en el repositorio como documentación
+y como fuente para regenerar el HTML, pero la página no los lee.
 
 ## Cambiar los datos
 

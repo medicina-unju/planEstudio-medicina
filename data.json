@@ -1,4 +1,5 @@
 {
+ "ver": 3,
  "subjects": [
   {
    "anio": 1,
@@ -1782,80 +1783,7 @@
    "p": "RH III continúa RH II, que es de promoción. Pedirla regular asegura la secuencia y evita que quien no promocionó RH II quede afuera de RH III, que además es correlativa aprobada de 6.2."
   }
  ],
- "sugerencias": [
-  {
-   "code": "2.6",
-   "tipo": "Agregar",
-   "campo": "regular",
-   "valor": "2.3",
-   "t": "El ECI II necesita el diagnóstico de situación de salud",
-   "p": "Sus contenidos incluyen «el diagnóstico de situación de salud de pequeñas comunidades y grupos sociales», que es lo que desarrolla Salud Poblacional I. Hoy el ECI II solo pide 1.5 aprobada y el resto de 1.º año regular. Como 2.3 es bimestral del 1.º cuatrimestre, pedirla regular es cumplible."
-  },
-  {
-   "code": "3.4",
-   "tipo": "Agregar",
-   "campo": "regular",
-   "valor": "2.3",
-   "t": "Noxas y Defensas pide menos que sus pares del mismo año",
-   "p": "Es la única del 1.º cuatrimestre de 3.º que no exige 2.3: sus pares (3.1, 3.2 y 3.3) la piden aprobada. Sus contenidos incluyen «epidemiología de las enfermedades transmisibles» y «medidas preventivas», que son de Salud Poblacional I."
-  },
-  {
-   "code": "3.6",
-   "tipo": "Elevar",
-   "campo": "aprobada",
-   "valor": "2.3",
-   "t": "La continuidad directa de la línea poblacional pide menos que las clínicas",
-   "p": "Salud Poblacional II es la continuación de Salud Poblacional I y hoy solo la pide regular, mientras que 3.1, 3.2 y 3.3 exigen 2.3 aprobada. Conviene unificar: 2.3 aprobada y 2.4 regular."
-  },
-  {
-   "code": "4.3",
-   "tipo": "Unificar",
-   "campo": "aprobada",
-   "valor": "3.3",
-   "t": "Bases para el Diagnóstico II exige más que las materias troncales",
-   "p": "Pide 3.3 aprobada, mientras que Salud del Adulto I y Clínica Quirúrgica, que son las troncales del año, piden la misma materia solo regular. Si se mantiene, el estudiante tiene que rendir el final de una materia anual en el turno de febrero para poder cursar. Conviene unificar el criterio entre las tres."
-  },
-  {
-   "code": "5.1",
-   "tipo": "Agregar",
-   "campo": "aprobada",
-   "valor": "3.2, 3.3",
-   "t": "Especialidades Médicas no exige ninguna materia aprobada",
-   "p": "Es la materia anual troncal de 5.º año, de 240 h y con promoción, y aborda la patología prevalente de cada especialidad con su etiopatogenia, fisiopatología y terapéutica. Hoy solo pide 4.1, 4.2 y 4.3 regulares. Razonable pedir Patología General y Bases para el Diagnóstico I aprobadas."
-  },
-  {
-   "code": "5.6",
-   "tipo": "Agregar",
-   "campo": "aprobada",
-   "valor": "4.1",
-   "t": "Salud del Adulto II no exige aprobada Salud del Adulto I",
-   "p": "Es la continuidad directa I → II y hoy solo pide 4.1 y 4.3 regulares. Como referencia, Salud del Adulto I sí exige 2.1 aprobada. Sus contenidos (paciente crítico, oncológico, cuidados paliativos, polifarmacia) suponen el adulto resuelto."
-  },
-  {
-   "code": "6.2",
-   "tipo": "Agregar",
-   "campo": "regular",
-   "valor": "5.2, 5.3, 5.6",
-   "t": "Salud Comunitaria se puede cursar sin tener regular Niñez ni Mujer",
-   "p": "Hoy pide 4.5 aprobada y 5.4 regular. Atiende «individuos, familias y comunidades» y los «problemas de salud prevalentes» de la medicina general, lo que supone la clínica de 5.º año cursada. Conviene exigir regulares las materias clínicas de 5.º."
-  },
-  {
-   "code": "5.7",
-   "tipo": "Cambiar",
-   "campo": "regular",
-   "valor": "4.5 → 3.6",
-   "t": "Investigación en Ciencias de la Salud se apoya más en Epidemiología que en RH III",
-   "p": "Hoy pide 2.4 aprobada y 4.5 regular. De RH III comparte un solo tema (la comunicación en la investigación clínica). En cambio sus contenidos (estudios epidemiológicos, clínicos y de servicios de salud; bioestadística; validez y confiabilidad de pruebas diagnósticas) son la continuación directa de Salud Poblacional II: Epidemiología (investigación epidemiológica, epidemiología clínica). Se propone cambiar la regular 4.5 por 3.6, o al menos agregar 3.6."
-  },
-  {
-   "code": "6.5",
-   "tipo": "Reformular",
-   "campo": "aprobada",
-   "valor": "Todas regularizadas",
-   "t": "«Todo aprobado» bloquea el propio diseño del 6.º año",
-   "p": "Con esa exigencia, el Practicantado no puede convivir con 6.1 a 6.4 del mismo año. Se propuso resolverlo permitiendo inscribirse con todas regularizadas, y exigiendo todas aprobadas recién antes de rendir el final de la PFO. IMPORTANTE: no encontramos en el Reglamento Académico (Res. C.S. 066-22) un artículo general que habilite esto; ver el punto de Revisión sobre el régimen de cursada antes de llevar esta redacción a la comisión."
-  }
- ],
+ "sugerencias": [],
  "inconsistencias": [
   {
    "t": "No encontramos el régimen de cursada que permitiría esta salida para el Practicantado",
