@@ -525,7 +525,7 @@ function apply(j){
   if(j.insc&&typeof j.insc==='object') state.insc=j.insc;
   if(j.cal&&typeof j.cal==='object') state.cal=j.cal;
   if(Number.isInteger(j.ciclo)&&j.ciclo>2000&&j.ciclo<2100) state.ciclo=j.ciclo;
-  // Ya no hay escenario «Propuesta» separado: lo que no es la planilla es «Mi propuesta».
+  // Hay dos escenarios: «Planilla actual» (fija) y «Propuesta» (editable).
   if(j.esc==='base') state.esc='base'; else if(j.esc) state.esc='mia';
   if(TABKEYS.includes(j.tab)) state.tab=j.tab;
 }
@@ -548,7 +548,7 @@ function descartarEdicion(){ if(previo){ try{ apply(JSON.parse(previo)); }catch(
 const snapshot = () => ({v:4,years:[...state.years],per:[...state.per],overrides:state.overrides,bim:state.bim,fechas:state.fechas,insc:state.insc,cal:state.cal,ciclo:state.ciclo,esc:state.esc,tab:state.tab});
 // ---------- capa de cambios propios ----------
 // «Planilla actual» y «Propuesta» son fijas. Todo lo que se mueve a mano vive en una capa aparte
-// (bim, overrides, fechas) que solo se aplica en «Mi propuesta». Así la propuesta original
+// (bim, overrides, fechas) que solo se aplica en «Propuesta». Así la propuesta original
 // siempre queda a mano para comparar, y cada cambio se puede deshacer.
 const VACIA={bim:{},overrides:{},fechas:{}};
 const lay=()=>state.esc==='mia'?state:VACIA;
@@ -560,7 +560,7 @@ let hist=[];
 try{ hist=JSON.parse(localStorage.getItem(LSH)||'[]'); if(!Array.isArray(hist)) hist=[]; }catch(e){ hist=[]; }
 const capa=()=>JSON.stringify({bim:state.bim,overrides:state.overrides,fechas:state.fechas});
 function guardarHist(){ try{ localStorage.setItem(LSH,JSON.stringify(hist)); }catch(e){} }
-// Toda modificación pasa por acá: guarda el estado anterior y cambia a «Mi propuesta».
+// Toda modificación pasa por acá: guarda el estado anterior y cambia a «Propuesta».
 function editar(fn){
   const antes=capa(); fn();
   if(capa()!==antes){ hist.push(antes); if(hist.length>60) hist.shift(); guardarHist(); state.esc='mia'; }
@@ -671,11 +671,13 @@ function calBase(y){
 const CALEDIT = ['c1','c2','rec','b1','b2','b3','b4'];
 let _calk=null, _cal=null;
 function CAL(){
-  const key=state.ciclo+'|'+JSON.stringify(state.cal||{});
+  const key=state.ciclo+'|'+JSON.stringify(state.cal||{})+'|'+JSON.stringify(state.insc||{})+'|'+(state.margen||2);
   if(_calk===key) return _cal;
   const y=state.ciclo, b=calBase(y), o=state.cal||{}, P={};
   CALEDIT.forEach(k=>P[k]=Object.assign({},b[k],o[k]||{}));
-  const c1=dOf(P.c1.ini), c2=dOf(P.c2.ini);
+  // El 1.er bimestre empieza con el 1.º cuatrimestre y el 2.º termina con él; igual el 3.º y 4.º con el 2.º.
+  P.b1.ini=P.c1.ini; P.b2.fin=P.c1.fin; P.b3.ini=P.c2.ini; P.b4.fin=P.c2.fin;
+  const c1=lunDe(dOf(P.c1.ini)), c2=lunDe(dOf(P.c2.ini));   // los hitos y turnos se miden desde el lunes de esa semana
   const V=(base,w)=>isoOf(addDays(base,w*7+4));
   P.an={ini:P.c1.ini,fin:P.c2.fin};
   P.s1={ini:P.c1.ini,fin:V(c2,SEM.semFin)};
@@ -702,15 +704,25 @@ function CAL(){
     return {ini:isoOf(insd[0]),fin:isoOf(insd[insd.length-1]),
       pIni:isoOf(marg[0]),pFin:isoOf(marg[marg.length-1])};
   }
-  P.i1=ins(P.c1.ini); P.i2=ins(P.c2.ini);
+  // Los dos días hábiles siguientes al cierre de la inscripción (cierre de actas / aula virtual).
+  const sigHab=(iso,n)=>{ let x=dOf(iso), c=0, g=0; while(c<n&&g++<40){ x=addDays(x,1); if(esHabil(x)) c++; } return isoOf(x); };
+  const conOv=(q,ov)=>{ if(!ov||(!ov.d&&!ov.h)) return q; const fin=ov.h||q.fin;
+    return {ini:ov.d||q.ini,fin,pIni:sigHab(fin,1),pFin:sigHab(fin,MARGEN)}; };
+  const oIn=state.insc||{};
+  P.i1=conOv(ins(P.c1.ini),oIn[1]); P.i2=conOv(ins(P.c2.ini),oIn[2]);
   P.cb2=ins(P.b2.ini); P.cb4=ins(P.b4.ini);
   const oT=o.tur||{};
-  P.turnos=TURNOS.map(([w,nom],i)=>{ const ex=addDays(c1,w*7), q=ins(isoOf(ex)), ov=oT[i+1]||{};
-    return {n:i+1,nombre:nom,exIni:ov.exIni||isoOf(ex),exFin:ov.exFin||isoOf(addDays(ex,4)),
-      insIni:ov.insIni||q.ini,insFin:ov.insFin||q.fin,actIni:q.pIni,actFin:q.pFin}; });
+  P.turnos=TURNOS.map(([w,nom],i)=>{ const ov=oT[i+1]||{}, exB=addDays(c1,w*7), exIni=ov.exIni||isoOf(exB);
+    // La ventana se arma sobre el examen vigente; el cierre de actas, sobre el último día de inscripción vigente.
+    const q=ins(exIni), insIni=ov.insIni||q.ini, insFin=ov.insFin||q.fin;
+    return {n:i+1,nombre:nom,exIni,exFin:ov.exFin||isoOf(addDays(lunDe(dOf(exIni)),4)),
+      insIni,insFin,actIni:sigHab(insFin,1),actFin:sigHab(insFin,MARGEN)}; });
   const oH=o.hit||{}; P.hit={};
-  HITOS.forEach(([k,bl,base,lab,w1,d1,w2,d2])=>{ const B=lunDe(dOf(P[base].ini));
-    const a=isoOf(addDays(B,w1*7+d1-1)), z=w2==null?a:isoOf(addDays(B,w2*7+d2-1));
+  // Los que ocurren después del cierre del dictado (resultados, renuncia, jornada) siguen al fin del cuatrimestre;
+  // los demás, a su inicio. Con las fechas por defecto dan exactamente lo mismo.
+  const AL_FIN=new Set(['ren2','res1','rep1','res2','rep2','jor3']);
+  HITOS.forEach(([k,bl,base,lab,w1,d1,w2,d2])=>{ const fin=AL_FIN.has(k), B=lunDe(dOf(P[base][fin?'fin':'ini'])), dw=fin?SEM.cuatFin:0;
+    const a=isoOf(addDays(B,(w1-dw)*7+d1-1)), z=w2==null?a:isoOf(addDays(B,(w2-dw)*7+d2-1));
     P.hit[k]=Object.assign({ini:a,fin:z},oH[k]||{}); });
   // Ingresantes: se inscriben en la misma ventana que las materias y se matriculan en el aula
   // virtual en los mismos dos días hábiles. La ambientación y las clases inaugurales se superponen
@@ -729,10 +741,11 @@ function CAL(){
   const oI=o.ins||{}, oR=o.res||{};
   P.periodos=PERIODOS.filter(([k])=>P[k]).map(([k,nombre])=>{
     const pe=P[k], enC1=pe.ini<P.c2.ini;
-    const insB=enC1?P.i1:P.i2, carga=ins(pe.ini), res=Object.assign(resDe(pe.fin),oR[k]||{});
+    const insB=enC1?P.i1:P.i2, carga=ins(pe.ini), rk=pe.fin===P.c1.fin?'res1':pe.fin===P.c2.fin?'res2':null,
+      res=Object.assign(resDe(pe.fin),rk?{}:(oR[k]||{}));
     const insc={ini:insB.ini,fin:insB.fin};   // una sola inscripción por cuatrimestre
     const tu=k==='pfo'?null:(P.turnos.find(x=>x.insIni>res.fin)||P.turnos[P.turnos.length-1]);
-    return {k,nombre,cu:enC1?1:2,ini:pe.ini,fin:pe.fin,insc,carga:{ini:carga.pIni,fin:carga.pFin},res,turno:tu};
+    return {k,nombre,cu:enC1?1:2,ini:pe.ini,fin:pe.fin,insc,carga:{ini:carga.pIni,fin:carga.pFin},res,rk,turno:tu};
   });
   P.fer=todosFer.filter(f=>f.f>=P.i1.ini&&f.f<=P.turnos[P.turnos.length-1].exFin);
   P.ferSet=ferSet;
@@ -839,7 +852,7 @@ const pad=n=>String(n).padStart(2,'0');
 const lastDay=(y,m)=>new Date(y,m,0).getDate();
 const iso=(y,m,d)=>`${y}-${pad(m)}-${pad(d)}`;
 // Semanas reales de reinscripción/inscripción del Calendario Académico 2026 (Res. CAESS 06/2026).
-function inscOf(k){ const b=CAL()['i'+k], o=state.insc[k]||{}; return {d:o.d||b.ini, h:o.h||b.fin, pd:b.pIni, ph:b.pFin}; }
+function inscOf(k){ const b=CAL()['i'+k]; return {d:b.ini, h:b.fin, pd:b.pIni, ph:b.pFin}; }
 // Las fechas de cada materia salen del calendario del ciclo, según el período que le toca.
 function ventanaDe(w){
   const P=CAL(), k=perKeyW(w), p=k?P[k]:null;
@@ -896,9 +909,9 @@ function renderScen(){
   const n=nCambios();
   const d = state.esc==='mia'
     ? (n?`Una bimestral por bimestre en 3.º, 4.º y 5.º año, con tus ${n} ${n===1?'cambio':'cambios'} encima (marcados «tu cambio»).`:'Ubica una bimestral por bimestre en 3.º, 4.º y 5.º año, sin paralelismo, y pone el Practicantado de agosto a junio del año siguiente. Lo que muevas queda guardado acá.')
-    : 'Toma la planilla tal cual está: las bimestrales al final de su cuatrimestre y el Practicantado dentro del año calendario. No se modifica: si movés algo, pasa a «Mi propuesta».';
+    : 'Toma la planilla tal cual está: las bimestrales al final de su cuatrimestre y el Practicantado dentro del año calendario. No se modifica: si movés algo, pasa a «Propuesta».';
   const kids=[h('span',{class:'t',text:'Escenario'}),
-    h('div',{class:'seg'}, ...[['base','Planilla actual'],['mia','Mi propuesta'+(n?` (${n})`:'')]].map(([k,l])=>
+    h('div',{class:'seg'}, ...[['base','Planilla actual'],['mia','Propuesta'+(n?` (${n})`:'')]].map(([k,l])=>
       h('button',{type:'button','aria-pressed':state.esc===k?'true':'false',onclick:()=>{state.esc=k;persist();render()},text:l}))),
     h('span',{class:'d',text:d})];
   const acc=h('div',{class:'scen-acc'});
@@ -910,8 +923,8 @@ function renderScen(){
     acc.append(h('button',{class:'btn',type:'button',onclick:descartarEdicion,title:'Vuelve a como estaba cuando tocaste Editar',text:'Descartar'}));
     acc.append(h('button',{class:'btn primary',type:'button',onclick:guardarEdicion,text:'✓ Guardar cambios'}));
   } else {
-    const bc=h('button',{class:'btn',type:'button',title:'Descarga un archivo con tu propuesta y tus fechas, para otra computadora o para el equipo',text:'Guardar copia'});
-    bc.addEventListener('click',()=>save(`mi-propuesta-medicina-${new Date().toISOString().slice(0,10)}.json`,
+    const bc=h('button',{class:'btn',type:'button',title:'Descarga un archivo con la propuesta y las fechas, para otra computadora o para el equipo',text:'Guardar copia'});
+    bc.addEventListener('click',()=>save(`propuesta-medicina-${new Date().toISOString().slice(0,10)}.json`,
       JSON.stringify({version:4,guardado:new Date().toISOString(),estado:snapshot()},null,1),bc));
     acc.append(bc);
     acc.append(h('button',{class:'btn',type:'button',onclick:()=>imprimir(),title:'Versión completa para imprimir o guardar como PDF',text:'Imprimir todo'}));
@@ -1198,7 +1211,7 @@ function moveBim(code,k){
     delete state.overrides[code]; delete state.fechas[code]; });
 }
 // ---------- impresión ----------
-const ESCN={base:'Planilla actual',prop:'Mi propuesta',mia:'Mi propuesta'};
+const ESCN={base:'Planilla actual',prop:'Propuesta',mia:'Propuesta'};
 function armarImpresion(modo){
   modo=modo||'todo'; const ed0=editando; editando=false; syncCorr();
   let box=document.getElementById('print');
@@ -1259,7 +1272,7 @@ function imprimir(modo,ori){
 
 // ---------- Plan ----------
 // Plan de estudios con el mismo formato de la planilla de correlativas (Excel), pero tomando la
-// ubicación del escenario que se está viendo: en «Mi propuesta» refleja cada cambio guardado.
+// ubicación del escenario que se está viendo: en «Propuesta» refleja cada cambio guardado.
 const cuatIni = w => w.ini<=7?1:2;
 function tablaPlan(list,imp){
   const ACR = s => s.regimen==='Promoción'?'Promoción':'Ex. Final';
@@ -1311,7 +1324,7 @@ function renderPlan(){
       h('button',{class:'btn primary',type:'button',onclick:()=>imprimir('plan','h'),text:'Horizontal'})));
   return h('div',null,bar,
     h('p',{class:'sub',style:'margin:0 0 10px',text:state.esc==='mia'
-      ?'Plan de estudios según «Mi propuesta»: cuatrimestre y bimestre salen de tu propuesta guardada. En amarillo, lo que cambia respecto de la planilla original (pasá el mouse para ver el valor original).'
+      ?'Plan de estudios según «Propuesta»: cuatrimestre y bimestre salen de la propuesta guardada. En amarillo, lo que cambia respecto de la planilla original (pasá el mouse para ver el valor original).'
       :'Plan de estudios tal como está en la planilla original.'}),
     h('div',{class:'tbl-wrap'},tablaPlan(list)),
     h('div',{class:'legend'},h('span',{class:'lg',text:'Duración: A anual · S semestral · C cuatrimestral · T trimestral · B bimestral. CF: FBC formación básica y clínica · FO formación optativa · PFO práctica final obligatoria. S/C: sin correlativas.'})));
@@ -1436,9 +1449,27 @@ function rangoDias(ini,fin){
   return (n<=2?`${a} y ${b}`:`${a} a ${b}`).replace(/^./,c=>c.toUpperCase());
 }
 // ---------- edición de fechas del calendario ----------
-function setCalK(k,f,v){ if(!v) return; state.cal=Object.assign({},state.cal); state.cal[k]=Object.assign({},state.cal[k],{[f]:v}); persist(); render(); }
+// Día hábil anterior o posterior a una fecha (sin fines de semana ni feriados).
+function habDesde(iso,dir){ const F=CAL().ferSet; let x=dOf(iso), g=0;
+  do{ x=addDays(x,dir); }while((x.getDay()===0||x.getDay()===6||F.has(isoOf(x)))&&g++<20);
+  return isoOf(x); }
+// Cada fecha que figura en más de un lugar se guarda una sola vez: al editarla en cualquiera, cambia en todos.
+function setCalK(k,f,v){ if(!v) return;
+  const ATA={'b1.ini':['c1','ini'],'b2.fin':['c1','fin'],'b3.ini':['c2','ini'],'b4.fin':['c2','fin']};
+  const a=ATA[k+'.'+f]; if(a){ k=a[0]; f=a[1]; }
+  const sets=[[k,f,v]];
+  if(k==='b1'&&f==='fin') sets.push(['b2','ini',habDesde(v,1)]);        // el 2.º bimestre empieza el día hábil siguiente
+  if(k==='b2'&&f==='ini') sets.push(['b1','fin',habDesde(v,-1)]);
+  if(k==='b3'&&f==='fin') sets.push(['b4','ini',habDesde(v,1)]);
+  if(k==='b4'&&f==='ini') sets.push(['b3','fin',habDesde(v,-1)]);
+  state.cal=Object.assign({},state.cal);
+  sets.forEach(([kk,ff,vv])=>{ state.cal[kk]=Object.assign({},state.cal[kk],{[ff]:vv}); });
+  persist(); render(); }
 function setCalSub(g,k,f,v){ if(!v) return; state.cal=Object.assign({},state.cal); const s=Object.assign({},state.cal[g]);
-  s[k]=Object.assign({},s[k],{[f]:v}); state.cal[g]=s; persist(); render(); }
+  const nuevo=Object.assign({},s[k],{[f]:v});
+  // Si se mueve la semana de examen, la inscripción y el cierre de actas del turno se recalculan sobre ella.
+  if(g==='tur'&&f==='exIni'){ delete nuevo.insIni; delete nuevo.insFin; delete nuevo.exFin; }
+  s[k]=nuevo; state.cal[g]=s; persist(); render(); }
 function setInsc(k,f,v){ if(!v) return; state.insc=Object.assign({},state.insc); state.insc[k]=Object.assign({},state.insc[k],{[f]:v}); persist(); render(); }
 const dm = x => { const p=String(x).split('-'); return p.length===3?`${p[2]}/${p[1]}`:x; };
 const dsm = x => diaSem(x).slice(0,3);
@@ -1478,7 +1509,7 @@ function docCal(){
     hit('ing'),
     bar(`PRIMER CUATRIMESTRE ${y} (${sem('c1')} SEMANAS)`),
     it('REINSCRIPCIÓN ANUAL (1.º PERÍODO) E INSCRIPCIÓN POR MATERIAS DEL 1.º CUATRIMESTRE',i1.d,i1.h,v=>setInsc(1,'d',v),v=>setInsc(1,'h',v),
-      'Cinco días hábiles: jueves y viernes de dos semanas antes y lunes a miércoles de la anterior. Comprende las materias anuales, semestrales, cuatrimestrales y bimestrales del 1.º cuatrimestre.'),
+      'Cinco días hábiles seguidos, anteriores al cierre de inscripción. Comprende las materias anuales, semestrales, cuatrimestrales y bimestrales del 1.º cuatrimestre.'),
     it('CIERRE DE INSCRIPCIÓN, PROCESAMIENTO Y MATRICULACIÓN EN EL AULA VIRTUAL',i1.pd,i1.ph,null,null,
       'Dos días hábiles sin inscripción para descargar la lista definitiva, procesarla y matricular en el aula virtual a los ingresantes y a los inscriptos por materias.'),
     lin('INICIO DE CUATRIMESTRE',P.c1.ini,v=>setCalK('c1','ini',v)),
@@ -1494,7 +1525,7 @@ function docCal(){
   const bloque2=[
     bar(`SEGUNDO CUATRIMESTRE ${y} (${sem('c2')} SEMANAS)`),
     it('REINSCRIPCIÓN ANUAL (2.º PERÍODO) E INSCRIPCIÓN POR MATERIAS DEL 2.º CUATRIMESTRE',i2.d,i2.h,v=>setInsc(2,'d',v),v=>setInsc(2,'h',v),
-      'Cinco días hábiles, con el mismo corrimiento. Comprende las materias cuatrimestrales y bimestrales del 2.º cuatrimestre.'),
+      'Cinco días hábiles seguidos, anteriores al cierre de inscripción. Comprende las materias cuatrimestrales y bimestrales del 2.º cuatrimestre.'),
     it('CIERRE DE INSCRIPCIÓN, PROCESAMIENTO Y MATRICULACIÓN EN EL AULA VIRTUAL',i2.pd,i2.ph,null,null),
     lin('INICIO DE CUATRIMESTRE',P.c2.ini,v=>setCalK('c2','ini',v)),
     lin('FINALIZACIÓN DE CUATRIMESTRE',P.c2.fin,v=>setCalK('c2','fin',v)),
@@ -1548,7 +1579,8 @@ function tablaSIU(){
         h('div',{class:'mini',text:`Una sola inscripción para todo el bloque, cinco días hábiles. Proceso y aula virtual: ${dsm(i.pd)} ${dm(i.pd)} y ${dsm(i.ph)} ${dm(i.ph)}.`})):null,
       h('td',{class:'c2'},fRango(p.ini,p.fin,editable[p.k]?v=>setCalK(p.k,'ini',v):null,editable[p.k]?v=>setCalK(p.k,'fin',v):null),
         p.carga.ini!==i.pd?h('div',{class:'mini',text:`Aula virtual: ${dsm(p.carga.ini)} ${dm(p.carga.ini)} y ${dsm(p.carga.fin)} ${dm(p.carga.fin)}`}):null),
-      h('td',{class:'c3'},fRango(p.res.ini,p.res.fin,v=>setCalSub('res',p.k,'ini',v),v=>setCalSub('res',p.k,'fin',v))),
+      h('td',{class:'c3'},p.rk?fRango(p.res.ini,p.res.fin,v=>setCalSub('hit',p.rk,'ini',v),v=>setCalSub('hit',p.rk,'fin',v))
+        :fRango(p.res.ini,p.res.fin,v=>setCalSub('res',p.k,'ini',v),v=>setCalSub('res',p.k,'fin',v))),
       p.turno?h('td',{class:'c4 tn'},h('div',{class:'tnum',text:`${p.turno.n}.º turno`}),h('div',{class:'mini',text:p.turno.nombre})):
         h('td',{class:'c4',colspan:'3'},h('div',{class:'mini',text:'Examen final integrador: lo reglamenta la Escuela Superior de Salud (apartado 9 de la Res. C.S. 093-25).'})),
       p.turno?h('td',{class:'c5'},fRango(p.turno.insIni,p.turno.insFin,v=>setCalSub('tur',p.turno.n,'insIni',v),v=>setCalSub('tur',p.turno.n,'insFin',v)),
@@ -1559,8 +1591,39 @@ function tablaSIU(){
     h('thead',null,
       h('tr',null,h('th',{rowspan:'2',text:'Período lectivo'}),h('th',{text:'1 · Inscripción a materias'}),h('th',{text:'2 · Período lectivo'}),
         h('th',{text:'3 · Carga de resultados de cursada'}),h('th',{text:'4 · Turno'}),h('th',{text:'5 · Inscripción a mesa'}),h('th',{text:'6 · Mesa de examen'})),
-      h('tr',null,...['5 días hábiles, jue a mié','Inicio y fin del dictado','Docentes cargan y cierran el acta','Primer turno al que llegan','5 días hábiles, jue a mié','Semana de examen'].map(x=>h('th',{class:'sub',text:x})))),
+      h('tr',null,...['5 días hábiles','Inicio y fin del dictado','Docentes cargan y cierran el acta','Primer turno al que llegan','5 días hábiles','Semana de examen'].map(x=>h('th',{class:'sub',text:x})))),
     tb);
+}
+// Control de coherencia: solo fechas. Devuelve lo que se contradice (vacío si todo cierra).
+function controlFechas(){
+  const P=CAL(), m=new Set(), f=x=>`${dsm(x)} ${dm(x)}`;
+  const ck=(ok,t)=>{ if(!ok) m.add(t); };
+  [[1,inscOf(1),P.c1],[2,inscOf(2),P.c2]].forEach(([cu,i,c])=>{
+    ck(i.d<=i.h,`${cu}.º cuatrimestre: la inscripción a materias termina (${f(i.h)}) antes de empezar (${f(i.d)}).`);
+    ck(i.ph<c.ini,`${cu}.º cuatrimestre: el cierre y la matriculación en el aula virtual llegan hasta el ${f(i.ph)}, y el dictado empieza el ${f(c.ini)}.`);
+    ck(c.ini<=c.fin,`${cu}.º cuatrimestre: termina (${f(c.fin)}) antes de empezar (${f(c.ini)}).`); });
+  ck(P.c1.fin<P.c2.ini,`El 1.º cuatrimestre termina (${f(P.c1.fin)}) después del inicio del 2.º (${f(P.c2.ini)}).`);
+  ck(P.rec.ini>P.c1.fin&&P.rec.fin<P.c2.ini,`El receso de invierno (${f(P.rec.ini)} al ${f(P.rec.fin)}) tiene que quedar entre los dos cuatrimestres.`);
+  ck(P.b1.ini<=P.b1.fin&&P.b1.fin<P.b2.ini&&P.b2.ini<=P.b2.fin,'1.er y 2.º bimestre: las fechas se superponen o están desordenadas.');
+  ck(P.b3.ini<=P.b3.fin&&P.b3.fin<P.b4.ini&&P.b4.ini<=P.b4.fin,'3.er y 4.º bimestre: las fechas se superponen o están desordenadas.');
+  P.turnos.forEach((t,j)=>{ const a=`${t.n}.º turno (${t.nombre})`;
+    ck(t.insIni<=t.insFin,`${a}: la inscripción termina antes de empezar.`);
+    ck(t.insFin<t.actIni,`${a}: el cierre de actas no puede empezar antes de que termine la inscripción.`);
+    ck(t.actFin<t.exIni,`${a}: el cierre de actas (hasta ${f(t.actFin)}) llega a la semana de examen (${f(t.exIni)}).`);
+    ck(t.exIni<=t.exFin,`${a}: la semana de examen termina antes de empezar.`);
+    if(j) ck(P.turnos[j-1].exFin<t.insIni,`${a}: la inscripción empieza (${f(t.insIni)}) antes de terminar el turno anterior (${f(P.turnos[j-1].exFin)}).`); });
+  const usados=new Set(S.map(x=>perKeyW(win(x))).filter(Boolean));
+  P.periodos.filter(p=>PERFIJO.has(p.k)||usados.has(p.k)).forEach(p=>{
+    ck(p.res.ini>p.fin,`${p.nombre}: la carga de resultados (${f(p.res.ini)}) empieza antes de que termine el dictado (${f(p.fin)}).`);
+    ck(p.res.ini<=p.res.fin,`${p.nombre}: la carga de resultados termina antes de empezar.`);
+    if(p.turno) ck(p.turno.insIni>p.res.fin,`${p.nombre}: el ${p.turno.n}.º turno abre su inscripción (${f(p.turno.insIni)}) antes de cerrar la carga de resultados (${f(p.res.fin)}).`); });
+  return [...m];
+}
+function cartelFechas(){
+  const m=controlFechas();
+  return m.length?h('div',{class:'note warn',style:'margin-bottom:10px'},h('b',{text:'Fechas que no son coherentes entre sí'}),
+      h('ul',{style:'margin:6px 0 0 18px;padding:0'},...m.map(x=>h('li',{text:x}))))
+    :h('div',{class:'note good',style:'margin-bottom:10px',text:'Control de fechas: todas las fechas son coherentes entre sí. Al cambiar una, se recalculan las que dependen de ella en el SIU, el calendario, el plan y los PDF.'});
 }
 function renderCalendario(){
   const y=state.ciclo, tocado=Object.keys(state.cal||{}).length||Object.keys(state.insc||{}).length;
@@ -1577,7 +1640,7 @@ function renderCalendario(){
       h('button',{class:'btn primary',type:'button',onclick:()=>imprimir('cal'),text:'Imprimir calendario (PDF)'}))));
   const siu=h('div',{class:'card pad'},h('h2',{text:'Períodos lectivos para cargar en SIU Guaraní'}),
     h('p',{class:'sub',text:'Una fila por período, en el orden en que pasa cada cosa: los alumnos se inscriben, se dicta, los docentes cargan el acta de cursada y, con el acta cerrada, los alumnos se inscriben al primer turno de examen que les queda.'}),
-    h('div',{class:'ov'},tablaSIU()));
+    cartelFechas(),h('div',{class:'ov'},tablaSIU()));
   return h('div',{class:'stack'},cab,siu,h('div',{class:'card pad doc-card'},docCal()));
 }
 
@@ -1750,7 +1813,7 @@ function dlSvg(btn){
   save(`secuencia-medicina-${state.esc}.svg`,new XMLSerializer().serializeToString(r.node),btn);
 }
 // ---------- render ----------
-// En «Mi propuesta» rigen las correlativas modificadas; en «Planilla actual», las originales.
+// En «Propuesta» rigen las correlativas modificadas; en «Planilla actual», las originales.
 function syncCorr(){ const prop=state.esc!=='base';
   S.forEach(s=>{ s.apr=(prop&&s.aprP)?s.aprP:s.apr0; s.reg=(prop&&s.regP)?s.regP:s.reg0; }); rels(); }
 const corrCambio = code => state.esc!=='base' ? (D.corrCambios||[]).filter(x=>x.code===code) : [];

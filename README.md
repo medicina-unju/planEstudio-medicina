@@ -10,7 +10,7 @@ Es una sola página, sin backend ni instalación. Se puede publicar en GitHub Pa
 | Pestaña | Para qué sirve |
 | --- | --- |
 | Secuencia | Diagrama mes a mes, filtrable por año y por período con casillas (1.º cuatrimestre: anuales, cuatrimestrales, 1.er y 2.º bimestre, semestrales; 2.º cuatrimestre: cuatrimestrales, 3.er y 4.º bimestre, anuales, semestrales y Práctica Final; anuales y semestrales figuran en los dos porque se inscriben en marzo y cierran el acta en el 2.º). Abajo, el seguimiento de actas por turno, del 1.º al 8.º: en cada turno, qué materias llegan por primera vez y cuándo cierra su acta de cursada. |
-| Plan completo | El plan con el mismo formato de la planilla de correlativas (Excel). En «Mi propuesta» toma el cuatrimestre y el bimestre de la propuesta guardada y resalta en amarillo lo que cambia respecto de la planilla. Se imprime en PDF. |
+| Plan completo | El plan con el mismo formato de la planilla de correlativas (Excel). En «Propuesta» toma el cuatrimestre y el bimestre de la propuesta guardada y resalta en amarillo lo que cambia respecto de la planilla. Se imprime en PDF. |
 | Correlativas | Mapa de dependencias. Al elegir una materia marca de qué depende y qué habilita. |
 | Horas | Horas por año según campo de formación, régimen de acreditación o teórica/práctica. |
 | Calendario | Tabla de períodos lectivos para SIU Guaraní y el calendario académico con el formato de la resolución oficial (Anexo Único). Se imprime en PDF. |
@@ -18,12 +18,12 @@ Es una sola página, sin backend ni instalación. Se puede publicar en GitHub Pa
 ## Los dos escenarios
 
 - **Planilla actual**: la planilla de correlativas tal cual está.
-- **Mi propuesta**: una bimestral por bimestre en 3.º, 4.º y 5.º año, el Practicantado de agosto
+- **Propuesta**: una bimestral por bimestre en 3.º, 4.º y 5.º año, el Practicantado de agosto
   a junio del año siguiente, y encima los cambios que haga cada persona (cambiar el bimestre o
   las fechas de una materia). Las materias que movió quedan marcadas «tu cambio».
 
 «Planilla actual» no cambia nunca: si se mueve algo estando ahí, el tablero pasa solo a
-«Mi propuesta».
+«Propuesta».
 
 ## Copia de seguridad
 
@@ -46,7 +46,7 @@ diferencia con la planilla actual; «tu cambio», una diferencia con la propuest
 
 ## Correlativas modificadas en la propuesta
 
-En «Mi propuesta» rigen estas correlativas (la planilla original no se toca; en el plan se ven
+En «Propuesta» rigen estas correlativas (la planilla original no se toca; en el plan se ven
 en amarillo, con el valor original al pasar el mouse):
 
 | Espacio | Planilla | Propuesta | Motivo |
@@ -92,9 +92,26 @@ Tiene dos partes:
 
 En modo edición todas las fechas son editables, y lo que depende de ellas se recalcula.
 
+**Coherencia de fechas.** Cada fecha se guarda una sola vez, así que se ve igual en el cuadro de
+SIU, en el calendario con formato de resolución, en el plan y en los PDF. Al cambiar una se
+mueven las que dependen de ella:
+
+- El inicio del 1.er bimestre es el inicio del 1.º cuatrimestre, y el fin del 2.º bimestre es el
+  fin del cuatrimestre (lo mismo para el 3.º y el 4.º con el 2.º cuatrimestre). Si se corre el fin
+  de un bimestre, el siguiente empieza el día hábil posterior.
+- Al cambiar el último día de inscripción a materias, los dos días de cierre y aula virtual se
+  corren con él, y la inscripción de ingresantes acompaña a la inscripción a materias.
+- Al mover la semana de examen de un turno, su inscripción y su cierre de actas se recalculan
+  sobre ella; al cambiar el fin de su inscripción, el cierre de actas se corre a los dos días
+  hábiles siguientes.
+- Al cambiar el fin de un cuatrimestre se corren la planilla de resultados, la renuncia de
+  regularidad y las jornadas posteriores, y cada período vuelve a enlazarse con el primer turno
+  al que llega. La planilla de resultados que comparten varios períodos se edita en un solo lugar.
+- Un cuadro de **control de fechas** arriba del SIU avisa si alguna fecha cargada a mano contradice
+  a otra (por ejemplo, un cierre de actas que llega a la semana de examen).
+
 **Regla administrativa** (definida por la coordinación): la inscripción, a materias y a
-exámenes, dura **cinco días hábiles corridos** —jueves y viernes de dos semanas antes, y lunes a
-miércoles de la anterior— y deja libres los **dos días hábiles siguientes** (jueves y viernes)
+exámenes, dura **cinco días hábiles corridos** —por defecto, de jueves a miércoles— y deja libres los **dos días hábiles siguientes** (por defecto, jueves y viernes)
 para cerrar el acta, descargar la lista definitiva, procesarla y matricular en el aula virtual.
 Hasta el miércoles los alumnos pueden darse de baja; el lunes la mesa o el cursado arrancan con
 la lista definitiva. Si cae un feriado, la ventana se corre hacia atrás y se mantienen los cinco
@@ -147,7 +164,7 @@ La **propuesta** ubica una por bimestre, sin paralelismo, como si las bimestrale
 formaran un anual en cuatro tramos. Para elegir el bimestre se miró:
 
 - **Correlativas**: cuándo termina la materia previa y cuántos turnos de examen quedan antes
-  de la semana de inscripción (09-13/03 para el 1.er cuatrimestre, 03-07/08 para el 2.º).
+  de la ventana de inscripción (04-10/03 para el 1.er cuatrimestre, 28/07-03/08 para el 2.º).
 - **Turnos de examen**: cada bimestre rinde en un turno distinto (junio, julio, octubre y
   diciembre), así que una por bimestre reparte los finales.
 - **Carga mensual** del resto del año y afinidad de contenidos (Res. C.S. N.º 093-25).
