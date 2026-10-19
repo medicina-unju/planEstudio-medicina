@@ -35,6 +35,13 @@ copia y los cambios de una no aparecen en la otra; lo mismo con otro navegador u
 computadora. Nada se borra: para llevar la propuesta de un lado al otro están «Guardar copia»
 (descarga un .json) y «Cargar copia».
 
+**Cambios manuales que esconden un período.** Un cambio cargado a mano manda sobre la propuesta.
+Si ese cambio mueve la única materia que ocupaba un período (por ejemplo, la trimestral), ese
+período deja de figurar en el cuadro de SIU y en el calendario. Arriba del cuadro aparece un
+aviso que lo dice y ofrece «Volver a la propuesta» para esa materia. Si una materia queda en
+fechas que no coinciden con ningún período, se lista aparte en el cuadro bajo «Sin período
+lectivo», así nunca queda invisible.
+
 Abajo de todo figura la **versión** del archivo (fecha y hora de compilación): sirve para
 confirmar que el navegador no está mostrando una copia vieja en caché.
 
