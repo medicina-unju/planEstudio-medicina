@@ -28,6 +28,16 @@ Es una sola página, sin backend ni instalación. Se puede publicar en GitHub Pa
 «Planilla actual» no cambia nunca: si se mueve algo estando ahí, el tablero pasa solo a
 «Propuesta».
 
+**Dónde se guarda la propuesta.** Lo que se ajusta en «Propuesta» (bimestres, fechas, texto del
+plan) se guarda en el navegador y en la dirección donde se abrió el tablero. El sitio de GitHub
+Pages y el artefacto de Claude son dos direcciones distintas, así que cada una tiene su propia
+copia y los cambios de una no aparecen en la otra; lo mismo con otro navegador u otra
+computadora. Nada se borra: para llevar la propuesta de un lado al otro están «Guardar copia»
+(descarga un .json) y «Cargar copia».
+
+Abajo de todo figura la **versión** del archivo (fecha y hora de compilación): sirve para
+confirmar que el navegador no está mostrando una copia vieja en caché.
+
 ## Copia de seguridad
 
 Lo que se cambia queda guardado en el navegador. Para llevarlo a otra computadora o pasárselo
