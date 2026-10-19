@@ -171,9 +171,9 @@ misma fecha que da la estimación.
 
 **Borrado y acta.** El Art. 27 del Reglamento (Res. C.S. N.º 066-22) deja el plazo de borrado al
 Calendario Académico. Criterio aplicado: el estudiante puede borrarse de la mesa hasta dos días
-hábiles antes de la fecha de examen (para un examen del lunes, hasta el jueves), y el acta se
-genera un día hábil antes del turno (el viernes), para compartirla con los docentes cerrada y
-visada. Ambas fechas se calculan desde el primer día de examen del turno, con feriados.
+hábiles antes de la fecha de examen (para un examen del lunes, hasta el jueves), y el acta
+volante se genera un día hábil antes del turno (el viernes), para que los docentes consulten la lista
+definitiva de estudiantes inscriptos. Ambas fechas se calculan desde el primer día de examen del turno, con feriados.
 
 **Planilla de resultados.** Para los cuatrimestres se toman las fechas del calendario oficial;
 para bimestres y semestral, la semana hábil siguiente a su cierre.
