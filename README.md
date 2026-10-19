@@ -146,14 +146,13 @@ mueven las que dependen de ella:
   de un bimestre, el siguiente empieza el día hábil posterior.
 - Al cambiar el último día de inscripción a materias, los dos días de cierre y aula virtual se
   corren con él, y la inscripción de ingresantes acompaña a la inscripción a materias.
-- Al mover la semana de examen de un turno, su inscripción y su cierre de actas se recalculan
-  sobre ella; al cambiar el fin de su inscripción, el cierre de actas se corre a los dos días
-  hábiles siguientes.
+- Al mover la semana de examen de un turno, su inscripción, el último día de borrado y la
+  generación del acta se recalculan sobre ella.
 - Al cambiar el fin de un cuatrimestre se corren la planilla de resultados, la renuncia de
   regularidad y las jornadas posteriores, y cada período vuelve a enlazarse con el primer turno
   al que llega. La planilla de resultados que comparten varios períodos se edita en un solo lugar.
 - Un cuadro de **control de fechas** arriba del SIU avisa si alguna fecha cargada a mano contradice
-  a otra (por ejemplo, un cierre de actas que llega a la semana de examen).
+  a otra (por ejemplo, una generación del acta que llega a la semana de examen).
 
 **Regla administrativa** (definida por la coordinación): la inscripción, a materias y a
 exámenes, dura **cinco días hábiles corridos** —por defecto, de jueves a miércoles— y deja libres los **dos días hábiles siguientes** (por defecto, jueves y viernes)
@@ -170,11 +169,11 @@ fechas exactas las define la Escuela y en el tablero son editables.
 **Ciclo lectivo.** El calendario 2026 fija el inicio del ciclo 2027 el 15/03/2027, que es la
 misma fecha que da la estimación.
 
-**Período de borrado.** El calendario 2026 lo extendía hasta 48 h antes del examen, lo que
-permitiría bajarse de la mesa hasta el sábado y abriría el acta ya cerrada. El Art. 27 del
-Reglamento (Res. C.S. N.º 066-22) deja ese plazo al Calendario Académico, así que en la
-estimación 2027 el borrado cierra con la inscripción. Es un cambio de criterio respecto de 2026
-que tiene que aprobar la comisión.
+**Borrado y acta.** El Art. 27 del Reglamento (Res. C.S. N.º 066-22) deja el plazo de borrado al
+Calendario Académico. Criterio aplicado: el estudiante puede borrarse de la mesa hasta dos días
+hábiles antes de la fecha de examen (para un examen del lunes, hasta el jueves), y el acta se
+genera un día hábil antes del turno (el viernes), para compartirla con los docentes cerrada y
+visada. Ambas fechas se calculan desde el primer día de examen del turno, con feriados.
 
 **Planilla de resultados.** Para los cuatrimestres se toman las fechas del calendario oficial;
 para bimestres y semestral, la semana hábil siguiente a su cierre.
