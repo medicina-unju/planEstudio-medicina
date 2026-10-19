@@ -572,8 +572,13 @@ const snapshot = () => ({v:4,years:[...state.years],per:[...state.per],plan:stat
 const VACIA={bim:{},overrides:{},fechas:{}};
 const lay=()=>state.esc==='mia'?state:VACIA;
 const defOf=s=>state.esc==='base'?s.base:s.prop;
-const nCambios=()=>new Set([...Object.keys(state.bim),...Object.keys(state.overrides),...Object.keys(state.fechas),...Object.keys(state.plan)]).size;
-const esTuyo=code=>state.esc==='mia'&&!!(state.bim[code]||state.overrides[code]||state.fechas[code]||state.plan[code]);
+// Si el archivo trae una propuesta oficial (window.__OFICIAL__), «cambio propio» es solo lo que se aparta de ella.
+const OFI=()=>window.__OFICIAL__||null;
+const difOf=(code,k,campo)=>{ const a=(state[k]||{})[code], o=OFI(); if(!o) return campo?(a&&a[campo]!=null):!!a;
+  const b=(o[k]||{})[code]; return campo?JSON.stringify(a&&a[campo]!=null?a[campo]:null)!==JSON.stringify(b&&b[campo]!=null?b[campo]:null):JSON.stringify(a||null)!==JSON.stringify(b||null); };
+const tocado=code=>['bim','overrides','fechas','plan'].some(k=>difOf(code,k));
+const nCambios=()=>{ const o=OFI()||{}; return new Set(['bim','overrides','fechas','plan'].flatMap(k=>[...Object.keys(state[k]||{}),...Object.keys(o[k]||{})]).filter(tocado)).size; };
+const esTuyo=code=>state.esc==='mia'&&tocado(code);
 const LSH=LS+'-hist';
 let hist=[];
 try{ hist=JSON.parse(localStorage.getItem(LSH)||'[]'); if(!Array.isArray(hist)) hist=[]; }catch(e){ hist=[]; }
@@ -1325,7 +1330,7 @@ function tablaPlan(list,imp){
   const ACR = s => s.regimen==='Promoción'?'Promoción':'Ex. Final';
   // Casilla de texto: en modo edición se escribe encima; si se tocó, queda resaltada y se puede devolver a como estaba.
   const cel=(s,campo,cls,txt,edTxt,tipPlanilla)=>{
-    const ov=planOv(s.codigo)[campo]!=null, dif=ov||!!tipPlanilla;
+    const ov=planOv(s.codigo)[campo]!=null, dif=OFI()&&state.esc==='mia'?difOf(s.codigo,'plan',campo):(ov||!!tipPlanilla);
     const prev=textoPrevio(s,campo);
     const title=ov?`Antes: ${prev||'—'}`:(tipPlanilla||null);
     if(!(editando&&!imp)) return h('td',{class:cls+(dif?' dif':''),title,text:txt});
@@ -1343,7 +1348,7 @@ function tablaPlan(list,imp){
     l.forEach((s,i)=>{
       const w=win(s), b=bimOf(s), cq=cuatIni(w), cqB=cuatIni(s.base);
       const kB=PERKEY[s.base.ini+'-'+s.base.fin], bB=(kB&&kB[0]==='b')?+kB[1]:null;
-      const difC=cq!==cqB, difB=s.dur==='B'&&b!==bB;
+      const oficial=!!OFI()&&state.esc==='mia', difC=!oficial&&cq!==cqB, difB=!oficial&&s.dur==='B'&&b!==bB;
       const sinC=!s.apr0.length&&!s.reg0.length&&!s.todoAprobado&&!s.segunReglamento;
       tb.append(h('tr',{class:'row'+(state.sel===s.codigo?' sel':''),onclick:imp?null:()=>sel(s.codigo)},
         i===0?h('td',{class:'anio',rowspan:String(l.length)},h('span',{text:`${ORD[y-1]} AÑO`})):null,
@@ -1356,9 +1361,9 @@ function tablaPlan(list,imp){
         cel(s,'cursado','cen',s.cursado),
         cel(s,'hs','cen n',fmt(s.hs),String(s.hs)),
         cel(s,'apr','cen',s.todoAprobado?'Todo aprobado':(s.apr.join(' - ')||(sinC?'':'—')),
-          s.todoAprobado?'Todo aprobado':s.apr.join(' - '),(()=>{ const d=s.apr.join()!==s.apr0.join(); return d?`Planilla: ${s.apr0.join(' - ')||'—'}`:null; })()),
+          s.todoAprobado?'Todo aprobado':s.apr.join(' - '),(()=>{ const d=s.apr.join()!==s.apr0.join(); return d&&!(OFI()&&state.esc==='mia')?`Planilla: ${s.apr0.join(' - ')||'—'}`:null; })()),
         cel(s,'reg','cen',s.segunReglamento?'Según reglamento':(s.reg.join(' - ')||(sinC?'S/C':'—')),
-          s.segunReglamento?'Según reglamento':s.reg.join(' - '),(()=>{ const d=s.reg.join()!==s.reg0.join(); return d?`Planilla: ${s.reg0.join(' - ')||'—'}`:null; })()),
+          s.segunReglamento?'Según reglamento':s.reg.join(' - '),(()=>{ const d=s.reg.join()!==s.reg0.join(); return d&&!(OFI()&&state.esc==='mia')?`Planilla: ${s.reg0.join(' - ')||'—'}`:null; })()),
         cel(s,'regimen','cen',ACR(s))));
     });
     const tot=S.filter(s=>s.anio===y).reduce((a,s)=>a+s.hs,0);
