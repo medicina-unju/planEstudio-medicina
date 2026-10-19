@@ -941,6 +941,8 @@ function renderTiles(){
     t(prom.length+' de '+S.length,'Con promoción','var(--y5)'));
 }
 function renderScen(){
+  const sc=document.getElementById('scen'); if(sc) sc.style.display=puedeEditar?'':'none';
+  if(!puedeEditar){ sc.replaceChildren(); return; }
   const n=nCambios();
   const d = state.esc==='mia'
     ? (n?`Una bimestral por bimestre en 3.º, 4.º y 5.º año, con tus ${n} ${n===1?'cambio':'cambios'} encima (marcados «tu cambio»).`:'Ubica una bimestral por bimestre en 3.º, 4.º y 5.º año, sin paralelismo, y pone el Practicantado de agosto a junio del año siguiente. Lo que muevas queda guardado acá.')
@@ -1288,6 +1290,8 @@ function armarImpresion(modo){
   if(modo==='cal'){ box.replaceChildren(h('section',{class:'pr-sec pr-doc'},docCal()),
       h('section',{class:'pr-sec pr-brk'},h('h2',{text:`Períodos lectivos para SIU Guaraní · ${state.ciclo}`}),tablaSIU()));
     editando=ed0; return; }
+  if(modo==='sec'){ box.replaceChildren(h('header',{class:'pr-head'},h('div',{class:'eyebrow',text:'Escuela Superior de Salud · UNJu · Carrera de Medicina'}),
+      h('h1',{text:'Secuencia de cursada — Medicina'}),h('p',{text:`Documento de trabajo, ${hoy}.`})),...secs); editando=ed0; return; }
   if(modo==='plan'){ box.replaceChildren(h('section',{class:'pr-sec pr-plan'},cabPlan,tablaPlan(S,true))); editando=ed0; return; }
   box.replaceChildren(
     h('header',{class:'pr-head'},h('div',{class:'eyebrow',text:'Escuela Superior de Salud · UNJu · Carrera de Medicina'}),
@@ -1973,7 +1977,7 @@ function render(){
   const main=document.getElementById('main');
   let v;
   if(state.tab==='calendario'&&!puedeEditar) state.tab='secuencia';
-  if(state.tab==='secuencia') v=h('div',null,ctrlSeq(),gantt(),puedeEditar?seguimiento():null);
+  if(state.tab==='secuencia') v=h('div',null,ctrlSeq(),puedeEditar?null:h('div',{style:'display:flex;justify-content:flex-end;gap:8px;align-items:center;margin:0 0 10px'},h('span',{class:'grp-l',text:'PDF'}),h('button',{class:'btn primary',type:'button',onclick:()=>imprimir('sec','h'),text:'Imprimir secuencia'})),gantt(),puedeEditar?seguimiento():null);
   else if(state.tab==='plan') v=renderPlan();
   else if(state.tab==='correlativas') v=renderGraph();
   else if(state.tab==='horas') v=renderHoras();
