@@ -209,6 +209,25 @@ aside.detail{min-width:0}
     box-shadow:0 -10px 34px rgba(0,0,0,.3);padding-bottom:env(safe-area-inset-bottom,0px);transform:translateY(106%);transition:transform .18s ease}
   aside.detail.open{transform:none}
 }
+@media (max-width:640px){
+  .g-inner{min-width:0;--cols:92px repeat(11,minmax(0,1fr))}
+  .g-label{padding:3px 5px}
+  .g-label .l1{gap:4px;flex-wrap:wrap}
+  .g-label .code{font-size:11px}
+  .g-label .nm{font-size:10.5px;white-space:normal;line-height:1.15;display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden;flex-basis:100%}
+  .g-label .l2,.g-label .tag{display:none}
+  .g-head>div{padding:3px 0;font-size:9px;gap:0;overflow:hidden;text-overflow:clip;white-space:nowrap;min-width:0}
+  .g-head .hl{padding-left:6px;font-size:10px}
+  .g-head>div .insc{display:none}
+  .sim-row>.sl{padding:3px 5px;font-size:10px}.sim-row>.sl small{display:none}
+  .sc-c .v{font-size:9px}
+  .seg-b{height:26px;margin:0 1px;padding:0 3px;justify-content:center;border-radius:5px}
+  .seg-b .sh,.seg-b .pl{display:none}
+  .seg-b .sc{font-size:10px}
+  .seg-b.cola::after{right:-9px}
+  .g-head.h2{display:none}
+  .g-head.h1>div{font-size:8.5px;letter-spacing:-.2px}
+}
 @media (prefers-reduced-motion:reduce){aside.detail{transition:none}}
 .dp-top{display:flex;gap:10px;align-items:flex-start;justify-content:space-between}
 .dp-code{font-family:var(--f-m);font-size:12.5px;font-weight:600;color:var(--ink-2)}
