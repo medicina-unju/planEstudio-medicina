@@ -379,6 +379,9 @@
    },
    "aprP": [],
    "regP": [
+    "1.3",
+    "1.4",
+    "1.5",
     "2.3"
    ]
   },
@@ -1229,6 +1232,7 @@
    },
    "aprP": [
     "3.2",
+    "3.3",
     "3.4"
    ],
    "regP": [
@@ -1279,6 +1283,7 @@
    },
    "aprP": [
     "3.2",
+    "3.3",
     "3.4"
    ],
    "regP": [
@@ -1371,7 +1376,9 @@
    },
    "propBim": 3,
    "propRazon": "3.er bimestre (10/08 al 30/09). Sigue al bloque clínico del 1.er cuatrimestre (Niñez y Mujer), con el que comparte violencia y el abordaje por etapas de la vida. Rinde sola en el turno de octubre. Es intercambiable con 5.7.",
-   "aprP": [],
+   "aprP": [
+    "3.3"
+   ],
    "regP": [
     "4.1",
     "4.3",
@@ -1732,43 +1739,56 @@
     "cola": "junio"
    },
    "propRazon": "Arranca en agosto de 6.º año y termina en junio del año siguiente: así el plan cierra en seis años y medio, como indica la resolución.",
-   "aprP": [],
-   "regP": []
+   "aprP": [
+    "1.1",
+    "1.2",
+    "1.3",
+    "1.4",
+    "1.5",
+    "2.1",
+    "2.2",
+    "2.3",
+    "2.4",
+    "2.5",
+    "2.6",
+    "2.7",
+    "3.1",
+    "3.2",
+    "3.3",
+    "3.4",
+    "3.5",
+    "3.6",
+    "3.7",
+    "3.8",
+    "4.1",
+    "4.2",
+    "4.3",
+    "4.4",
+    "4.5",
+    "4.6",
+    "4.7",
+    "4.8",
+    "4.9",
+    "5.1",
+    "5.2",
+    "5.3",
+    "5.4",
+    "5.5",
+    "5.6",
+    "5.7",
+    "5.8",
+    "5.9",
+    "6.1",
+    "6.3",
+    "6.4"
+   ],
+   "regP": [
+    "6.2"
+   ],
+   "todoP": false
   }
  ],
  "corrCambios": [
-  {
-   "code": "5.2",
-   "campo": "apr",
-   "quita": "3.3",
-   "t": "Se quita 3.3 aprobada por redundante",
-   "p": "5.2 pide 4.3 regular, y para cursar 4.3 ya hay que tener 3.3 aprobada: la exigencia queda garantizada."
-  },
-  {
-   "code": "5.3",
-   "campo": "apr",
-   "quita": "3.3",
-   "t": "Se quita 3.3 aprobada por redundante",
-   "p": "5.3 pide 4.3 regular, y para cursar 4.3 ya hay que tener 3.3 aprobada: la exigencia queda garantizada."
-  },
-  {
-   "code": "5.5",
-   "campo": "apr",
-   "quita": "3.3",
-   "t": "Se quita 3.3 aprobada por redundante",
-   "p": "5.5 pide 4.3 regular, y para cursar 4.3 ya hay que tener 3.3 aprobada: la exigencia queda garantizada."
-  },
-  {
-   "code": "2.5",
-   "campo": "reg",
-   "quitaReg": [
-    "1.3",
-    "1.4",
-    "1.5"
-   ],
-   "t": "Se quitan 1.3, 1.4 y 1.5 regulares por redundantes",
-   "p": "2.5 pide 2.3 regular, y para cursar 2.3 ya hay que tener 1.3, 1.4 y 1.5 regulares: quedan garantizadas. No cambia quién puede cursar; simplifica la planilla."
-  },
   {
    "code": "3.5",
    "campo": "apr",
@@ -1782,14 +1802,25 @@
    "pasa": "3.5",
    "t": "Relaciones Humanas II pasa de aprobada a regular",
    "p": "RH III continúa RH II, que es de promoción. Pedirla regular asegura la secuencia y evita que quien no promocionó RH II quede afuera de RH III, que además es correlativa aprobada de 6.2."
+  },
+  {
+   "code": "6.5",
+   "campo": "apr",
+   "nuevaApr": "TODAS_MENOS_6.2",
+   "nuevaReg": [
+    "6.2"
+   ],
+   "t": "El Practicantado pide todo aprobado, salvo 6.2 regular",
+   "p": "Para iniciar el Practicantado hay que tener aprobadas de 1.1 a 6.1, 6.3 y 6.4, y regular 6.2 (Salud Comunitaria y Familiar). Es «Todo aprobado» de la planilla con una única excepción: 6.2 alcanza con tenerla regular, para que el Practicantado pueda empezar sin esperar su final."
   }
  ],
  "sugerencias": [],
  "inconsistencias": [
   {
-   "t": "No encontramos el régimen de cursada que permitiría esta salida para el Practicantado",
-   "p": "Se leyó completo el Reglamento Académico de Regímenes de Cursado (Res. C.S. N.º 066-22, Anexo Único). El Art. 5.º dice que la inscripción es por materia «teniendo en cuenta las correlativas y demás requisitos que estableciera el Plan de Estudios». La única flexibilización que aparece es el Art. 29.º, y es puntual: alumno que rindió SEIS veces la correlativa anterior sin aprobarla, pero sigue regular en ella, puede inscribirse en la materia siguiente e incluso regularizarla, aunque no puede rendir su final hasta aprobar la anterior. No es una regla general de inscripción sin correlativas. Antes de redactar la salida del Practicantado como «todas regularizadas para inscribirse, todas aprobadas antes del final», conviene confirmar en qué norma se apoya exactamente (puede ser una posterior a esta, o un criterio de la propia Escuela Superior de Salud no incluido en el 066-22).",
+   "t": "El Practicantado pide todo aprobado salvo 6.2 regular",
+   "p": "La planilla dice «Todo aprobado». La Propuesta exige aprobadas 1.1 a 6.1, 6.3 y 6.4 (y las demás del plan) y solo regular 6.2, para que el Practicantado pueda iniciar sin esperar el final de Salud Comunitaria y Familiar. Es una excepción puntual a «Todo aprobado» que conviene dejar escrita en la resolución del plan.",
    "codes": [
+    "6.2",
     "6.5"
    ]
   },

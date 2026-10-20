@@ -1940,7 +1940,7 @@ function syncPlan(){
     s.regimen=o.regimen||z.regimen;
     s.hs=o.hs!=null?o.hs:z.hs;
     if(s.hs!==z.hs&&z.hs){ s.teo=Math.round(z.teo*s.hs/z.hs); s.pra=s.hs-s.teo; } else { s.teo=z.teo; s.pra=z.pra; }
-    s.todoAprobado=z.todo; s.segunReglamento=z.reglam;
+    s.todoAprobado=(state.esc!=='base'&&s.todoP===false)?false:z.todo; s.segunReglamento=z.reglam;
   });
 }
 function syncCorr(){ const prop=state.esc!=='base';
@@ -1954,7 +1954,7 @@ function syncCorr(){ const prop=state.esc!=='base';
 function textoPrevio(s,campo){ const z=s._o, prop=state.esc!=='base';
   if(campo==='nombre') return z.nombre; if(campo==='cursado') return z.cursado; if(campo==='hs') return String(z.hs);
   if(campo==='regimen') return z.regimen==='Promoción'?'Promoción':'Ex. Final';
-  if(campo==='apr') return z.todo?'Todo aprobado':((prop&&s.aprP?s.aprP:s.apr0).join(' - '));
+  if(campo==='apr') return (z.todo&&!(prop&&s.todoP===false))?'Todo aprobado':((prop&&s.aprP?s.aprP:s.apr0).join(' - '));
   return z.reglam?'Según reglamento':((prop&&s.regP?s.regP:s.reg0).join(' - ')); }
 let planAviso='';
 function setPlan(code,campo,v){ const s=byCode[code]; if(!s) return; planAviso='';
