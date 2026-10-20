@@ -683,7 +683,7 @@ const HITOS_LBL = {}; HITOS.forEach(x=>HITOS_LBL[x[0]]=[x[1],x[3]]); HITOS_EXTRA
 // Períodos lectivos, en el orden en que se cargan en SIU Guaraní.
 const PERIODOS = [['an','Anuales'],['c1','Cuatrimestrales del 1.º'],['b1','1.er bimestre'],['b2','2.º bimestre'],
   ['s1','Semestrales'],['t1','Trimestrales del 1.º'],['t1c','Trimestrales del 1.º · cierran con el cuatrimestre'],['c2','Cuatrimestrales del 2.º'],['b3','3.er bimestre'],
-  ['b4','4.º bimestre'],['t2','Trimestrales del 2.º'],['pfo','Práctica Final Obligatoria (agosto a junio)']];
+  ['b4','4.º bimestre'],['t2','Trimestrales del 2.º'],['pfo','Práctica Final Obligatoria (octubre a junio)']];
 function calBase(y){
   const c1=lunCerca(mkDate(y,3,16)), c2=addDays(c1,SEM.c2*7);
   const L=(b,w)=>isoOf(addDays(b,w*7)), V=(b,w)=>isoOf(addDays(b,w*7+4));
@@ -711,7 +711,7 @@ function CAL(){
   P.s2={ini:P.c2.ini,fin:V(c2,SEM.semFin2)};
   P.t1={ini:P.c1.ini,fin:V(c1,SEM.triFin)};
   P.t2={ini:P.c2.ini,fin:V(c2,SEM.triFin)};
-  P.pfo={ini:P.c2.ini,fin:isoOf(ultViernes(y+1,6))};
+  P.pfo={ini:P.b4.ini,fin:isoOf(ultViernes(y+1,6))};
   const todosFer=feriados(y).concat(feriados(y+1));
   const ferSet=new Set(todosFer.map(f=>f.f));
   // Inscripción y margen administrativo en la semana anterior al inicio, contando solo días hábiles:
@@ -809,7 +809,7 @@ const diaDe = iso => { const p=String(iso).split('-'); return p.length===3?+p[2]
 function win(s){
   let w;
   const o = lay().overrides[s.codigo];
-  if(o) w={ini:o.ini, fin:o.fin, sr:!!o.sr, flex:!!o.flex, cola:o.cola};
+  if(o) w={ini:o.ini, fin:o.fin, sr:!!o.sr, flex:!!o.flex, cola:o.cola, pk:o.cola?'pfo':o.pk};
   else {
     const b = lay().bim[s.codigo];
     if(b && s.dur==='B'){ const m=mesesBim(b); w={ini:m[0], fin:m[1], sr:false, flex:!!s.optativo, pk:'b'+b}; }

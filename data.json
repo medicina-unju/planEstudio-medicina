@@ -1617,7 +1617,7 @@
     "sr": false,
     "flex": false
    },
-   "propRazon": "Mar-sep, igual que la planilla. Termina en septiembre, después de que el Practicantado ya arrancó en agosto: es la tensión de calendario que falta resolver en 6.º año (ver Revisión).",
+   "propRazon": "Mar-sep, igual que la planilla. Termina en septiembre, antes de que el Practicantado empiece con el 4.º bimestre (octubre): por eso alcanza con tenerla regular para iniciarlo.",
    "aprP": [
     "4.5"
    ],
@@ -1732,13 +1732,13 @@
     "flex": false
    },
    "prop": {
-    "ini": 8,
+    "ini": 10,
     "fin": 11,
     "sr": false,
     "flex": false,
     "cola": "junio"
    },
-   "propRazon": "Arranca en agosto de 6.º año y termina en junio del año siguiente: así el plan cierra en seis años y medio, como indica la resolución.",
+   "propRazon": "Arranca junto con el 4.º bimestre de 6.º año (octubre) y termina en junio del año siguiente. Pide todo aprobado salvo 6.2, que alcanza con tenerla regular.",
    "aprP": [
     "1.1",
     "1.2",
@@ -1851,16 +1851,8 @@
   },
   {
    "t": "El Practicantado figura en 6.º año y la resolución lo pone en 7.º",
-   "p": "La planilla lo codifica 6.5 dentro de 6.º año. La tabla de la resolución lo codifica 7.1 y declara 800 h para 6.º año y 1.284 h para 7.º. Si se mantiene 6.5 con inicio en agosto y cierre en junio del año siguiente, el plan cumple los seis años y medio, pero hay que ajustar la tabla de cargas horarias por año de la resolución.",
+   "p": "La planilla lo codifica 6.5 dentro de 6.º año. La tabla de la resolución lo codifica 7.1 y declara 800 h para 6.º año y 1.284 h para 7.º. Si se mantiene 6.5 con inicio en octubre (junto al 4.º bimestre) y cierre en junio del año siguiente, hay que ajustar la tabla de cargas horarias por año de la resolución.",
    "codes": [
-    "6.5"
-   ]
-  },
-  {
-   "t": "Patología General (6 meses, marzo-septiembre) se superpone con el inicio del Practicantado en agosto",
-   "p": "Es la misma tensión de calendario que señalaste: Salud Comunitaria y Familiar (6.2) también es semestral y, empezando en marzo —en febrero no hay dictado de clases, según el Calendario Académico—, no puede terminar antes de agosto. Por ahora queda como un punto abierto para que decida la comisión: correr el inicio del Practicantado, acortar o redistribuir la carga de 6.2, o aceptar que convivan durante septiembre.",
-   "codes": [
-    "6.2",
     "6.5"
    ]
   },

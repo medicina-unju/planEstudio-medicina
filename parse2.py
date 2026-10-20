@@ -145,12 +145,12 @@ for s in subjects:
         s["propRazon"] = razon
     elif c == "6.2":
         s["prop"] = dict(s["base"])
-        s["propRazon"] = "Mar-sep, igual que la planilla. Termina en septiembre, después de que el Practicantado ya arrancó en agosto: es la tensión de calendario que falta resolver en 6.º año (ver Revisión)."
+        s["propRazon"] = "Mar-sep, igual que la planilla. Termina en septiembre, antes de que el Practicantado empiece con el 4.º bimestre (octubre): por eso alcanza con tenerla regular para iniciarlo."
     elif c == "6.4":
         s["prop"] = dict(s["base"])
     elif c == "6.5":
-        s["prop"] = dict(ini=8, fin=11, sr=False, flex=False, cola="junio")
-        s["propRazon"] = "Arranca en agosto de 6.º año y termina en junio del año siguiente: así el plan cierra en seis años y medio, como indica la resolución."
+        s["prop"] = dict(ini=10, fin=11, sr=False, flex=False, cola="junio")
+        s["propRazon"] = "Arranca junto con el 4.º bimestre de 6.º año (octubre) y termina en junio del año siguiente. Pide todo aprobado salvo 6.2, que alcanza con tenerla regular."
     elif c == "6.1":
         s["prop"] = dict(s["base"])
         s["propRazon"] = "1.º cuatrimestre de 6.º año, igual que la planilla: del inicio del cuatrimestre hasta su cierre (02/07 en 2027)."
@@ -212,11 +212,8 @@ INCONS = [
       p="La planilla la toma como semestral (6 meses), que es la decisión tomada. La tabla del apartado 7 de la Res. C.S. 093-25 dice 4 meses. Hay que corregir la tabla de la resolución para que coincida.",
       codes=["3.2"]),
  dict(t="El Practicantado figura en 6.º año y la resolución lo pone en 7.º",
-      p="La planilla lo codifica 6.5 dentro de 6.º año. La tabla de la resolución lo codifica 7.1 y declara 800 h para 6.º año y 1.284 h para 7.º. Si se mantiene 6.5 con inicio en agosto y cierre en junio del año siguiente, el plan cumple los seis años y medio, pero hay que ajustar la tabla de cargas horarias por año de la resolución.",
+      p="La planilla lo codifica 6.5 dentro de 6.º año. La tabla de la resolución lo codifica 7.1 y declara 800 h para 6.º año y 1.284 h para 7.º. Si se mantiene 6.5 con inicio en octubre (junto al 4.º bimestre) y cierre en junio del año siguiente, hay que ajustar la tabla de cargas horarias por año de la resolución.",
       codes=["6.5"]),
- dict(t="Patología General (6 meses, marzo-septiembre) se superpone con el inicio del Practicantado en agosto",
-      p="Es la misma tensión de calendario que señalaste: Salud Comunitaria y Familiar (6.2) también es semestral y, empezando en marzo —en febrero no hay dictado de clases, según el Calendario Académico—, no puede terminar antes de agosto. Por ahora queda como un punto abierto para que decida la comisión: correr el inicio del Practicantado, acortar o redistribuir la carga de 6.2, o aceptar que convivan durante septiembre.",
-      codes=["6.2","6.5"]),
  dict(t="El plan no fija en qué bimestre va cada bimestral",
       p="La planilla y la resolución marcan las materias como «B» con su cuatrimestre, pero no dicen si van en el 1.º o 2.º bimestre del cuatrimestre. Hoy, por defecto, todas caen al final del cuatrimestre y quedan en paralelo (en 4.º y 5.º año, hasta tres a la vez). La propuesta ubica una por bimestre en 3.º, 4.º y 5.º año, mirando correlativas, turnos de examen y carga mensual; cada movimiento tiene su fundamento en la pestaña Orden de bimestrales. 6.º año no tiene bimestrales. 1.º y 2.º año quedan como en la planilla hasta incorporar lo que trabajó la coordinación. La inscripción es única por cuatrimestre (una semana a principios de marzo para todo el 1.er cuatrimestre y otra en agosto para el 2.º), según lo definió el equipo: por eso una materia del 2.º cuatrimestre deja más turnos para rendir sus correlativas.",
       codes=["3.5","3.6","4.4","4.5","4.6","4.7","5.4","5.5","5.7"]),
