@@ -226,6 +226,10 @@ aside.detail{min-width:0}
   .seg-b .sc{font-size:10px}
   .seg-b.cola::after{right:-9px}
   .g-head.h2{display:none}
+  .tabs{overflow:visible;gap:2px;padding:4px}
+  .tab{flex:1 1 0;justify-content:center;padding:9px 4px;font-size:12.5px;white-space:normal;text-align:center;line-height:1.15}
+  .tab .bar{display:none}
+  .pbox{display:none}
   .g-head.h1>div{font-size:8.5px;letter-spacing:-.2px}
 }
 @media (prefers-reduced-motion:reduce){aside.detail{transition:none}}
@@ -1418,7 +1422,7 @@ function renderPlan(){
     editando?h('div',{class:'note',style:'margin-bottom:10px',text:'Estás editando el texto del plan: espacio curricular, cursado, horas, correlativas (con los códigos, por ejemplo «2.3 - 2.4», o «Todo aprobado» / «Según reglamento») y acreditación. Lo que cambies queda marcado en amarillo y la flecha ↺ devuelve esa casilla a como estaba. Se aplica solo a «Propuesta».'}):null,
     aviso?h('div',{class:'note warn',style:'margin-bottom:10px',text:aviso}):null,
     h('p',{class:'sub',style:'margin:0 0 10px',text:state.esc==='mia'
-      ?'Plan de estudios según «Propuesta»: cuatrimestre y bimestre salen de la propuesta guardada. En amarillo, lo que cambia respecto de la planilla original (pasá el mouse para ver el valor original).'
+      ?(window.__OFICIAL__?'Plan de estudios según la Propuesta de la coordinación.':'Plan de estudios según «Propuesta»: cuatrimestre y bimestre salen de la propuesta guardada. En amarillo, lo que cambia respecto de la planilla original (pasá el mouse para ver el valor original).')
       :'Plan de estudios tal como está en la planilla original.'}),
     h('div',{class:'tbl-wrap'},tablaPlan(list)),
     h('div',{class:'legend'},h('span',{class:'lg',text:'Duración: A anual · S semestral · C cuatrimestral · T trimestral · B bimestral. CF: FBC formación básica y clínica · FO formación optativa · PFO práctica final obligatoria. S/C: sin correlativas.'})));
