@@ -535,7 +535,7 @@ function apply(j){
   if(j.cal&&typeof j.cal==='object') state.cal=j.cal;
   if(Number.isInteger(j.ciclo)&&j.ciclo>2000&&j.ciclo<2100) state.ciclo=j.ciclo;
   // Hay dos escenarios: «Planilla actual» (fija) y «Propuesta» (editable).
-  if(j.esc==='base') state.esc='base'; else if(j.esc) state.esc='mia';
+  if(j.esc==='base'&&!window.__OFICIAL__) state.esc='base'; else if(j.esc) state.esc='mia';
   if(TABKEYS.includes(j.tab)) state.tab=j.tab;
 }
 // ---------- modo edición ----------
@@ -945,10 +945,11 @@ function renderScen(){
   if(!puedeEditar){ sc.replaceChildren(); return; }
   const n=nCambios();
   const d = state.esc==='mia'
-    ? (n?`Una bimestral por bimestre en 3.º, 4.º y 5.º año, con tus ${n} ${n===1?'cambio':'cambios'} encima (marcados «tu cambio»).`:'Ubica una bimestral por bimestre en 3.º, 4.º y 5.º año, sin paralelismo, y pone el Practicantado de agosto a junio del año siguiente. Lo que muevas queda guardado acá.')
+    ? (n?`Una bimestral por bimestre en 3.º, 4.º y 5.º año, con tus ${n} ${n===1?'cambio':'cambios'} encima (marcados «tu cambio»).`:'Ubica una bimestral por bimestre en 3.º, 4.º y 5.º año, sin paralelismo, y pone el Practicantado de octubre a junio del año siguiente. Lo que muevas queda guardado acá.')
     : 'Toma la planilla tal cual está: las bimestrales al final de su cuatrimestre y el Practicantado dentro del año calendario. No se modifica: si movés algo, pasa a «Propuesta».';
   const kids=[h('span',{class:'t',text:'Escenario'}),
-    h('div',{class:'seg'}, ...[['base','Planilla actual'],['mia','Propuesta'+(n?` (${n})`:'')]].map(([k,l])=>
+    window.__OFICIAL__?h('div',{class:'seg'},h('button',{type:'button','aria-pressed':'true',text:'Propuesta'+(n?` (${n})`:'')}))
+    :h('div',{class:'seg'}, ...[['base','Planilla actual'],['mia','Propuesta'+(n?` (${n})`:'')]].map(([k,l])=>
       h('button',{type:'button','aria-pressed':state.esc===k?'true':'false',onclick:()=>{state.esc=k;persist();render()},text:l}))),
     h('span',{class:'d',text:d})];
   const acc=h('div',{class:'scen-acc'});
@@ -1991,7 +1992,11 @@ function boot(){ const vs=document.getElementById('vstamp'); if(vs) vs.textConte
   const vm=document.getElementById('vmodo'); if(vm) vm.textContent=puedeEditar?'· edición habilitada en este navegador':'· solo lectura';
   S=D.subjects; byCode={}; S.forEach(s=>{ byCode[s.codigo]=s; if(!s.apr0){ s.apr0=s.apr; s.reg0=s.reg; } }); rels(); load();
   // Si el archivo trae una propuesta oficial, el público la ve siempre; quien edita parte de ella si no tiene cambios propios.
-  if(window.__OFICIAL__){ let vacio=true; try{ vacio=!localStorage.getItem(LS); }catch(e){} if(!puedeEditar||vacio){ state.overrides={};state.bim={};state.fechas={};state.insc={};state.cal={};state.plan={}; apply(window.__OFICIAL__); if(!puedeEditar) state.esc='mia'; } }
+  if(window.__OFICIAL__){ let vacio=true, vista=null; const LSO=LS+'-oficial', oh=(()=>{ const t=JSON.stringify(window.__OFICIAL__); let x=0; for(let i=0;i<t.length;i++) x=(x*31+t.charCodeAt(i))|0; return String(x); })();
+    try{ vacio=!localStorage.getItem(LS); vista=localStorage.getItem(LSO); }catch(e){}
+    // El lector siempre ve la oficial; quien edita la adopta cuando es nueva (cambió desde la última vez que la vio).
+    if(!puedeEditar||vacio||vista!==oh){ state.overrides={};state.bim={};state.fechas={};state.insc={};state.cal={};state.plan={}; apply(window.__OFICIAL__); state.esc='mia';
+      if(puedeEditar){ persist(); try{ localStorage.setItem(LSO,oh); }catch(e){} } } }
   render();
   const q=new URLSearchParams(location.search);
   if(q.has('imprimir')){ const e=q.get('esc'); if(e==='base'||e==='prop'||e==='mia') state.esc=e;
