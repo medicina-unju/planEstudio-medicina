@@ -10,6 +10,8 @@ stamp = datetime.datetime.now().strftime("%d/%m/%Y %H:%M")
 assert "window.__BUILD__=" not in out
 out = out.replace("<script>\n(function(){", '<script>\nwindow.__BUILD__=%s;\n(function(){' % json.dumps(stamp), 1)
 import os
+AUTOR = dict(nombre='Fabi Paz', anio=datetime.datetime.now().year)
+out = out.replace('<script>\nwindow.__BUILD__', '<script>\nwindow.__AUTOR__=%s;\nwindow.__BUILD__' % json.dumps(AUTOR, ensure_ascii=False), 1)
 if os.path.exists("oficial.json"):
     o = json.load(open("oficial.json")); o = o.get("estado", o)
     out = out.replace("<script>\nwindow.__BUILD__", "<script>\nwindow.__OFICIAL__=%s;\nwindow.__BUILD__" % json.dumps(o, ensure_ascii=False, separators=(",", ":")), 1)

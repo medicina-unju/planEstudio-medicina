@@ -335,6 +335,7 @@ table.t .ysep td{background:var(--surface-4);font-weight:700;font-family:var(--f
 #tip{position:fixed;z-index:100;pointer-events:none;background:var(--ink);color:var(--bg);border-radius:9px;padding:9px 11px;font-size:12.5px;max-width:320px;box-shadow:0 10px 28px rgba(0,0,0,.35);display:none}
 #tip .tl{opacity:.82} #tip .tm{font-family:var(--f-m)}
 .foot .ver{display:block;margin-top:6px;font-family:var(--f-m);font-size:11.5px;color:var(--muted)}
+.foot.legal{margin-top:12px;font-size:11.5px;line-height:1.5}.shell+.foot.legal{margin-top:26px}
 .foot{margin-top:26px;color:var(--muted);font-size:12.5px;max-width:92ch}
 .dlgrid{display:grid;gap:12px;grid-template-columns:repeat(auto-fit,minmax(min(100%,290px),1fr))}
 .dlcard{border:1px solid var(--line-2);border-radius:11px;padding:14px;background:var(--surface-3);display:grid;gap:9px;align-content:start}
@@ -486,7 +487,8 @@ body.pr-vert #print .pr-plan .pr-head h1{font-size:18px}
     <main id="main" style="min-width:0"></main>
     <aside class="detail card" id="detail" aria-label="Detalle del espacio curricular"></aside>
   </div>
-  <p class="foot">Las fechas son una estimación por mes, no un calendario académico aprobado. Lo que ajustes se guarda en el navegador y en la dirección donde estés viendo la página: si abrís el tablero en otra computadora, en otro navegador o en la otra dirección, tu propuesta no viaja sola. Para llevarla, usá «Guardar copia» acá y «Cargar copia» allá.
+  <p class="foot" id="footEd">Las fechas son una estimación por mes, no un calendario académico aprobado. Lo que ajustes se guarda en el navegador y en la dirección donde estés viendo la página: si abrís el tablero en otra computadora, en otro navegador o en la otra dirección, tu propuesta no viaja sola. Para llevarla, usá «Guardar copia» acá y «Cargar copia» allá.</p>
+  <p class="foot legal"><span id="legal"></span>
     <span class="ver">Versión <b id="vstamp">—</b> <span id="vmodo"></span></span></p>
 </div>
 <div id="tip" role="tooltip"></div>
@@ -1168,7 +1170,7 @@ function gantt(){
     h('li',{text:'Semestral: seis meses corridos desde el inicio del cuatrimestre (16/03 a 11/09, como Ciencias Biológicas este año).'}),
     h('li',{text:'Carga por mes: horas totales divididas por los meses de cursada.'}),
     h('li',{text:'Es una estimación para discutir el orden. Cada materia tiene en el panel de detalle un campo para cargar la fecha real una vez que esté definida; mientras no se cargue, se muestra la estimada.'})));
-  return h('div',null,ins,av,sc,lg,as);
+  return h('div',null,ins,puedeEditar?av:null,sc,lg,puedeEditar?as:null);
 }
 function row(s){
   const c=col(s), rel=relOf(s), ms=months(s), rr=runs(ms), w=win(s);
@@ -2011,7 +2013,11 @@ function render(){
   renderDetail();
   if(keep){ const n=document.getElementById('gsc'); if(n){n.scrollLeft=keep[0];n.scrollTop=keep[1];} }
 }
-function boot(){ const vs=document.getElementById('vstamp'); if(vs) vs.textContent=(window.__BUILD__||'—');
+function boot(){ const fe=document.getElementById('footEd'); if(fe&&!puedeEditar) fe.remove();
+  const lg=document.getElementById('legal'); if(lg){ const a=window.__AUTOR__||{}; lg.innerHTML='';
+    lg.append(h('b',{text:`© ${a.anio||new Date().getFullYear()} ${a.nombre||''}. Todos los derechos reservados.`}),
+      ' Obra protegida por la Ley 11.723 de Propiedad Intelectual. Documento de trabajo en elaboración, de circulación restringida: se autoriza su consulta, pero no su reproducción, distribución, comunicación pública, adaptación ni uso con otros fines sin autorización escrita de la autora. No se otorga licencia de uso sobre la plataforma ni sobre su código.'); }
+  const vs=document.getElementById('vstamp'); if(vs) vs.textContent=(window.__BUILD__||'—');
   const vm=document.getElementById('vmodo'); if(vm) vm.textContent=puedeEditar?'· edición habilitada en este navegador':'· solo lectura';
   S=D.subjects; byCode={}; S.forEach(s=>{ byCode[s.codigo]=s; if(!s.apr0){ s.apr0=s.apr; s.reg0=s.reg; } }); rels(); load();
   // Si el archivo trae una propuesta oficial, el público la ve siempre; quien edita parte de ella si no tiene cambios propios.
