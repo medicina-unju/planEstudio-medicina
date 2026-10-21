@@ -186,6 +186,13 @@ la derecha, separado por el verano. Ahí van las Rotaciones Electivas I y II y e
 Práctica Final Obligatoria. No entra en el cuadro de SIU de este ciclo —se carga en el del ciclo
 siguiente—, así que figura como nota debajo del cuadro.
 
+**Módulos de la PFO.** El filtro «Ver los módulos de la PFO» abre, debajo del Practicantado,
+los seis módulos del Art. 1 del reglamento (Res. C.S. 095-25): Clínica Médica, Quirúrgica,
+Pediátrica, Gineco-Obstétrica, Psiquiatría y Salud Mental, y Emergencias. Se reparten en partes
+iguales sobre el tramo de la PFO, porque el orden de las especialidades no está fijado; con el
+tramo de octubre a junio dan unas 6,5 semanas cada uno, contra las diez del Art. 17. Las
+Rotaciones Electivas I y II corren en paralelo, dentro del mismo tramo.
+
 **Panel de detalle.** En pantalla ancha, la lengüeta del borde izquierdo del panel lo esconde y
 lo vuelve a mostrar; con el panel escondido, el diagrama ocupa todo el ancho. Si hay una materia
 elegida mientras está escondido, la lengüeta queda marcada.

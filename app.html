@@ -169,6 +169,10 @@ h3{font-size:16px;margin:0 0 6px}
 .seg-b.cola{position:relative;border-top-right-radius:0;border-bottom-right-radius:0;box-shadow:3px 0 0 0 var(--c)}
 .conn{z-index:1;align-self:center;height:3px;background:var(--c);margin:0 -2px;opacity:.75}
 .g-row.sel{outline:2.5px solid var(--focus);outline-offset:-2px;z-index:3}
+.g-row.mod{min-height:30px;background:color-mix(in srgb,var(--c) 5%,transparent)}
+.g-row.mod .g-label{padding-left:26px;border-left-color:transparent}
+.g-row.mod .g-label .code{font-weight:500;color:var(--ink-2);font-family:var(--f-b);font-size:12px}
+.seg-b.modb{height:20px;opacity:.78;font-size:11px;justify-content:center}
 .g-row.r-apr .g-label,.g-row.r-reg .g-label{background:var(--warn-bg)}
 .g-row.r-dep .g-label{background:var(--good-bg)}
 .g-head{position:relative;background:var(--surface)}
@@ -584,7 +588,7 @@ const LS='medunju-v2';
 const TABKEYS=['secuencia','plan','correlativas','horas','calendario'];
 const state={ tab:'secuencia', esc:'mia', years:new Set([1,2]), sel:null, overrides:{}, bim:{}, fechas:{},
   ciclo:new Date().getFullYear()+1, insc:{}, cal:{}, countOpt:false, chain:'cadena', hmode:'campo',
-  plan:{}, compacto:false, panelOff:false, fAnio:'todos', fReg:'todos', fTexto:'', regimen:'todos', per:new Set() };
+  plan:{}, compacto:false, panelOff:false, mods:true, fAnio:'todos', fReg:'todos', fTexto:'', regimen:'todos', per:new Set() };
 function load(){ try{ const j=JSON.parse(localStorage.getItem(LS)||'{}'); apply(j); }catch(e){} }
 function apply(j){
   if(Array.isArray(j.years)&&j.years.length) state.years=new Set(j.years.filter(y=>y>=1&&y<=6));
@@ -1110,6 +1114,10 @@ function ctrlSeq(){
   const sw=h('label',{class:'sw'},h('input',{type:'checkbox',...(state.countOpt?{checked:true}:{}),
     onchange:e=>{state.countOpt=e.target.checked;render()}}),'Contar optativos en la simultaneidad');
   // Angostar la columna de nombres deja ver todo el año (y el 13.º cuatrimestre) sin desplazarse.
+  const M0=modsPFO();
+  const swm=M0?h('label',{class:'sw',title:'Los seis módulos del reglamento, repartidos en partes iguales sobre el tramo de la PFO'},
+    h('input',{type:'checkbox',...(state.mods?{checked:true}:{}),
+      onchange:e=>{state.mods=e.target.checked;render()}}),'Ver los módulos de la PFO'):null;
   const swc=h('label',{class:'sw',title:'Deja solo el código y gana ancho para los meses'},
     h('input',{type:'checkbox',...(state.compacto?{checked:true}:{}),
       onchange:e=>{state.compacto=e.target.checked;render()}}),'Angostar la columna de nombres');
@@ -1135,7 +1143,7 @@ function ctrlSeq(){
       state.per.size?h('button',{type:'button',class:'linkbtn',onclick:()=>{state.per=new Set();persist();render()},text:'Mostrar todo'}):
         h('span',{class:'mini',text:'Destildá lo que no quieras ver'})),
     h('div',{class:'pcols'},...cols));
-  return h('div',null,h('div',{class:'bar'},chips,sel),per,h('div',{class:'bar'},reg,sw,swc));
+  return h('div',null,h('div',{class:'bar'},chips,sel),per,h('div',{class:'bar'},reg,sw,swc,swm));
 }
 // Seguimiento de actas por turno, del 1.º al 8.º como en el calendario académico: en cada turno,
 // qué materias llegan por primera vez (las de los años y períodos que se están viendo), cuándo
@@ -1195,7 +1203,9 @@ function gantt(){
     inner.append(h('div',{class:'g-row',style:'min-height:0;border-bottom:0'},
       h('div',{class:'yb',style:'--c:'+YCOL[y].bg},h('div',null,ORD[y-1]+' año',
         h('span',{class:'meta',text:`${list.length} espacios · ${fmt(hs)} h`})))));
-    list.forEach(s=>inner.append(row(s)));
+    list.forEach(s=>{ inner.append(row(s));
+      if(state.mods&&s.cf==='PFO'){ const M=modsPFO();
+        if(M) M.list.forEach(m=>inner.append(filaMod(m,col(s)))); } });
   });
   const cp=state.compacto;
   const rN=h('div',{class:'sim-row'},h('div',{class:'sl'},cp?'En simultáneo':'Espacios en simultáneo',h('small',{text:state.countOpt?'incluye optativos':'sin optativos'})));
@@ -1241,7 +1251,35 @@ function gantt(){
     h('li',{text:'Carga por cuatrimestre: la suma de la carga mensual estimada, de febrero a julio y de agosto a diciembre. Las anuales y las semestrales quedan repartidas entre los dos.'}),
     h('li',{text:'13.º cuatrimestre: la carrera dura seis años y medio, así que al final hay medio año más, que es el 1.º cuatrimestre del 7.º año (marzo a junio del año siguiente). Ahí se cursan las Rotaciones Electivas I y II y cierra la Práctica Final Obligatoria. Entra en el calendario del ciclo siguiente.'}),
     h('li',{text:'Es una estimación para discutir el orden. Cada materia tiene en el panel de detalle un campo para cargar la fecha real una vez que esté definida; mientras no se cargue, se muestra la estimada.'})));
-  return h('div',null,ins,puedeEditar?av:null,sc,lg,puedeEditar?as:null);
+  const M=state.mods?modsPFO():null;
+  const nm=M?h('div',{class:'insight w',style:'margin:12px 0 0'},h('div',null,
+    h('b',{text:'Módulos de la Práctica Final Obligatoria. '}),
+    `Los seis módulos del Art. 1 del reglamento (Clínica Médica, Quirúrgica, Pediátrica, Gineco-Obstétrica, Psiquiatría y Salud Mental, y Emergencias) se reparten en partes iguales sobre el tramo de la PFO: ${M.semanas} semanas cada uno. El orden de las especialidades no está fijado, así que las fechas son una distribución de referencia. El Art. 17 fija diez semanas por módulo, que no entran en este tramo: entrarían si la PFO empezara antes o si se acortara el módulo.`)):null;
+  return h('div',null,ins,puedeEditar?av:null,sc,lg,nm,puedeEditar?as:null);
+}
+// Los seis módulos de la PFO (Art. 1 del reglamento). El orden de las especialidades no está
+// fijado: se reparten en partes iguales sobre el tramo del Practicantado para ver cómo entran.
+const MODS=['Módulo 1','Módulo 2','Módulo 3','Módulo 4','Módulo 5','Módulo 6'];
+function colDeFecha(iso){ const m=mesDe(iso), y=anioDe(iso);
+  if(y===state.ciclo) return m;
+  return m<=2 ? 13 : 11+m; }
+function modsPFO(){
+  const s=S.find(x=>x.cf==='PFO'); if(!s||!win(s).cola) return null;
+  const f=fechas(s), a=dOf(f.ini), b=dOf(f.fin), dias=Math.round((b-a)/86400000)+1;
+  const paso=dias/MODS.length;
+  return {code:s.codigo, semanas:Math.round(dias/7/MODS.length*10)/10,
+    list:MODS.map((n,i)=>{ const ini=isoOf(addDays(a,Math.round(i*paso))), fin=isoOf(addDays(a,Math.round((i+1)*paso)-1));
+      return {n,ini,fin,ci:colDeFecha(ini),cf:colDeFecha(fin)}; })};
+}
+function filaMod(m,c){
+  const r=h('div',{class:'g-row mod',style:`--c:${c.bg};--t:${c.fg}`});
+  r.append(h('div',{class:'g-label'},h('span',{class:'l1'},h('span',{class:'code',text:m.n})),
+    h('span',{class:'l2'},h('span',{class:'fch',text:`${dm(m.ini)} al ${dm(m.fin)}`}))));
+  COLS.forEach((x,i)=>r.append(h('div',{class:'mc'+((x===7||x===13)?' rec':'')+(x>=8&&x<=12?' q2':'')+(x>=14?' q3':''),style:`grid-column:${i+2}`})));
+  const a=COLS.indexOf(m.ci), b=COLS.indexOf(m.cf);
+  if(a>=0&&b>=a) r.append(h('div',{class:'seg-b modb',style:`grid-column:${a+2} / ${b+3}`,title:`${m.n}: ${dmy(m.ini)} al ${dmy(m.fin)}`},
+    h('span',{class:'sc',text:m.n.replace('Módulo ','M')})));
+  return r;
 }
 function row(s){
   const c=col(s), rel=relOf(s), ms=months(s), rr=runs(ms), w=win(s);
