@@ -21,7 +21,8 @@ Es una sola página, sin backend ni instalación. Se puede publicar en GitHub Pa
 - **Propuesta**: una bimestral por bimestre en 3.º, 4.º y 5.º año, el Practicantado de octubre
   a junio del año siguiente, y encima los cambios que haga cada persona (cambiar el bimestre o
   las fechas de una materia). Las materias que movió quedan marcadas «tu cambio».
-  Las Rotaciones Electivas (6.1 y 6.3) quedan en el 1.º cuatrimestre, como en la planilla. La
+  Las Rotaciones Electivas (6.1 y 6.3) pasan al 13.º cuatrimestre, el medio año que cierra la
+  carrera (marzo a junio del año siguiente), porque son parte de la Práctica Final Obligatoria. La
   trimestral (6.3) empieza en la 4.ª semana del cuatrimestre (05/04 en 2027) y termina con él
   (02/07), para tener una sola planilla de resultados de cursada en el SIU; la fecha es editable; en el SIU figura como «Trimestrales del 1.º · cierran con el cuatrimestre».
 
@@ -96,16 +97,20 @@ en amarillo, con el valor original al pasar el mouse):
 
 | Espacio | Planilla | Propuesta | Motivo |
 | --- | --- | --- | --- |
-| 2.5 Relaciones Humanas I | 1.3 - 1.4 - 1.5 - 2.3 regulares | 2.3 regular | 1.3, 1.4 y 1.5 redundantes: las garantiza 2.3 regular |
+| 3.1 Introducción a la Clínica | 2.3 aprobada | — | Alcanza con 2.1 y 2.2 regulares |
+| 3.2 Patología General | 2.3 aprobada | — | ídem |
+| 3.3 Bases para el Diagnóstico I | 2.3 aprobada | — | ídem |
 | 3.5 Relaciones Humanas II | 2.5 aprobada | 2.5 regular | Flexibilización de la línea RH |
+| 4.3 Bases para el Diagnóstico II | 3.3 aprobada | 3.3 regular | Alcanza con tenerla regular, como ya pide 3.4 |
 | 4.5 Relaciones Humanas III | 3.5 aprobada | 3.5 regular | Flexibilización de la línea RH |
-| 5.2 Salud de la Niñez y Adolescencia | 3.2 - 3.3 - 3.4 aprobadas | 3.2 - 3.4 aprobadas | 3.3 redundante: la garantiza 4.3 regular |
-| 5.3 Salud de la Mujer | 3.2 - 3.3 - 3.4 aprobadas | 3.2 - 3.4 aprobadas | ídem |
-| 5.5 Clínica Psiquiátrica | 3.3 aprobada | — | ídem |
+| 6.5 Practicantado Rotatorio | Todo aprobado | Todo aprobado salvo 6.2 regular | Para que pueda iniciar sin esperar el final de 6.2 |
 
-La quita de 3.3 en 5.º año tiene una salvedad: un alumno que llegue a 4.3 por el Art. 29 del
-Reglamento (seis veces rendida la correlativa anterior) podría estar regular en 4.3 sin tener 3.3
-aprobada. Queda para que lo considere la comisión.
+2.5 vuelve a pedir 1.3, 1.4, 1.5 y 2.3 regulares, y 5.2, 5.3 y 5.5 vuelven a pedir 3.3 aprobada,
+como en la planilla.
+
+Las correlativas se pueden editar a mano en modo edición, desde la casilla de la pestaña «Plan
+completo» o desde el panel de detalle de cada materia. Lo escrito se guarda con la propuesta,
+entra en «Guardar copia» y se ve en todas las pestañas.
 
 ## Bimestres en el diagrama
 
@@ -174,6 +179,12 @@ Calendario Académico. Criterio aplicado: el estudiante puede borrarse de la mes
 hábiles antes de la fecha de examen (para un examen del lunes, hasta el jueves), y el acta
 volante se genera un día hábil antes del turno (el viernes), para que los docentes consulten la lista
 definitiva de estudiantes inscriptos. Ambas fechas se calculan desde el primer día de examen del turno, con feriados.
+
+**13.º cuatrimestre.** La carrera dura seis años y medio: después del 6.º año hay medio año más,
+que es el 1.º cuatrimestre del 7.º año (marzo a junio del año siguiente). El diagrama lo dibuja a
+la derecha, separado por el verano. Ahí van las Rotaciones Electivas I y II y el cierre de la
+Práctica Final Obligatoria. No entra en el cuadro de SIU de este ciclo —se carga en el del ciclo
+siguiente—, así que figura como nota debajo del cuadro.
 
 **Carga estimada por mes.** Las horas totales de cada espacio se reparten entre sus meses de
 cursada (julio no cuenta: es el receso). El Practicantado Rotatorio se reparte sobre todo su

@@ -152,13 +152,13 @@ for s in subjects:
         s["prop"] = dict(ini=10, fin=11, sr=False, flex=False, cola="junio")
         s["propRazon"] = "Arranca junto con el 4.º bimestre de 6.º año (octubre) y termina en junio del año siguiente. Pide todo aprobado salvo 6.2, que alcanza con tenerla regular."
     elif c == "6.1":
-        s["prop"] = dict(s["base"])
-        s["propRazon"] = "1.º cuatrimestre de 6.º año, igual que la planilla: del inicio del cuatrimestre hasta su cierre (02/07 en 2027)."
+        s["prop"] = dict(ini=14, fin=17, sr=False, flex=False, pk="c13")
+        s["propRazon"] = "13.º cuatrimestre: el medio año que cierra la carrera (marzo a junio del año siguiente). Las rotaciones electivas forman parte de la Práctica Final Obligatoria, así que se cursan dentro de su tramo y no en el 1.º cuatrimestre de 6.º año."
     elif c == "6.3":
         # Trimestral: se mantiene en el 1.º cuatrimestre como en la planilla, pero cierra junto con los
         # cuatrimestrales (no a los tres meses), por decisión de la coordinación.
-        s["prop"] = dict(ini=4, fin=7, sr=False, flex=False, pk="t1c")
-        s["propRazon"] = "Trimestral. Queda en el 1.º cuatrimestre como en la planilla, pero empieza en la 4.ª semana (05/04 en 2027) y termina con el cierre del cuatrimestre (02/07), para cargar una sola planilla de resultados de cursada en SIU Guaraní."
+        s["prop"] = dict(ini=14, fin=17, sr=False, flex=False, pk="c13")
+        s["propRazon"] = "13.º cuatrimestre: el medio año que cierra la carrera (marzo a junio del año siguiente), junto con Rotaciones Electivas I y el cierre del Practicantado."
     else:
         s["prop"] = dict(s["base"])
 
@@ -202,9 +202,6 @@ INCONS = [
  dict(t="El Practicantado pide todo aprobado salvo 6.2 regular",
       p="La planilla dice «Todo aprobado». La Propuesta exige aprobadas 1.1 a 6.1, 6.3 y 6.4 (y las demás del plan) y solo regular 6.2, para que el Practicantado pueda iniciar sin esperar el final de Salud Comunitaria y Familiar. Es una excepción puntual a «Todo aprobado» que conviene dejar escrita en la resolución del plan.",
       codes=["6.2","6.5"]),
- dict(t="Las rotaciones electivas están fuera del Practicantado",
-      p="El apartado 10 de la resolución dice que los estudiantes «contarán con espacios optativos durante la PFO» y que «consistirán en rotaciones electivas». En la planilla, 6.1 y 6.3 figuran en el 1.º cuatrimestre de 6.º año, antes del Practicantado, y la Propuesta las mantiene ahí por decisión de la coordinación. Falta ubicarlas dentro del tramo de la PFO o corregir el apartado 10.",
-      codes=["6.1","6.3"]),
  dict(t="Los optativos están fijados a un año y la resolución no los fija",
       p="El apartado 10 dice que los optativos se pueden realizar «entre el primero y el quinto año inclusive». La planilla los fija uno por año en 2.º, 3.º, 4.º y 5.º, siempre en el 2.º cuatrimestre, que es justo el tramo más cargado. Dejarlos como 25 h a cumplir en cualquier momento del tramo 1.º-5.º descomprime esos cuatrimestres.",
       codes=["2.7","3.8","4.9","5.9"]),
@@ -232,6 +229,14 @@ for s in subjects:
 # ---------------------------------------------------------------- cambios de correlativas
 # Aplicados en «Propuesta» por decisión de la coordinación. La planilla original no se toca.
 CORR_CAMBIOS = [
+ dict(code="3.1", campo="apr", quita="2.3", t="Se quita 2.3 aprobada",
+      p="Introducción a la Clínica deja de exigir Salud Poblacional I aprobada: alcanza con 2.1 y 2.2 regulares."),
+ dict(code="3.2", campo="apr", quita="2.3", t="Se quita 2.3 aprobada",
+      p="Patología General y Fisiopatología deja de exigir Salud Poblacional I aprobada: alcanza con 2.1 y 2.2 regulares."),
+ dict(code="3.3", campo="apr", quita="2.3", t="Se quita 2.3 aprobada",
+      p="Bases para el Diagnóstico y el Tratamiento I deja de exigir Salud Poblacional I aprobada: alcanza con 2.1 y 2.2 regulares."),
+ dict(code="4.3", campo="apr", pasa="3.3", t="Bases para el Diagnóstico I pasa de aprobada a regular",
+      p="Bases para el Diagnóstico y Tratamiento II deja de exigir Bases I aprobada: alcanza con tenerla regular, como ya pide 3.4."),
  dict(code="3.5", campo="apr", pasa="2.5", t="Relaciones Humanas I pasa de aprobada a regular",
       p="La línea Relaciones Humanas es progresiva: RH II se apoya en RH I sin necesitar su examen aprobado. RH I es de promoción, así que solo cambia algo para quien no promocionó, que puede seguir la línea sin perder un año."),
  dict(code="4.5", campo="apr", pasa="3.5", t="Relaciones Humanas II pasa de aprobada a regular",

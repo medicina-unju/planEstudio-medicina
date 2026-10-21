@@ -14,6 +14,8 @@ AUTOR = dict(nombre='Fabiola Paz', anio=datetime.datetime.now().year)
 out = out.replace('<script>\nwindow.__BUILD__', '<script>\nwindow.__AUTOR__=%s;\nwindow.__BUILD__' % json.dumps(AUTOR, ensure_ascii=False), 1)
 if os.path.exists("oficial.json"):
     o = json.load(open("oficial.json")); o = o.get("estado", o)
+    assert "PRUEBA" not in json.dumps(o, ensure_ascii=False), "oficial.json parece una propuesta de prueba"
+    assert len(o.get("years", [])) == 6, "oficial.json: la propuesta oficial tiene que abrir con los seis años"
     out = out.replace("window.__BUILD__=", "window.__OFICIAL__=%s;\nwindow.__BUILD__=" % json.dumps(o, ensure_ascii=False, separators=(",", ":")), 1)
     assert "window.__OFICIAL__=" in out, "no se pudo incorporar la propuesta oficial"
 assert "window.__AUTOR__=" in out and "window.__BUILD__=" in out

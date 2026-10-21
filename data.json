@@ -502,9 +502,7 @@
     "sr": false,
     "flex": false
    },
-   "aprP": [
-    "2.3"
-   ],
+   "aprP": [],
    "regP": [
     "2.1",
     "2.2"
@@ -545,9 +543,7 @@
     "sr": false,
     "flex": false
    },
-   "aprP": [
-    "2.3"
-   ],
+   "aprP": [],
    "regP": [
     "2.1",
     "2.2"
@@ -588,9 +584,7 @@
     "sr": false,
     "flex": false
    },
-   "aprP": [
-    "2.3"
-   ],
+   "aprP": [],
    "regP": [
     "2.1",
     "2.2"
@@ -905,11 +899,10 @@
     "sr": false,
     "flex": false
    },
-   "aprP": [
-    "3.3"
-   ],
+   "aprP": [],
    "regP": [
-    "3.4"
+    "3.4",
+    "3.3"
    ]
   },
   {
@@ -1569,12 +1562,13 @@
     "flex": false
    },
    "prop": {
-    "ini": 3,
-    "fin": 7,
+    "ini": 14,
+    "fin": 17,
     "sr": false,
-    "flex": false
+    "flex": false,
+    "pk": "c13"
    },
-   "propRazon": "1.º cuatrimestre de 6.º año, igual que la planilla: del inicio del cuatrimestre hasta su cierre (02/07 en 2027).",
+   "propRazon": "13.º cuatrimestre: el medio año que cierra la carrera (marzo a junio del año siguiente). Las rotaciones electivas forman parte de la Práctica Final Obligatoria, así que se cursan dentro de su tramo y no en el 1.º cuatrimestre de 6.º año.",
    "aprP": [],
    "regP": [
     "5.1",
@@ -1655,13 +1649,13 @@
     "flex": false
    },
    "prop": {
-    "ini": 4,
-    "fin": 7,
+    "ini": 14,
+    "fin": 17,
     "sr": false,
     "flex": false,
-    "pk": "t1c"
+    "pk": "c13"
    },
-   "propRazon": "Trimestral. Queda en el 1.º cuatrimestre como en la planilla, pero empieza en la 4.ª semana (05/04 en 2027) y termina con el cierre del cuatrimestre (02/07), para cargar una sola planilla de resultados de cursada en SIU Guaraní.",
+   "propRazon": "13.º cuatrimestre: el medio año que cierra la carrera (marzo a junio del año siguiente), junto con Rotaciones Electivas I y el cierre del Practicantado.",
    "aprP": [],
    "regP": [
     "5.1",
@@ -1790,6 +1784,34 @@
  ],
  "corrCambios": [
   {
+   "code": "3.1",
+   "campo": "apr",
+   "quita": "2.3",
+   "t": "Se quita 2.3 aprobada",
+   "p": "Introducción a la Clínica deja de exigir Salud Poblacional I aprobada: alcanza con 2.1 y 2.2 regulares."
+  },
+  {
+   "code": "3.2",
+   "campo": "apr",
+   "quita": "2.3",
+   "t": "Se quita 2.3 aprobada",
+   "p": "Patología General y Fisiopatología deja de exigir Salud Poblacional I aprobada: alcanza con 2.1 y 2.2 regulares."
+  },
+  {
+   "code": "3.3",
+   "campo": "apr",
+   "quita": "2.3",
+   "t": "Se quita 2.3 aprobada",
+   "p": "Bases para el Diagnóstico y el Tratamiento I deja de exigir Salud Poblacional I aprobada: alcanza con 2.1 y 2.2 regulares."
+  },
+  {
+   "code": "4.3",
+   "campo": "apr",
+   "pasa": "3.3",
+   "t": "Bases para el Diagnóstico I pasa de aprobada a regular",
+   "p": "Bases para el Diagnóstico y Tratamiento II deja de exigir Bases I aprobada: alcanza con tenerla regular, como ya pide 3.4."
+  },
+  {
    "code": "3.5",
    "campo": "apr",
    "pasa": "2.5",
@@ -1822,14 +1844,6 @@
    "codes": [
     "6.2",
     "6.5"
-   ]
-  },
-  {
-   "t": "Las rotaciones electivas están fuera del Practicantado",
-   "p": "El apartado 10 de la resolución dice que los estudiantes «contarán con espacios optativos durante la PFO» y que «consistirán en rotaciones electivas». En la planilla, 6.1 y 6.3 figuran en el 1.º cuatrimestre de 6.º año, antes del Practicantado, y la Propuesta las mantiene ahí por decisión de la coordinación. Falta ubicarlas dentro del tramo de la PFO o corregir el apartado 10.",
-   "codes": [
-    "6.1",
-    "6.3"
    ]
   },
   {
