@@ -18,7 +18,7 @@ Es una sola página, sin backend ni instalación. Se puede publicar en GitHub Pa
 ## Los dos escenarios
 
 - **Planilla actual**: la planilla de correlativas tal cual está.
-- **Propuesta**: una bimestral por bimestre en 3.º, 4.º y 5.º año, el Practicantado de agosto
+- **Propuesta**: una bimestral por bimestre en 3.º, 4.º y 5.º año, el Practicantado de octubre
   a junio del año siguiente, y encima los cambios que haga cada persona (cambiar el bimestre o
   las fechas de una materia). Las materias que movió quedan marcadas «tu cambio».
   Las Rotaciones Electivas (6.1 y 6.3) quedan en el 1.º cuatrimestre, como en la planilla. La
@@ -175,6 +175,12 @@ hábiles antes de la fecha de examen (para un examen del lunes, hasta el jueves)
 volante se genera un día hábil antes del turno (el viernes), para que los docentes consulten la lista
 definitiva de estudiantes inscriptos. Ambas fechas se calculan desde el primer día de examen del turno, con feriados.
 
+**Carga estimada por mes.** Las horas totales de cada espacio se reparten entre sus meses de
+cursada (julio no cuenta: es el receso). El Practicantado Rotatorio se reparte sobre todo su
+tramo, de octubre a junio del año siguiente, así que parte de sus horas cae fuera del ciclo.
+La carga por cuatrimestre es la suma de esa carga mensual: de febrero a julio y de agosto a
+diciembre.
+
 **Planilla de resultados.** Para los cuatrimestres se toman las fechas del calendario oficial;
 para bimestres y semestral, la semana hábil siguiente a su cierre.
 
@@ -304,8 +310,3 @@ la organización del dictado. No son un calendario académico aprobado para el p
 Para generar los archivos Excel, la página carga
 [SheetJS](https://cdnjs.cloudflare.com/ajax/libs/xlsx/0.18.5/xlsx.full.min.js) desde cdnjs.
 Sin conexión, el resto del tablero funciona igual y solo quedan sin generarse los Excel.
-
-**Propuesta oficial.** `oficial.json` es la copia guardada de la Propuesta de la coordinación; `build.py`
-la incorpora a `index.html`. Quien abre el sitio publicado ve siempre esa propuesta y, mientras no se
-aparte de ella, el Plan completo no marca cambios. Para actualizarla: «Guardar copia» en la página
-(con `?editar`), reemplazar `oficial.json` y volver a generar `index.html`.
