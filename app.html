@@ -934,10 +934,10 @@ const moved = s => { const a=s.base, b=win(s); return a.ini!==b.ini||a.fin!==b.f
 
 // ---------- relaciones ----------
 const deps={};
-function rels(){ S.forEach(s=>deps[s.codigo]=[]); S.forEach(s=>{ s.apr.forEach(p=>{if(deps[p])deps[p].push({code:s.codigo,tipo:'aprobada'})}); s.reg.forEach(p=>{if(deps[p])deps[p].push({code:s.codigo,tipo:'regular'})}); }); }
+function rels(){ S.forEach(s=>deps[s.codigo]=[]); S.forEach(s=>{ s.apr.forEach(p=>{if(deps[p])deps[p].push({code:s.codigo,tipo:'aprobada'})}); s.reg.forEach(p=>{if(deps[p])deps[p].push({code:s.codigo,tipo:'regular'})}); (s.simC||[]).forEach(p=>{if(deps[p])deps[p].push({code:s.codigo,tipo:'simultánea'})}); }); }
 function relOf(s){ if(!state.sel) return ''; if(state.sel===s.codigo) return 'sel';
   const x=byCode[state.sel]; if(!x) return '';
-  if(x.apr.includes(s.codigo)) return 'apr'; if(x.reg.includes(s.codigo)) return 'reg';
+  if(x.apr.includes(s.codigo)) return 'apr'; if(x.reg.includes(s.codigo)) return 'reg'; if((x.simC||[]).includes(s.codigo)) return 'reg';
   if(deps[state.sel].some(d=>d.code===s.codigo)) return 'dep'; return ''; }
 function conflicts(){
   const out=[];
@@ -1369,11 +1369,16 @@ function renderDetail(){
   const cor=[];
   if(s.todoAprobado) cor.push(h('div',{class:'note warn',text:'Todo aprobado.'}));
   else{
-    if(s.apr.length) cor.push(h('div',null,h('div',{class:'rl',text:'Aprobada'}),h('div',{class:'rchips'},s.apr.map(chipFor))));
+    if(s.apr.length){ const t=aprTxt(s);
+      cor.push(h('div',null,h('div',{class:'rl',text:'Aprobada'}),
+        t.startsWith('Todas de')?h('div',{class:'note',text:t+'. Son '+s.apr.length+' espacios.'}):h('div',{class:'rchips'},s.apr.map(chipFor)))); }
     if(s.reg.length) cor.push(h('div',null,h('div',{class:'rl',text:'Regular'}),h('div',{class:'rchips'},s.reg.map(chipFor))));
+    if((s.simC||[]).length) cor.push(h('div',null,h('div',{class:'rl',text:'En curso (cursada simultánea)'}),h('div',{class:'rchips'},s.simC.map(chipFor))));
     if(s.segunReglamento) cor.push(h('div',{class:'note',text:'Según reglamento de optativos.'}));
-    if(!s.apr.length&&!s.reg.length&&!s.segunReglamento) cor.push(h('div',{class:'note',text:'Sin correlativas para cursar.'}));
+    if(!s.apr.length&&!s.reg.length&&!s.segunReglamento&&!(s.simC||[]).length) cor.push(h('div',{class:'note',text:'Sin correlativas para cursar.'}));
   }
+  if(state.esc!=='base') cor.push(h('div',{class:'note'+(s.finT?' warn':'')},h('b',{text:'Para rendir el final: '}),
+    s.finT?'todas las materias de la carrera aprobadas.':'alcanza con la cursada aprobada; no pide otras materias.'));
   const b=bimOf(s);
   const bimCtl = (s.dur==='B') ? h('div',null,h('h3',{text:'Bimestre'}),
     h('div',{class:'sub',style:'margin-bottom:8px',text:'Al elegir otro bimestre se actualizan las fechas de abajo y se corre la barra del diagrama. El 1.º y el 2.º son del primer cuatrimestre; el 3.º y el 4.º, del segundo.'}),
@@ -1415,7 +1420,7 @@ function renderDetail(){
     h('div',null,h('h3',{text:'Correlativas para cursar'}),...cor,corrEdit(s)),
     h('div',null,h('h3',{text:'Habilita a'}),deps[s.codigo].length
       ?h('div',{class:'rchips'},deps[s.codigo].map(d=>h('span',{style:'display:inline-flex;gap:4px;align-items:center'},
-        chipFor(d.code),h('span',{class:'pl',style:'color:var(--muted)',text:d.tipo==='aprobada'?'apr.':'reg.'}))))
+        chipFor(d.code),h('span',{class:'pl',style:'color:var(--muted)',text:d.tipo==='aprobada'?'apr.':d.tipo==='simultánea'?'simult.':'reg.'}))))
       :h('div',{class:'note',text:s.cf==='PFO'?'Es la práctica final: cierra la carrera.':'No es correlativa de otros espacios.'})),
     ...corrCambio(s.codigo).map(x=>h('div',{class:'note good'},h('b',{text:'Correlativa modificada en la propuesta: '+x.t+'. '}),x.p)),
     ...sug.map(x=>h('div',{class:'note warn'},h('b',{text:x.t+'. '}),x.p)),
@@ -1531,21 +1536,23 @@ function tablaPlan(list,imp){
         cel(s,'nombre','',s.nombre),
         cel(s,'cursado','cen',s.cursado),
         cel(s,'hs','cen n',fmt(s.hs),String(s.hs)),
-        cel(s,'apr','cen',s.todoAprobado?'Todo aprobado':(s.apr.join(' - ')||(sinC?'':'—')),
+        cel(s,'apr','cen',aprTxt(s)||(sinC?'':'—'),
           s.todoAprobado?'Todo aprobado':s.apr.join(' - '),(()=>{ const d=s.apr.join()!==s.apr0.join(); return d&&!(OFI()&&state.esc==='mia')?`Planilla: ${s.apr0.join(' - ')||'—'}`:null; })()),
         cel(s,'reg','cen',s.segunReglamento?'Según reglamento':(s.reg.join(' - ')||(sinC?'S/C':'—')),
           s.segunReglamento?'Según reglamento':s.reg.join(' - '),(()=>{ const d=s.reg.join()!==s.reg0.join(); return d&&!(OFI()&&state.esc==='mia')?`Planilla: ${s.reg0.join(' - ')||'—'}`:null; })()),
+        cel(s,'sim','cen',(s.simC||[]).join(' - ')||'—',(s.simC||[]).join(' - ')),
+        h('td',{class:'cen',title:s.finT?'Art. 22 del reglamento de PFO':null,text:finTxt(s)}),
         cel(s,'regimen','cen',ACR(s))));
     });
     const tot=S.filter(s=>s.anio===y).reduce((a,s)=>a+s.hs,0);
-    tb.append(h('tr',{class:'tot'},h('td',{colspan:'12',text:`TOTAL DE HORAS ${ORD[y-1]} AÑO: ${fmt(tot)}`})));
+    tb.append(h('tr',{class:'tot'},h('td',{colspan:'14',text:`TOTAL DE HORAS ${ORD[y-1]} AÑO: ${fmt(tot)}`})));
   });
-  if(list.length===S.length) tb.append(h('tr',{class:'tot fin'},h('td',{colspan:'12',text:`TOTAL DE HORAS DE LA CARRERA: ${fmt(S.reduce((a,s)=>a+s.hs,0))} HORAS RELOJ`})));
+  if(list.length===S.length) tb.append(h('tr',{class:'tot fin'},h('td',{colspan:'14',text:`TOTAL DE HORAS DE LA CARRERA: ${fmt(S.reduce((a,s)=>a+s.hs,0))} HORAS RELOJ`})));
   return h('table',{class:'xls'},
     h('thead',null,
       h('tr',null,...[['Año',2],['Duración',2],['Código',2],['Cuatrimestre',2],['Bimestre',2],['CF',2],['Espacio curricular',2],['Cursado',2],['CHT',2]].map(([x,r])=>h('th',{rowspan:String(r),text:x})),
-        h('th',{colspan:'2',text:'Régimen de correlatividades para cursar'}),h('th',{rowspan:'2',text:'Acreditación'})),
-      h('tr',null,h('th',{text:'Aprobada'}),h('th',{text:'Regular'}))),tb);
+        h('th',{colspan:'3',text:'Régimen de correlatividades para cursar'}),h('th',{rowspan:'2',text:'Para rendir'}),h('th',{rowspan:'2',text:'Acreditación'})),
+      h('tr',null,h('th',{text:'Aprobada'}),h('th',{text:'Regular'}),h('th',{text:'En curso'}))),tb);
 }
 function renderPlan(){
   const list=S.filter(s=>(state.fAnio==='todos'||s.anio===+state.fAnio)&&(state.fReg==='todos'||s.regimen===state.fReg)&&
@@ -1580,7 +1587,7 @@ function renderGraph(){
   const s=state.sel&&byCode[state.sel]?byCode[state.sel]:null;
   let up=new Set(),dn=new Set();
   if(s){ if(state.chain==='cadena'){const c=chain(s.codigo);up=c.up;dn=c.dn;}
-    else{[...s.apr,...s.reg].forEach(p=>up.add(p));deps[s.codigo].forEach(d=>dn.add(d.code));} }
+    else{[...s.apr,...s.reg,...(s.simC||[])].forEach(p=>up.add(p));deps[s.codigo].forEach(d=>dn.add(d.code));} }
   const inv=new Set([...up,...dn,s?s.codigo:'']);
   const cols=h('div',{class:'gr-cols'});
   for(let y=1;y<=6;y++){
@@ -1601,7 +1608,7 @@ function renderGraph(){
     s?h('button',{class:'btn',type:'button',onclick:clearSel,text:'Quitar selección'}):null);
   const info=s?h('div',{class:'insight'},h('div',null,h('b',{text:`${s.codigo} ${s.nombre}: `}),
       s.todoAprobado?'exige tener todo aprobado.':`${up.size} ${up.size===1?'espacio previo':'espacios previos'} y ${dn.size} que ${dn.size===1?'depende':'dependen'} de él.`))
-    :h('div',{class:'insight'},h('div',null,'Tocá un espacio para ver de qué depende (borde ámbar) y qué habilita (borde verde). Línea llena: aprobada. Punteada: regular. Roja: va contra el orden de los años.'));
+    :h('div',{class:'insight'},h('div',null,'Tocá un espacio para ver de qué depende (borde ámbar) y qué habilita (borde verde). Línea llena: aprobada. Rayada: regular. Punteada fina: en curso (cursada simultánea). Roja: va contra el orden de los años.'));
   requestAnimationFrame(()=>edges(inv,s));
   return h('div',null,ctl,info,h('div',{class:'gr-scroll'},gr));
 }
@@ -1615,7 +1622,7 @@ function edges(inv,s){
     return {l:r.left-box.left,r:r.right-box.left,y:r.top-box.top+r.height/2}; };
   const es=[];
   inv.forEach(code=>{ if(!code) return; const x=byCode[code];
-    [['aprobada',x.apr],['regular',x.reg]].forEach(([t,l])=>l.forEach(p=>{ if(inv.has(p)&&(state.chain==='cadena'||p===s.codigo||code===s.codigo)) es.push({from:p,to:code,tipo:t}); })); });
+    [['aprobada',x.apr],['regular',x.reg],['simultánea',x.simC||[]]].forEach(([t,l])=>l.forEach(p=>{ if(inv.has(p)&&(state.chain==='cadena'||p===s.codigo||code===s.codigo)) es.push({from:p,to:code,tipo:t}); })); });
   es.forEach(e=>{ const a=pos(e.from),b=pos(e.to); if(!a||!b) return;
     const pa=byCode[e.from],pb=byCode[e.to]; let d;
     if(pa.anio<pb.anio){const dx=Math.max(30,(b.l-a.r)/2); d=`M${a.r},${a.y} C${a.r+dx},${a.y} ${b.l-dx},${b.y} ${b.l},${b.y}`;}
@@ -1623,6 +1630,7 @@ function edges(inv,s){
     else {const dx=Math.max(30,(a.l-b.r)/2); d=`M${a.l},${a.y} C${a.l-dx},${a.y} ${b.r+dx},${b.y} ${b.r},${b.y}`;}
     const p=sv('path',{d,stroke:'currentColor','marker-end':'url(#ar)',style:'color:'+(pa.anio>pb.anio?'var(--crit)':'var(--ink-2)')});
     if(e.tipo==='regular') p.setAttribute('stroke-dasharray','5 4');
+    if(e.tipo==='simultánea'){ p.setAttribute('stroke-dasharray','2 3'); p.setAttribute('stroke-width','2.6'); }
     svg.append(p); });
 }
 
@@ -1942,9 +1950,10 @@ let DL=null;
 const sortS=l=>l.slice().sort((a,b)=>a.anio-b.anio||a.codigo.localeCompare(b.codigo,'es',{numeric:true}));
 function sheetPlan(){
   return [['Año','Código','Espacio curricular','Duración','Cuatrimestre','Bimestre','Campo de formación','Forma de cursado',
-           'Horas teóricas','Horas prácticas','Horas totales','Régimen de acreditación','Correlativas aprobadas','Correlativas regulares'],
+           'Horas teóricas','Horas prácticas','Horas totales','Régimen de acreditación','Correlativas aprobadas','Correlativas regulares','En curso (simultánea)','Para rendir'],
     ...sortS(S).map(s=>[s.anio,s.codigo,s.nombre,DURS[s.dur],perLbl(s).replace(' cuatrimestre',''),bimOf(s)?BIMS[bimOf(s)].n:'',CF[s.cf],s.cursado,
-      s.teo,s.pra,s.hs,s.regimen,s.todoAprobado?'Todo aprobado':s.apr.join(' '),s.segunReglamento?'Según reglamento':s.reg.join(' ')])];
+      s.teo,s.pra,s.hs,s.regimen,s.todoAprobado?'Todo aprobado':s.apr.join(' '),s.segunReglamento?'Según reglamento':s.reg.join(' '),
+      (s.simC||[]).join(' '),finTxt(s)])];
 }
 function sheetSiu(){
   return [['Ciclo lectivo','Año','Código','Espacio curricular','Período','Bimestre','Inscripción desde','Inscripción hasta',
@@ -1977,9 +1986,11 @@ function sheetCorrel(){
   const r=[['Código','Espacio curricular','Año','Condición','Código requerido','Espacio requerido','Año del requerido']];
   sortS(S).forEach(s=>{
     if(s.todoAprobado){r.push([s.codigo,s.nombre,s.anio,'Todo aprobado','','','']);return}
-    if(!s.apr.length&&!s.reg.length){r.push([s.codigo,s.nombre,s.anio,s.segunReglamento?'Según reglamento':'Sin correlativas','','','']);return}
+    if(!s.apr.length&&!s.reg.length&&!(s.simC||[]).length){r.push([s.codigo,s.nombre,s.anio,s.segunReglamento?'Según reglamento':'Sin correlativas','','','']);return}
     s.apr.forEach(p=>r.push([s.codigo,s.nombre,s.anio,'Aprobada',p,byCode[p]?byCode[p].nombre:'',byCode[p]?byCode[p].anio:'']));
     s.reg.forEach(p=>r.push([s.codigo,s.nombre,s.anio,'Regular',p,byCode[p]?byCode[p].nombre:'',byCode[p]?byCode[p].anio:'']));
+    (s.simC||[]).forEach(p=>r.push([s.codigo,s.nombre,s.anio,'Cursada simultánea',p,byCode[p]?byCode[p].nombre:'',byCode[p]?byCode[p].anio:'']));
+    if(s.finT) r.push([s.codigo,s.nombre,s.anio,'Para rendir: todas aprobadas','','','']);
   });
   return r;
 }
@@ -2115,8 +2126,17 @@ function dlSvg(btn){
 // Cada casilla del plan se puede reescribir; lo escrito se guarda aparte de la planilla y se puede devolver
 // a como estaba casilla por casilla. Las correlativas se escriben con los códigos («2.3 - 2.4»), o
 // «Todo aprobado» / «Según reglamento».
-const PLAN_CAMPOS=['nombre','cursado','hs','apr','reg','regimen'];
+const PLAN_CAMPOS=['nombre','cursado','hs','apr','reg','sim','regimen'];
 const planOv = code => state.esc!=='base' ? (state.plan[code]||{}) : {};
+// Las listas largas se muestran resumidas; en modo edición se escribe la lista completa.
+function aprTxt(s){ if(s.todoAprobado) return 'Todo aprobado';
+  if(!s.apr.length) return '';
+  const b5=S.filter(x=>x.anio<=5);
+  if(b5.length&&b5.every(x=>s.apr.includes(x.codigo))){
+    const ex=s.apr.filter(c=>byCode[c]&&byCode[c].anio>5);
+    return 'Todas de 1.º a 5.º año'+(ex.length?' - '+ex.join(' - '):''); }
+  return s.apr.join(' - '); }
+const finTxt = s => s.finT ? 'Todas aprobadas' : '—';
 function parseCorr(txt){ const t=String(txt||'').trim();
   if(/todo/i.test(t)) return {list:[],todo:true};
   if(/reglamento/i.test(t)) return {list:[],reglam:true};
@@ -2137,14 +2157,18 @@ function syncPlan(){
 function syncCorr(){ const prop=state.esc!=='base';
   syncPlan();
   S.forEach(s=>{ s.apr=(prop&&s.aprP)?s.aprP:s.apr0; s.reg=(prop&&s.regP)?s.regP:s.reg0;
+    // «Cursada simultánea» y «para rendir» son de la Propuesta: la planilla no los tiene.
+    s.simC=prop?(s.sim||[]):[]; s.finT=prop?!!s.finTodo:false;
     const o=planOv(s.codigo);
     if(o.apr!=null){ const p=parseCorr(o.apr); s.apr=p.list; s.todoAprobado=!!p.todo; }
-    if(o.reg!=null){ const p=parseCorr(o.reg); s.reg=p.list; s.segunReglamento=!!p.reglam; } });
+    if(o.reg!=null){ const p=parseCorr(o.reg); s.reg=p.list; s.segunReglamento=!!p.reglam; }
+    if(o.sim!=null){ s.simC=parseCorr(o.sim).list; } });
   rels(); }
 // Texto de cada casilla tal como está sin lo escrito a mano, para poder volver.
 function textoPrevio(s,campo){ const z=s._o, prop=state.esc!=='base';
   if(campo==='nombre') return z.nombre; if(campo==='cursado') return z.cursado; if(campo==='hs') return String(z.hs);
   if(campo==='regimen') return z.regimen==='Promoción'?'Promoción':'Ex. Final';
+  if(campo==='sim') return ((prop&&s.sim)?s.sim:[]).join(' - ');
   if(campo==='apr') return (z.todo&&!(prop&&s.todoP===false))?'Todo aprobado':((prop&&s.aprP?s.aprP:s.apr0).join(' - '));
   return z.reglam?'Según reglamento':((prop&&s.regP?s.regP:s.reg0).join(' - ')); }
 let planAviso='';

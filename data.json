@@ -32,7 +32,9 @@
     "flex": false
    },
    "aprP": [],
-   "regP": []
+   "regP": [],
+   "sim": [],
+   "finTodo": false
   },
   {
    "anio": 1,
@@ -65,7 +67,9 @@
     "flex": false
    },
    "aprP": [],
-   "regP": []
+   "regP": [],
+   "sim": [],
+   "finTodo": false
   },
   {
    "anio": 1,
@@ -98,7 +102,9 @@
     "flex": false
    },
    "aprP": [],
-   "regP": []
+   "regP": [],
+   "sim": [],
+   "finTodo": false
   },
   {
    "anio": 1,
@@ -131,7 +137,9 @@
     "flex": false
    },
    "aprP": [],
-   "regP": []
+   "regP": [],
+   "sim": [],
+   "finTodo": false
   },
   {
    "anio": 1,
@@ -164,7 +172,9 @@
     "flex": false
    },
    "aprP": [],
-   "regP": []
+   "regP": [],
+   "sim": [],
+   "finTodo": false
   },
   {
    "anio": 2,
@@ -209,7 +219,9 @@
     "1.3",
     "1.4",
     "1.5"
-   ]
+   ],
+   "sim": [],
+   "finTodo": false
   },
   {
    "anio": 2,
@@ -254,7 +266,9 @@
     "1.3",
     "1.4",
     "1.5"
-   ]
+   ],
+   "sim": [],
+   "finTodo": false
   },
   {
    "anio": 2,
@@ -299,7 +313,9 @@
     "1.3",
     "1.4",
     "1.5"
-   ]
+   ],
+   "sim": [],
+   "finTodo": false
   },
   {
    "anio": 2,
@@ -340,7 +356,9 @@
     "1.3",
     "1.4",
     "1.5"
-   ]
+   ],
+   "sim": [],
+   "finTodo": false
   },
   {
    "anio": 2,
@@ -383,7 +401,9 @@
     "1.4",
     "1.5",
     "2.3"
-   ]
+   ],
+   "sim": [],
+   "finTodo": false
   },
   {
    "anio": 2,
@@ -430,7 +450,9 @@
     "1.2",
     "1.3",
     "1.4"
-   ]
+   ],
+   "sim": [],
+   "finTodo": false
   },
   {
    "anio": 2,
@@ -465,7 +487,9 @@
    "propBim": 3,
    "propRazon": "3.er bimestre (10/08 al 30/09). Es el único bimestre de 2.º año sin materia troncal: no le suma carga a ningún otro. Sigue siendo de fecha libre; se puede mover a cualquier bimestre del año.",
    "aprP": [],
-   "regP": []
+   "regP": [],
+   "sim": [],
+   "finTodo": false
   },
   {
    "anio": 3,
@@ -506,7 +530,9 @@
    "regP": [
     "2.1",
     "2.2"
-   ]
+   ],
+   "sim": [],
+   "finTodo": false
   },
   {
    "anio": 3,
@@ -547,7 +573,9 @@
    "regP": [
     "2.1",
     "2.2"
-   ]
+   ],
+   "sim": [],
+   "finTodo": false
   },
   {
    "anio": 3,
@@ -588,7 +616,9 @@
    "regP": [
     "2.1",
     "2.2"
-   ]
+   ],
+   "sim": [],
+   "finTodo": false
   },
   {
    "anio": 3,
@@ -625,7 +655,9 @@
    "aprP": [],
    "regP": [
     "2.1"
-   ]
+   ],
+   "sim": [],
+   "finTodo": false
   },
   {
    "anio": 3,
@@ -664,7 +696,9 @@
    "aprP": [],
    "regP": [
     "2.5"
-   ]
+   ],
+   "sim": [],
+   "finTodo": false
   },
   {
    "anio": 3,
@@ -705,7 +739,9 @@
    "regP": [
     "2.3",
     "2.4"
-   ]
+   ],
+   "sim": [],
+   "finTodo": false
   },
   {
    "anio": 3,
@@ -742,7 +778,9 @@
    "aprP": [
     "2.6"
    ],
-   "regP": []
+   "regP": [],
+   "sim": [],
+   "finTodo": false
   },
   {
    "anio": 3,
@@ -777,7 +815,9 @@
    "propBim": 2,
    "propRazon": "2.º bimestre (07/05 al 03/07). El 1.er cuatrimestre de 3.º año no tiene ninguna bimestral troncal: es el tramo con más lugar libre del año. Fecha libre; se puede mover a cualquier bimestre del año.",
    "aprP": [],
-   "regP": []
+   "regP": [],
+   "sim": [],
+   "finTodo": false
   },
   {
    "anio": 4,
@@ -820,7 +860,9 @@
    "regP": [
     "3.1",
     "3.3"
-   ]
+   ],
+   "sim": [],
+   "finTodo": false
   },
   {
    "anio": 4,
@@ -863,7 +905,9 @@
    "regP": [
     "3.1",
     "3.3"
-   ]
+   ],
+   "sim": [],
+   "finTodo": false
   },
   {
    "anio": 4,
@@ -903,7 +947,9 @@
    "regP": [
     "3.4",
     "3.3"
-   ]
+   ],
+   "sim": [],
+   "finTodo": false
   },
   {
    "anio": 4,
@@ -948,7 +994,9 @@
    "regP": [
     "3.3",
     "3.4"
-   ]
+   ],
+   "sim": [],
+   "finTodo": false
   },
   {
    "anio": 4,
@@ -987,7 +1035,9 @@
    "aprP": [],
    "regP": [
     "3.5"
-   ]
+   ],
+   "sim": [],
+   "finTodo": false
   },
   {
    "anio": 4,
@@ -1028,7 +1078,9 @@
    "regP": [
     "3.1",
     "3.6"
-   ]
+   ],
+   "sim": [],
+   "finTodo": false
   },
   {
    "anio": 4,
@@ -1069,7 +1121,9 @@
    "regP": [
     "3.1",
     "3.5"
-   ]
+   ],
+   "sim": [],
+   "finTodo": false
   },
   {
    "anio": 4,
@@ -1106,7 +1160,9 @@
    "aprP": [
     "3.7"
    ],
-   "regP": []
+   "regP": [],
+   "sim": [],
+   "finTodo": false
   },
   {
    "anio": 4,
@@ -1141,7 +1197,9 @@
    "propBim": 2,
    "propRazon": "2.º bimestre (07/05 al 03/07). Es el bimestre con menos carga troncal de 4.º año (30 h, Calidad de la Atención Médica): sumarle 25 h es lo que menos aulas agrega. Fecha libre; se puede mover a cualquier bimestre del año.",
    "aprP": [],
-   "regP": []
+   "regP": [],
+   "sim": [],
+   "finTodo": false
   },
   {
    "anio": 5,
@@ -1182,7 +1240,9 @@
     "4.1",
     "4.2",
     "4.3"
-   ]
+   ],
+   "sim": [],
+   "finTodo": false
   },
   {
    "anio": 5,
@@ -1233,7 +1293,9 @@
     "4.2",
     "4.3",
     "4.7"
-   ]
+   ],
+   "sim": [],
+   "finTodo": false
   },
   {
    "anio": 5,
@@ -1284,7 +1346,9 @@
     "4.2",
     "4.3",
     "4.7"
-   ]
+   ],
+   "sim": [],
+   "finTodo": false
   },
   {
    "anio": 5,
@@ -1329,7 +1393,9 @@
    "regP": [
     "4.6",
     "4.7"
-   ]
+   ],
+   "sim": [],
+   "finTodo": false
   },
   {
    "anio": 5,
@@ -1376,7 +1442,9 @@
     "4.1",
     "4.3",
     "4.7"
-   ]
+   ],
+   "sim": [],
+   "finTodo": false
   },
   {
    "anio": 5,
@@ -1415,7 +1483,9 @@
    "regP": [
     "4.1",
     "4.3"
-   ]
+   ],
+   "sim": [],
+   "finTodo": false
   },
   {
    "anio": 5,
@@ -1458,7 +1528,9 @@
    ],
    "regP": [
     "4.5"
-   ]
+   ],
+   "sim": [],
+   "finTodo": false
   },
   {
    "anio": 5,
@@ -1495,7 +1567,9 @@
    "aprP": [
     "4.8"
    ],
-   "regP": []
+   "regP": [],
+   "sim": [],
+   "finTodo": false
   },
   {
    "anio": 5,
@@ -1530,7 +1604,9 @@
    "propBim": 2,
    "propRazon": "2.º bimestre (07/05 al 03/07). Es el único bimestre de 5.º año sin materia troncal: no le suma carga a ningún otro. Fecha libre; se puede mover a cualquier bimestre del año.",
    "aprP": [],
-   "regP": []
+   "regP": [],
+   "sim": [],
+   "finTodo": false
   },
   {
    "anio": 6,
@@ -1570,12 +1646,11 @@
    },
    "propRazon": "13.º cuatrimestre: el medio año que cierra la carrera (marzo a junio del año siguiente). Las rotaciones electivas forman parte de la Práctica Final Obligatoria, así que se cursan dentro de su tramo y no en el 1.º cuatrimestre de 6.º año.",
    "aprP": [],
-   "regP": [
-    "5.1",
-    "5.2",
-    "5.3",
-    "5.4"
-   ]
+   "regP": [],
+   "sim": [
+    "6.5"
+   ],
+   "finTodo": false
   },
   {
    "anio": 6,
@@ -1617,7 +1692,9 @@
    ],
    "regP": [
     "5.4"
-   ]
+   ],
+   "sim": [],
+   "finTodo": false
   },
   {
    "anio": 6,
@@ -1657,12 +1734,11 @@
    },
    "propRazon": "13.º cuatrimestre: el medio año que cierra la carrera (marzo a junio del año siguiente), junto con Rotaciones Electivas I y el cierre del Practicantado.",
    "aprP": [],
-   "regP": [
-    "5.1",
-    "5.2",
-    "5.3",
-    "5.4"
-   ]
+   "regP": [],
+   "sim": [
+    "6.5"
+   ],
+   "finTodo": false
   },
   {
    "anio": 6,
@@ -1699,7 +1775,9 @@
    "aprP": [
     "5.8"
    ],
-   "regP": []
+   "regP": [],
+   "sim": [],
+   "finTodo": false
   },
   {
    "anio": 6,
@@ -1771,14 +1849,13 @@
     "5.6",
     "5.7",
     "5.8",
-    "5.9",
-    "6.1",
-    "6.3",
-    "6.4"
+    "5.9"
    ],
    "regP": [
     "6.2"
    ],
+   "sim": [],
+   "finTodo": true,
    "todoP": false
   }
  ],
@@ -1828,12 +1905,31 @@
   {
    "code": "6.5",
    "campo": "apr",
-   "nuevaApr": "TODAS_MENOS_6.2",
+   "hasta5": true,
    "nuevaReg": [
     "6.2"
    ],
-   "t": "El Practicantado pide todo aprobado, salvo 6.2 regular",
-   "p": "Para iniciar el Practicantado hay que tener aprobadas de 1.1 a 6.1, 6.3 y 6.4, y regular 6.2 (Salud Comunitaria y Familiar). Es «Todo aprobado» de la planilla con una única excepción: 6.2 alcanza con tenerla regular, para que el Practicantado pueda empezar sin esperar su final."
+   "finTodo": true,
+   "t": "El Practicantado pide todas las de 1.º a 5.º año aprobadas y 6.2 regular",
+   "p": "Para cursar hay que tener aprobadas todas las materias de 1.º a 5.º año y regular 6.2 (Salud Comunitaria y Familiar), que es donde vive Medicina General y Familiar. No se exigen 6.1, 6.3 ni 6.4, que se cursan durante la PFO o en paralelo. Para rendir el examen final integrador sí hay que tener aprobada toda la carrera, como fija el Art. 22 del reglamento de PFO."
+  },
+  {
+   "code": "6.1",
+   "campo": "sim",
+   "nuevaSim": [
+    "6.5"
+   ],
+   "t": "Rotaciones Electivas I se cursa dentro del Practicantado",
+   "p": "Deja de pedir 5.1 a 5.4 regulares y pasa a pedir 6.5 en curso (cursada simultánea en SIU Guaraní): las rotaciones electivas se hacen durante la PFO, según el apartado 10 de la Res. C.S. 093-25. Así el control de 1.º a 5.º año queda en un solo lugar, en 6.5."
+  },
+  {
+   "code": "6.3",
+   "campo": "sim",
+   "nuevaSim": [
+    "6.5"
+   ],
+   "t": "Rotaciones Electivas II se cursa dentro del Practicantado",
+   "p": "Igual que 6.1: pide 6.5 en curso y nada más. El final de las electivas no pide toda la carrera aprobada; si lo pidiera, nunca podrían aprobarse, porque el final integrador de 6.5 exige tenerlas aprobadas."
   }
  ],
  "sugerencias": [],

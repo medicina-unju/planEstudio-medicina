@@ -103,7 +103,9 @@ en amarillo, con el valor original al pasar el mouse):
 | 3.5 Relaciones Humanas II | 2.5 aprobada | 2.5 regular | Flexibilización de la línea RH |
 | 4.3 Bases para el Diagnóstico II | 3.3 aprobada | 3.3 regular | Alcanza con tenerla regular, como ya pide 3.4 |
 | 4.5 Relaciones Humanas III | 3.5 aprobada | 3.5 regular | Flexibilización de la línea RH |
-| 6.5 Practicantado Rotatorio | Todo aprobado | Todo aprobado salvo 6.2 regular | Para que pueda iniciar sin esperar el final de 6.2 |
+| 6.5 Practicantado Rotatorio | Todo aprobado | Todas las de 1.º a 5.º año aprobadas y 6.2 regular | Entra sin esperar el final de 6.2, que es donde está Medicina General y Familiar |
+| 6.1 Rotaciones Electivas I | 5.1 - 5.2 - 5.3 - 5.4 regulares | 6.5 en curso | Se cursan dentro de la PFO (apartado 10 de la Res. 093-25) |
+| 6.3 Rotaciones Electivas II | 5.1 - 5.2 - 5.3 - 5.4 regulares | 6.5 en curso | ídem |
 
 2.5 vuelve a pedir 1.3, 1.4, 1.5 y 2.3 regulares, y 5.2, 5.3 y 5.5 vuelven a pedir 3.3 aprobada,
 como en la planilla.
@@ -185,6 +187,15 @@ que es el 1.º cuatrimestre del 7.º año (marzo a junio del año siguiente). El
 la derecha, separado por el verano. Ahí van las Rotaciones Electivas I y II y el cierre de la
 Práctica Final Obligatoria. No entra en el cuadro de SIU de este ciclo —se carga en el del ciclo
 siguiente—, así que figura como nota debajo del cuadro.
+
+**Correlativas para cursar y para rendir.** El plan distingue tres condiciones para cursar
+—aprobada, regular y en curso (cursada simultánea)— y una para rendir. Son las mismas que usa
+SIU Guaraní en «Asignar correlativas», así que la tabla del plan se puede cargar tal cual.
+El Practicantado (6.5) pide todas las de 1.º a 5.º año aprobadas y 6.2 regular para cursar, y
+toda la carrera aprobada para rendir el final integrador (Art. 22 del reglamento de PFO).
+Las Rotaciones Electivas piden 6.5 en curso y nada más: el control de 1.º a 5.º año queda en un
+solo lugar. Sus finales no piden la carrera completa; si la pidieran, no podrían aprobarse nunca,
+porque el final de 6.5 exige tenerlas aprobadas.
 
 **Módulos de la PFO.** El filtro «Ver los módulos de la PFO» abre, debajo del Practicantado,
 los seis módulos del Art. 1 del reglamento (Res. C.S. 095-25): Clínica Médica, Quirúrgica,

@@ -241,19 +241,27 @@ CORR_CAMBIOS = [
       p="La línea Relaciones Humanas es progresiva: RH II se apoya en RH I sin necesitar su examen aprobado. RH I es de promoción, así que solo cambia algo para quien no promocionó, que puede seguir la línea sin perder un año."),
  dict(code="4.5", campo="apr", pasa="3.5", t="Relaciones Humanas II pasa de aprobada a regular",
       p="RH III continúa RH II, que es de promoción. Pedirla regular asegura la secuencia y evita que quien no promocionó RH II quede afuera de RH III, que además es correlativa aprobada de 6.2."),
- dict(code="6.5", campo="apr", nuevaApr="TODAS_MENOS_6.2", nuevaReg=["6.2"], t="El Practicantado pide todo aprobado, salvo 6.2 regular",
-      p="Para iniciar el Practicantado hay que tener aprobadas de 1.1 a 6.1, 6.3 y 6.4, y regular 6.2 (Salud Comunitaria y Familiar). Es «Todo aprobado» de la planilla con una única excepción: 6.2 alcanza con tenerla regular, para que el Practicantado pueda empezar sin esperar su final."),
+ dict(code="6.5", campo="apr", hasta5=True, nuevaReg=["6.2"], finTodo=True,
+      t="El Practicantado pide todas las de 1.º a 5.º año aprobadas y 6.2 regular",
+      p="Para cursar hay que tener aprobadas todas las materias de 1.º a 5.º año y regular 6.2 (Salud Comunitaria y Familiar), que es donde vive Medicina General y Familiar. No se exigen 6.1, 6.3 ni 6.4, que se cursan durante la PFO o en paralelo. Para rendir el examen final integrador sí hay que tener aprobada toda la carrera, como fija el Art. 22 del reglamento de PFO."),
+ dict(code="6.1", campo="sim", nuevaSim=["6.5"], t="Rotaciones Electivas I se cursa dentro del Practicantado",
+      p="Deja de pedir 5.1 a 5.4 regulares y pasa a pedir 6.5 en curso (cursada simultánea en SIU Guaraní): las rotaciones electivas se hacen durante la PFO, según el apartado 10 de la Res. C.S. 093-25. Así el control de 1.º a 5.º año queda en un solo lugar, en 6.5."),
+ dict(code="6.3", campo="sim", nuevaSim=["6.5"], t="Rotaciones Electivas II se cursa dentro del Practicantado",
+      p="Igual que 6.1: pide 6.5 en curso y nada más. El final de las electivas no pide toda la carrera aprobada; si lo pidiera, nunca podrían aprobarse, porque el final integrador de 6.5 exige tenerlas aprobadas."),
 ]
 for s in subjects:
-    s["aprP"]=list(s["apr"]); s["regP"]=list(s["reg"])
+    s["aprP"]=list(s["apr"]); s["regP"]=list(s["reg"]); s["sim"]=[]; s["finTodo"]=False
 for c in CORR_CAMBIOS:
     s=by[c["code"]]
     if c.get("quita"):
         assert c["quita"] in s["aprP"], c; s["aprP"].remove(c["quita"])
     for q in c.get("quitaReg",[]):
         assert q in s["regP"], c; s["regP"].remove(q)
-    if c.get("nuevaApr"):
-        s["aprP"]=[x["codigo"] for x in subjects if x["codigo"] not in (c["code"],"6.2")]; s["regP"]=list(c["nuevaReg"]); s["todoP"]=False
+    if c.get("hasta5"):
+        s["aprP"]=[x["codigo"] for x in subjects if x["anio"] <= 5]
+        s["regP"]=list(c.get("nuevaReg", [])); s["todoP"]=False; s["finTodo"]=bool(c.get("finTodo"))
+    if c.get("nuevaSim") is not None:
+        s["sim"]=list(c["nuevaSim"]); s["aprP"]=[]; s["regP"]=[]
     if c.get("pasa"):
         assert c["pasa"] in s["aprP"], c; s["aprP"].remove(c["pasa"])
         if c["pasa"] not in s["regP"]: s["regP"].append(c["pasa"])
