@@ -186,6 +186,10 @@ la derecha, separado por el verano. Ahí van las Rotaciones Electivas I y II y e
 Práctica Final Obligatoria. No entra en el cuadro de SIU de este ciclo —se carga en el del ciclo
 siguiente—, así que figura como nota debajo del cuadro.
 
+**Columna de nombres.** El filtro «Angostar la columna de nombres» deja solo el código de cada
+espacio y le da el ancho ganado a los meses: sirve para ver todo el año y el 13.º cuatrimestre
+sin desplazarse, sobre todo en el celular.
+
 **Carga estimada por mes.** Las horas totales de cada espacio se reparten entre sus meses de
 cursada (julio no cuenta: es el receso). El Practicantado Rotatorio se reparte sobre todo su
 tramo, de octubre a junio del año siguiente, así que parte de sus horas cae fuera del ciclo.
