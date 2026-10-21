@@ -259,6 +259,16 @@ aside.detail{min-width:0}
 .dp h2{font-size:21px;margin:2px 0 0}
 .close{border:1px solid var(--line);background:var(--surface);border-radius:9px;width:36px;height:36px;font-size:19px;line-height:1;flex:none}
 @media (min-width:1200px){ .close{display:none} }
+/* Lengüeta en el borde del panel de detalle, para esconderlo y ganar ancho para el diagrama. */
+#pantog{display:none}
+@media (min-width:1200px){
+  #pantog[hidden]{display:none}
+  #pantog{display:flex;position:fixed;top:50%;transform:translateY(-50%);z-index:30;width:19px;height:76px;
+    align-items:center;justify-content:center;padding:0;border:1px solid var(--line);border-right:0;
+    border-radius:9px 0 0 9px;background:var(--surface);box-shadow:var(--sh-2);color:var(--ink-2);font-size:14px;line-height:1}
+  #pantog:hover{background:var(--surface-2);color:var(--ink)}
+  #pantog.sel{border-color:var(--accent-2);color:var(--accent-2)}
+}
 .badges{display:flex;flex-wrap:wrap;gap:6px}
 .badge{font-size:12px;font-weight:600;border-radius:999px;padding:3px 11px;background:var(--surface-2);color:var(--ink-2);border:1px solid var(--line)}
 .badge.p{background:var(--good-bg);color:var(--good);border-color:transparent}
@@ -512,6 +522,7 @@ body.pr-vert #print .pr-plan .pr-head h1{font-size:18px}
   <p class="foot legal"><span id="legal"></span>
     <span class="ver">Versión <b id="vstamp">—</b> <span id="vmodo"></span></span></p>
 </div>
+<button id="pantog" type="button" hidden><span>›</span></button>
 <div id="tip" role="tooltip"></div>
 
 <script>
@@ -573,7 +584,7 @@ const LS='medunju-v2';
 const TABKEYS=['secuencia','plan','correlativas','horas','calendario'];
 const state={ tab:'secuencia', esc:'mia', years:new Set([1,2]), sel:null, overrides:{}, bim:{}, fechas:{},
   ciclo:new Date().getFullYear()+1, insc:{}, cal:{}, countOpt:false, chain:'cadena', hmode:'campo',
-  plan:{}, compacto:false, fAnio:'todos', fReg:'todos', fTexto:'', regimen:'todos', per:new Set() };
+  plan:{}, compacto:false, panelOff:false, fAnio:'todos', fReg:'todos', fTexto:'', regimen:'todos', per:new Set() };
 function load(){ try{ const j=JSON.parse(localStorage.getItem(LS)||'{}'); apply(j); }catch(e){} }
 function apply(j){
   if(Array.isArray(j.years)&&j.years.length) state.years=new Set(j.years.filter(y=>y>=1&&y<=6));
@@ -1280,10 +1291,27 @@ function corrEdit(s){
     h('div',{class:'row2'},campo('apr','Aprobadas'),campo('reg','Regulares')),
     h('div',{class:'mini',style:'margin-top:4px',text:'Escribí los códigos separados por guion (2.3 - 2.4), o «Todo aprobado» / «Según reglamento». El cambio entra en la propuesta y se ve en todas las pestañas.'}));
 }
+// El panel se puede esconder desde la lengüeta de su borde izquierdo: el diagrama queda a todo el ancho.
+function ubicarTog(){
+  const t=document.getElementById('pantog'), box=document.getElementById('detail');
+  if(!t||t.hidden) return;
+  const r=box.hidden?null:box.getBoundingClientRect();
+  t.style.right=(r&&r.width?Math.max(0,Math.round(window.innerWidth-r.left)):0)+'px';
+}
+window.addEventListener('resize',ubicarTog);
 function renderDetail(){
   const box=document.getElementById('detail'), shell=document.getElementById('shell');
-  const has=['secuencia','plan','correlativas'].includes(state.tab);
+  const tab=['secuencia','plan','correlativas'].includes(state.tab);
+  const has=tab&&!state.panelOff;
+  const t=document.getElementById('pantog');
+  if(t){ t.hidden=!tab;
+    t.className=state.panelOff&&state.sel?'sel':'';
+    t.title=state.panelOff?'Mostrar el detalle del espacio curricular':'Esconder el panel de detalle';
+    t.setAttribute('aria-label',t.title);
+    t.firstChild.textContent=state.panelOff?'‹':'›';
+    t.onclick=()=>{state.panelOff=!state.panelOff;render()}; }
   shell.classList.toggle('has-panel',has); box.hidden=!has;
+  setTimeout(ubicarTog,0);
   const s=state.sel?byCode[state.sel]:null;
   box.classList.toggle('open',!!s&&has);
   if(!has) return;

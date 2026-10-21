@@ -186,6 +186,10 @@ la derecha, separado por el verano. Ahí van las Rotaciones Electivas I y II y e
 Práctica Final Obligatoria. No entra en el cuadro de SIU de este ciclo —se carga en el del ciclo
 siguiente—, así que figura como nota debajo del cuadro.
 
+**Panel de detalle.** En pantalla ancha, la lengüeta del borde izquierdo del panel lo esconde y
+lo vuelve a mostrar; con el panel escondido, el diagrama ocupa todo el ancho. Si hay una materia
+elegida mientras está escondido, la lengüeta queda marcada.
+
 **Columna de nombres.** El filtro «Angostar la columna de nombres» deja solo el código de cada
 espacio y le da el ancho ganado a los meses: sirve para ver todo el año y el 13.º cuatrimestre
 sin desplazarse, sobre todo en el celular.
