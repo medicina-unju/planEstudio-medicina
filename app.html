@@ -172,7 +172,9 @@ h3{font-size:16px;margin:0 0 6px}
 .g-row.mod{min-height:30px;background:color-mix(in srgb,var(--c) 5%,transparent)}
 .g-row.mod .g-label{padding-left:26px;border-left-color:transparent}
 .g-row.mod .g-label .code{font-weight:500;color:var(--ink-2);font-family:var(--f-b);font-size:12px}
-.seg-b.modb{height:20px;opacity:.78;font-size:11px;justify-content:center}
+.seg-b.modb{height:20px;opacity:.82;font-size:11px;justify-content:flex-start;gap:5px;padding:0 6px}
+.seg-b.modb .sc{overflow:hidden;text-overflow:ellipsis;min-width:0}
+.seg-b.modb .sh{flex:none}
 .g-row.r-apr .g-label,.g-row.r-reg .g-label{background:var(--warn-bg)}
 .g-row.r-dep .g-label{background:var(--good-bg)}
 .g-head{position:relative;background:var(--surface)}
@@ -1254,12 +1256,15 @@ function gantt(){
   const M=state.mods?modsPFO():null;
   const nm=M?h('div',{class:'insight w',style:'margin:12px 0 0'},h('div',null,
     h('b',{text:'Módulos de la Práctica Final Obligatoria. '}),
-    `Los seis módulos del Art. 1 del reglamento (Clínica Médica, Quirúrgica, Pediátrica, Gineco-Obstétrica, Psiquiatría y Salud Mental, y Emergencias) se reparten en partes iguales sobre el tramo de la PFO: ${M.semanas} semanas cada uno. El orden de las especialidades no está fijado, así que las fechas son una distribución de referencia. El Art. 17 fija diez semanas por módulo, que no entran en este tramo: entrarían si la PFO empezara antes o si se acortara el módulo.`)):null;
+    `Cada módulo son ${MODH.total} h: ${MODH.gua} de guardia y ${MODH.con} de concurrencia al servicio (80% práctica), más ${MODH.teo} de clases teóricas y ${MODH.est} de estudio y preparación (20% teórica). Los seis se reparten en partes iguales sobre el tramo de la PFO, ${M.semanas} semanas cada uno, pero el orden de las especialidades no está fijado: las fechas son una distribución de referencia. El Art. 17 fija diez semanas por módulo, que no entran en este tramo.`)):null;
   return h('div',null,ins,puedeEditar?av:null,sc,lg,nm,puedeEditar?as:null);
 }
 // Los seis módulos de la PFO (Art. 1 del reglamento). El orden de las especialidades no está
 // fijado: se reparten en partes iguales sobre el tramo del Practicantado para ver cómo entran.
-const MODS=['Módulo 1','Módulo 2','Módulo 3','Módulo 4','Módulo 5','Módulo 6'];
+const MODS=[['Clínica Médica','C. Médica'],['Clínica Quirúrgica','C. Quirúrgica'],['Clínica Pediátrica','C. Pediátrica'],
+  ['Clínica Gineco-Obstétrica','C. Gineco-Obst.'],['Psiquiatría y Salud Mental','Psiquiatría'],['Emergencias Médicas','Emergencias']];
+// Horas por módulo, según el reglamento: 214 h, 80% práctica y 20% teórica.
+const MODH={total:214,gua:90,con:82,teo:30,est:12};
 function colDeFecha(iso){ const m=mesDe(iso), y=anioDe(iso);
   if(y===state.ciclo) return m;
   return m<=2 ? 13 : 11+m; }
@@ -1268,17 +1273,23 @@ function modsPFO(){
   const f=fechas(s), a=dOf(f.ini), b=dOf(f.fin), dias=Math.round((b-a)/86400000)+1;
   const paso=dias/MODS.length;
   return {code:s.codigo, semanas:Math.round(dias/7/MODS.length*10)/10,
-    list:MODS.map((n,i)=>{ const ini=isoOf(addDays(a,Math.round(i*paso))), fin=isoOf(addDays(a,Math.round((i+1)*paso)-1));
-      return {n,ini,fin,ci:colDeFecha(ini),cf:colDeFecha(fin)}; })};
+    list:MODS.map(([n,ab],i)=>{ const ini=isoOf(addDays(a,Math.round(i*paso))), fin=isoOf(addDays(a,Math.round((i+1)*paso)-1));
+      return {n,ab,i:i+1,ini,fin,ci:colDeFecha(ini),cf:colDeFecha(fin)}; })};
 }
 function filaMod(m,c){
+  const pr=MODH.gua+MODH.con, te=MODH.teo+MODH.est;
   const r=h('div',{class:'g-row mod',style:`--c:${c.bg};--t:${c.fg}`});
-  r.append(h('div',{class:'g-label'},h('span',{class:'l1'},h('span',{class:'code',text:m.n})),
-    h('span',{class:'l2'},h('span',{class:'fch',text:`${dm(m.ini)} al ${dm(m.fin)}`}))));
+  r.append(h('div',{class:'g-label'},
+    h('span',{class:'l1'},h('span',{class:'code',text:`${m.i}. ${m.n}`})),
+    h('span',{class:'l2'},h('span',{class:'fch',text:`${dm(m.ini)} al ${dm(m.fin)}`}),
+      h('span',{class:'num',title:`${pr} h de práctica y ${te} h de teoría`,text:fmt(MODH.total)+' h'}))));
   COLS.forEach((x,i)=>r.append(h('div',{class:'mc'+((x===7||x===13)?' rec':'')+(x>=8&&x<=12?' q2':'')+(x>=14?' q3':''),style:`grid-column:${i+2}`})));
   const a=COLS.indexOf(m.ci), b=COLS.indexOf(m.cf);
-  if(a>=0&&b>=a) r.append(h('div',{class:'seg-b modb',style:`grid-column:${a+2} / ${b+3}`,title:`${m.n}: ${dmy(m.ini)} al ${dmy(m.fin)}`},
-    h('span',{class:'sc',text:m.n.replace('Módulo ','M')})));
+  if(a>=0&&b>=a){ const g=h('div',{class:'seg-b modb',style:`grid-column:${a+2} / ${b+3}`},
+      h('span',{class:'sc',text:m.ab}),h('span',{class:'sh',text:fmt(MODH.total)+' h'}));
+    tipOn(g,e=>showTxt(e,[`${m.i}. ${m.n} · ${dmy(m.ini)} al ${dmy(m.fin)}`,
+      `${MODH.total} h: guardia ${MODH.gua}, concurrencia al servicio ${MODH.con}, clases teóricas ${MODH.teo}, estudio y preparación ${MODH.est}`]));
+    r.append(g); }
   return r;
 }
 function row(s){

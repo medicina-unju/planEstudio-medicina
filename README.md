@@ -199,10 +199,12 @@ porque el final de 6.5 exige tenerlas aprobadas.
 
 **Módulos de la PFO.** El filtro «Ver los módulos de la PFO» abre, debajo del Practicantado,
 los seis módulos del Art. 1 del reglamento (Res. C.S. 095-25): Clínica Médica, Quirúrgica,
-Pediátrica, Gineco-Obstétrica, Psiquiatría y Salud Mental, y Emergencias. Se reparten en partes
-iguales sobre el tramo de la PFO, porque el orden de las especialidades no está fijado; con el
-tramo de octubre a junio dan unas 6,5 semanas cada uno, contra las diez del Art. 17. Las
-Rotaciones Electivas I y II corren en paralelo, dentro del mismo tramo.
+Pediátrica, Gineco-Obstétrica, Psiquiatría y Salud Mental, y Emergencias. Cada uno son 214 h:
+90 de guardia y 82 de concurrencia al servicio (80% práctica), más 30 de clases teóricas y 12 de
+estudio y preparación (20% teórica). Se reparten en partes iguales sobre el tramo de la PFO,
+porque el orden de las especialidades no está fijado; con el tramo de octubre a junio dan unas
+6,5 semanas cada uno, contra las diez del Art. 17. Las Rotaciones Electivas I y II corren en
+paralelo, dentro del mismo tramo.
 
 **Panel de detalle.** En pantalla ancha, la lengüeta del borde izquierdo del panel lo esconde y
 lo vuelve a mostrar; con el panel escondido, el diagrama ocupa todo el ancho. Si hay una materia
