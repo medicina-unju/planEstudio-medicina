@@ -129,7 +129,9 @@ h3{font-size:16px;margin:0 0 6px}
 /* La caja crece con el contenido: el diagrama se lee de corrido con el scroll de la página,
    sin una barra de desplazamiento propia dentro de una ventana corta. */
 .g-scroll{overflow-x:auto;overflow-y:auto;max-height:none;border:1px solid var(--line);border-radius:12px;background:var(--surface);box-shadow:var(--sh-2)}
-.g-inner{--n:11;--lw:200px;--cols:var(--lw) repeat(var(--n),minmax(48px,1fr));min-width:calc(var(--lw) + var(--n)*62px)}
+.g-inner{--n:11;--lw:240px;--cols:var(--lw) repeat(var(--n),minmax(48px,1fr));min-width:calc(var(--lw) + var(--n)*62px)}
+/* Con el 13.º cuatrimestre son cinco columnas más: en vez de achicar todo, el diagrama se desplaza. */
+.g-inner.x13{min-width:calc(var(--lw) + var(--n)*74px)}
 .g-row,.g-head,.sim-row{display:grid;grid-template-columns:var(--cols)}
 .g-row{min-height:42px;border-bottom:1px solid var(--line-2)}
 .g-row>*{grid-row:1}
@@ -142,8 +144,8 @@ h3{font-size:16px;margin:0 0 6px}
 .g-inner.comp .sim-row>.sl small{display:none}
 .g-label .l1{display:flex;gap:8px;align-items:baseline;min-width:0}
 .g-label .code{font-family:var(--f-m);font-size:12px;font-weight:600;flex:none}
-.g-label .nm{font-size:13.5px;font-weight:500;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;min-width:0;color:var(--ink)}
-.g-label .l2{font-size:11px;color:var(--muted);display:flex;gap:7px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;align-items:center}
+.g-label .nm{font-size:13.5px;font-weight:500;line-height:1.22;min-width:0;color:var(--ink);overflow-wrap:anywhere}
+.g-label .l2{font-size:11px;color:var(--muted);display:flex;gap:4px 7px;flex-wrap:wrap;align-items:center;min-width:0}
 .g-label .fch{order:-1;font-family:var(--f-m);font-size:10.5px;color:var(--ink-2);background:var(--surface-3);border-radius:4px;padding:0 5px;flex:none}
 .g-label .tag{font-size:10px;font-weight:700;border-radius:4px;padding:1px 6px;margin-left:auto;flex:none;text-transform:uppercase;letter-spacing:.04em}
 .tag.apr{background:var(--warn-bg);color:var(--warn)} .tag.dep{background:var(--good-bg);color:var(--good)}
@@ -174,7 +176,7 @@ h3{font-size:16px;margin:0 0 6px}
 .g-row.mod .g-label{padding-left:18px}
 .g-row.mod .g-label .l1{min-width:0}
 .g-row.mod .g-label .code{font-weight:500;color:var(--ink-2);font-family:var(--f-b);font-size:12px;
-  flex:0 1 auto;min-width:0;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+  flex:0 1 auto;min-width:0;white-space:normal;line-height:1.22}
 .seg-b.modb{height:20px;opacity:.82;font-size:11px;justify-content:flex-start;gap:5px;padding:0 6px}
 .seg-b.modb .sc{overflow:hidden;text-overflow:ellipsis;min-width:0}
 .seg-b.modb .sh{flex:none}
@@ -234,8 +236,8 @@ aside.detail{min-width:0}
 }
 @media (max-width:640px){
   .g-inner{--lw:92px;--cols:var(--lw) repeat(var(--n),minmax(0,1fr));min-width:0}
-  .g-inner[style*="--n:16"]{min-width:560px}
-  .g-inner.comp[style*="--n:16"]{min-width:0}
+  .g-inner.x13{min-width:560px}
+  .g-inner.x13.comp{min-width:0}
   .g-inner.comp{--lw:52px!important}
   .g-inner.comp .sc-c.hs{font-size:7.5px}
   .g-label{padding:3px 5px}
@@ -1196,7 +1198,7 @@ function gantt(){
   if(!vis.length) return h('div',{class:'card empty',text:'No hay espacios con los filtros elegidos. Activá al menos un año.'});
   const pm=perMonth(vis), maxN=Math.max(...pm.map(x=>x.n)), maxH=Math.max(...pm.map(x=>x.hs));
   const x13=COLS.length>COLS_B.length;
-  const inner=h('div',{class:'g-inner'+(state.compacto?' comp':''),style:`--n:${COLS.length}`+(state.compacto?';--lw:62px':'')});
+  const inner=h('div',{class:'g-inner'+(x13?' x13':'')+(state.compacto?' comp':''),style:`--n:${COLS.length}`+(state.compacto?';--lw:62px':'')});
   const hl=t=>h('div',{class:'hl',text:t});
   const i1=inscOf(1), i2=inscOf(2);
   inner.append(h('div',{class:'g-headwrap'},

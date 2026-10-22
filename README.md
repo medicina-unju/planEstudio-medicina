@@ -197,6 +197,11 @@ Las Rotaciones Electivas piden 6.5 en curso y nada más: el control de 1.º a 5.
 solo lugar. Sus finales no piden la carrera completa; si la pidieran, no podrían aprobarse nunca,
 porque el final de 6.5 exige tenerlas aprobadas.
 
+**Columna de nombres y desplazamiento.** El nombre de cada espacio se ve entero: pasa a dos
+líneas en lugar de cortarse. Cuando se muestra 6.º año aparecen las cinco columnas del 13.º
+cuatrimestre y el diagrama se desplaza de costado, para que los meses conserven su ancho en
+lugar de achicarse. De 1.º a 5.º año esas columnas no existen y entra todo sin desplazamiento.
+
 **Módulos de la PFO.** El filtro «Ver los módulos de la PFO» abre, debajo del Practicantado,
 los seis módulos del Art. 1 del reglamento (Res. C.S. 095-25): Clínica Médica, Quirúrgica,
 Pediátrica, Gineco-Obstétrica, Psiquiatría y Salud Mental, y Emergencias. Cada uno son 214 h:
