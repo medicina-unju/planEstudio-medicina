@@ -976,6 +976,10 @@ function inscOf(k){ const b=CAL()['i'+k]; return {d:b.ini, h:b.fin, pd:b.pIni, p
 // Las fechas de cada materia salen del calendario del ciclo, según el período que le toca.
 function ventanaDe(w){
   const P=CAL(), k=perKeyW(w), p=k?P[k]:null;
+  // Ventanas del año siguiente (13.º cuatrimestre). Si no ocupan el cuatrimestre entero,
+  // la materia tiene sus propias fechas: una trimestral dura tres meses, no cuatro.
+  if(w.ini>=14&&!(w.ini===14&&w.fin===17))
+    return [isoOf(lunCerca(mkDate(state.ciclo+1,w.ini-11,1))), isoOf(ultViernes(state.ciclo+1,w.fin-11))];
   let ini = p ? p.ini : isoOf(lunCerca(mkDate(state.ciclo,w.ini,1)));
   let fin = p ? p.fin : isoOf(ultViernes(state.ciclo,w.fin));
   if(w.cola) fin = isoOf(ultViernes(state.ciclo+1, MESNUM[w.cola]||6));
@@ -1934,7 +1938,7 @@ function cartelC13(){
   const P=CAL(), p=P.c13;
   return h('div',{class:'note',style:'margin-top:10px'},
     h('b',{text:`13.º cuatrimestre · 1.º del 7.º año (${dmy(p.ini)} al ${dmy(p.fin)}). `}),
-    `${l.map(s=>s.codigo+' '+s.nombre).join(', ')}. Es el medio año que cierra la carrera: se carga en el calendario del ciclo ${state.ciclo+1}, junto con el cierre de la Práctica Final Obligatoria, y por eso no figura en el cuadro de arriba.`);
+    `${l.map(s=>{const f=fechas(s);return s.codigo+' '+s.nombre+' ('+dm(f.ini)+' al '+dm(f.fin)+')';}).join('; ')}. Es el medio año que cierra la carrera: se carga en el calendario del ciclo ${state.ciclo+1}, junto con el cierre de la Práctica Final Obligatoria, y por eso no figura en el cuadro de arriba.`);
 }
 function renderCalendario(){
   const y=state.ciclo, tocado=Object.keys(state.cal||{}).length||Object.keys(state.insc||{}).length;

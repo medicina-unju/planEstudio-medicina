@@ -1726,13 +1726,13 @@
     "flex": false
    },
    "prop": {
-    "ini": 14,
+    "ini": 15,
     "fin": 17,
     "sr": false,
     "flex": false,
     "pk": "c13"
    },
-   "propRazon": "13.º cuatrimestre: el medio año que cierra la carrera (marzo a junio del año siguiente), junto con Rotaciones Electivas I y el cierre del Practicantado.",
+   "propRazon": "13.º cuatrimestre, el medio año que cierra la carrera. Es trimestral (3 meses, 40 h), así que ocupa de abril a junio y cierra con el cuatrimestre, junto con Rotaciones Electivas I y el fin del Practicantado.",
    "aprP": [],
    "regP": [],
    "sim": [

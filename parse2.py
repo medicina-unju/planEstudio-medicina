@@ -157,8 +157,8 @@ for s in subjects:
     elif c == "6.3":
         # Trimestral: se mantiene en el 1.º cuatrimestre como en la planilla, pero cierra junto con los
         # cuatrimestrales (no a los tres meses), por decisión de la coordinación.
-        s["prop"] = dict(ini=14, fin=17, sr=False, flex=False, pk="c13")
-        s["propRazon"] = "13.º cuatrimestre: el medio año que cierra la carrera (marzo a junio del año siguiente), junto con Rotaciones Electivas I y el cierre del Practicantado."
+        s["prop"] = dict(ini=15, fin=17, sr=False, flex=False, pk="c13")
+        s["propRazon"] = "13.º cuatrimestre, el medio año que cierra la carrera. Es trimestral (3 meses, 40 h), así que ocupa de abril a junio y cierra con el cuatrimestre, junto con Rotaciones Electivas I y el fin del Practicantado."
     else:
         s["prop"] = dict(s["base"])
 
