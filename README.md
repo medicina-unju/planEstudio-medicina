@@ -206,6 +206,11 @@ porque el orden de las especialidades no está fijado; con el tramo de octubre a
 6,5 semanas cada uno, contra las diez del Art. 17. Las Rotaciones Electivas I y II corren en
 paralelo, dentro del mismo tramo.
 
+**Navegadores.** La página usa `replaceChildren` y `flatMap`, que no están en los navegadores
+anteriores a 2020 (tablets con Chrome o WebView viejo, iPad con iOS 13). Las dos tienen un
+reemplazo propio al inicio del script, y si aun así algo falla al arrancar, la página muestra un
+cartel con el detalle del error en vez de quedar en blanco.
+
 **Panel de detalle.** En pantalla ancha, la lengüeta del borde izquierdo del panel lo esconde y
 lo vuelve a mostrar; con el panel escondido, el diagrama ocupa todo el ancho. Si hay una materia
 elegida mientras está escondido, la lengüeta queda marcada.

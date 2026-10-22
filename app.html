@@ -171,7 +171,10 @@ h3{font-size:16px;margin:0 0 6px}
 .g-row.sel{outline:2.5px solid var(--focus);outline-offset:-2px;z-index:3}
 .g-row.mod{min-height:30px;background:color-mix(in srgb,var(--c) 5%,transparent)}
 .g-row.mod .g-label{padding-left:26px;border-left-color:transparent}
-.g-row.mod .g-label .code{font-weight:500;color:var(--ink-2);font-family:var(--f-b);font-size:12px}
+.g-row.mod .g-label{padding-left:18px}
+.g-row.mod .g-label .l1{min-width:0}
+.g-row.mod .g-label .code{font-weight:500;color:var(--ink-2);font-family:var(--f-b);font-size:12px;
+  flex:0 1 auto;min-width:0;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
 .seg-b.modb{height:20px;opacity:.82;font-size:11px;justify-content:flex-start;gap:5px;padding:0 6px}
 .seg-b.modb .sc{overflow:hidden;text-overflow:ellipsis;min-width:0}
 .seg-b.modb .sh{flex:none}
@@ -534,6 +537,13 @@ body.pr-vert #print .pr-plan .pr-head h1{font-size:18px}
 <script>
 (function(){
 'use strict';
+// Navegadores de tablets y celulares viejos no traen estas dos; sin ellas la página quedaba en blanco.
+if(typeof Element!=='undefined'&&!Element.prototype.replaceChildren){
+  Element.prototype.replaceChildren=function(){ while(this.firstChild) this.removeChild(this.firstChild);
+    for(var i=0;i<arguments.length;i++){ var n=arguments[i]; if(n==null) continue;
+      this.appendChild(typeof n==='string'?document.createTextNode(n):n); } }; }
+if(!Array.prototype.flatMap){ Array.prototype.flatMap=function(f,t){ return this.reduce(function(a,v,i,s){
+  var r=f.call(t,v,i,s); return a.concat(Array.isArray(r)?r:[r]); },[]); }; }
 const EMBED = /*__DATA__*/null;
 let D = EMBED, S = D.subjects, byCode = {};
 // La carrera dura seis años y medio: al año calendario se le suma el 13.º cuatrimestre, que es
@@ -1284,7 +1294,7 @@ function filaMod(m,c){
   const pr=MODH.gua+MODH.con, te=MODH.teo+MODH.est;
   const r=h('div',{class:'g-row mod',style:`--c:${c.bg};--t:${c.fg}`});
   r.append(h('div',{class:'g-label'},
-    h('span',{class:'l1'},h('span',{class:'code',text:`${m.i}. ${m.n}`})),
+    h('span',{class:'l1'},h('span',{class:'code',title:m.n,text:`${m.i}. ${m.n}`})),
     h('span',{class:'l2'},h('span',{class:'fch',text:`${dm(m.ini)} al ${dm(m.fin)}`}),
       h('span',{class:'num',title:`${pr} h de práctica y ${te} h de teoría`,text:fmt(MODH.total)+' h'}))));
   COLS.forEach((x,i)=>r.append(h('div',{class:'mc'+((x===7||x===13)?' rec':'')+(x>=8&&x<=12?' q2':'')+(x>=14?' q3':''),style:`grid-column:${i+2}`})));
@@ -2241,7 +2251,16 @@ document.addEventListener('keydown',e=>{ if(e.key==='Escape'&&state.sel) clearSe
 window.addEventListener('resize',()=>{ if(state.tab==='correlativas') render(); });
 try{ matchMedia('(prefers-color-scheme: dark)').addEventListener('change',render); }catch(e){}
 new MutationObserver(render).observe(document.documentElement,{attributes:true,attributeFilter:['data-theme']});
-boot();
+try{ boot(); }
+catch(err){
+  var m=document.getElementById('main');
+  if(m) m.innerHTML='<div class="card pad"><h2>No se pudo abrir el tablero en este navegador</h2>'
+    +'<p class="sub">Probá con Chrome, Firefox o Safari actualizados, o desde una computadora. '
+    +'Si podés, pasale este detalle a quien mantiene la página.</p>'
+    +'<p class="mini" style="word-break:break-word"></p></div>';
+  var d=m&&m.querySelector('.mini'); if(d) d.textContent=(err&&err.message?err.message:String(err));
+  throw err;
+}
 // Solo se usa data.json si es igual o más nuevo que los datos que trae la página (evita que un data.json viejo del repositorio tape los cambios).
 })();
 </script>
