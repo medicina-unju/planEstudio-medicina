@@ -199,7 +199,8 @@ porque el final de 6.5 exige tenerlas aprobadas.
 
 **Encabezado fijo y columna ajustable.** El diagrama tiene su propio desplazamiento: el
 encabezado (período, inscripción y meses) y la columna de espacios curriculares quedan fijos
-mientras se recorren los años. El borde derecho de esa primera columna se arrastra para
+mientras se recorren los años. El resumen del pie (espacios en simultáneo, carga por mes y por
+cuatrimestre) no queda fijo: va al final del diagrama, para no ocupar alto. El borde derecho de esa primera columna se arrastra para
 cambiar su ancho, entre 120 y 560 px; el valor queda guardado en ese navegador y no viaja en
 la propuesta.
 
