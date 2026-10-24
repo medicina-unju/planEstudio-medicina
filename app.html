@@ -126,9 +126,9 @@ h3{font-size:16px;margin:0 0 6px}
 .insight.w{border-left-color:var(--warn);background:var(--warn-bg);color:var(--warn)}
 
 /* ---- Diagrama ---- */
-/* La caja crece con el contenido: el diagrama se lee de corrido con el scroll de la página,
-   sin una barra de desplazamiento propia dentro de una ventana corta. */
-.g-scroll{overflow-x:auto;overflow-y:auto;max-height:none;border:1px solid var(--line);border-radius:12px;background:var(--surface);box-shadow:var(--sh-2)}
+/* El diagrama tiene su propio desplazamiento: así el encabezado (período, inscripción y meses)
+   y la columna de espacios curriculares quedan fijos mientras se recorren los años. */
+.g-scroll{overflow:auto;max-height:calc(100vh - 150px);min-height:340px;border:1px solid var(--line);border-radius:12px;background:var(--surface);box-shadow:var(--sh-2);overscroll-behavior:contain}
 .g-inner{--n:11;--lw:240px;--cols:var(--lw) repeat(var(--n),minmax(48px,1fr));min-width:calc(var(--lw) + var(--n)*62px)}
 /* Con el 13.º cuatrimestre son cinco columnas más: en vez de achicar todo, el diagrama se desplaza. */
 .g-inner.x13{min-width:calc(var(--lw) + var(--n)*74px)}
@@ -185,7 +185,7 @@ h3{font-size:16px;margin:0 0 6px}
 .g-head{position:relative;background:var(--surface)}
 .g-headwrap{position:sticky;top:0;z-index:6;background:var(--surface);box-shadow:0 1px 0 var(--line)}
 .g-head>div{padding:4px;font-size:11.5px;color:var(--muted);text-align:center;border-left:1px solid var(--line-2);display:flex;align-items:center;justify-content:center;gap:5px}
-.g-head .hl{position:sticky;left:0;z-index:7;background:var(--surface);border-left:0;border-right:2px solid var(--line);justify-content:flex-start;padding-left:14px;font-weight:700;color:var(--ink);font-size:12.5px}
+.g-head .hl{position:sticky;left:0;z-index:7;overflow:visible;background:var(--surface);border-left:0;border-right:2px solid var(--line);justify-content:flex-start;padding-left:14px;font-weight:700;color:var(--ink);font-size:12.5px}
 .g-head.h1>div{font-weight:700;font-size:11.5px;color:#fff;background:var(--k1);border-left-color:rgba(255,255,255,.25)}
 .g-head.h1 .hl{background:var(--surface);color:var(--ink)}
 .g-head.h1 .rc{background:var(--k2);color:var(--k2-ink)}
@@ -193,6 +193,10 @@ h3{font-size:16px;margin:0 0 6px}
 .g-head.h2 .hl{background:var(--surface-2)}
 .g-head.h3>div{font-weight:700;color:var(--ink);border-bottom:1px solid var(--line);font-size:12px}
 .g-head.h3 .hl{border-bottom:1px solid var(--line)}
+.rsz{position:absolute;top:0;bottom:0;right:-5px;width:11px;cursor:col-resize;z-index:9;display:flex;align-items:center;justify-content:center;touch-action:none}
+.rsz::after{content:"";width:3px;height:18px;border-radius:2px;background:var(--line)}
+.rsz:hover::after,.rsz.on::after{background:var(--accent-2);height:26px}
+@media (max-width:640px){.rsz{display:none}}
 .g-head.h3 .rcs{background:repeating-linear-gradient(135deg,transparent 0 5px,var(--line-2) 5px 6px);color:var(--muted)}
 .insc{font-size:9.5px;font-weight:700;background:var(--good);color:#fff;border-radius:3px;padding:0 4px;letter-spacing:.02em}
 .yb{grid-column:1/-1;background:linear-gradient(90deg,var(--c) 0 5px,var(--surface-4) 5px);border-top:1px solid var(--line);border-bottom:1px solid var(--line)}
@@ -1193,13 +1197,32 @@ function perMonth(list){
   return COLS.map(m=>{ const act=c.filter(s=>months(s).includes(m));
     return {m,act,n:act.length,hs:Math.round(act.reduce((a,s)=>a+hsMes(s),0))}; });
 }
+// Arrastre del borde de la primera columna. El ancho se guarda por navegador, no en la propuesta.
+const LSW=LS+'-lw';
+let LW=(()=>{ try{ const v=parseInt(localStorage.getItem(LSW),10); return (v>=120&&v<=560)?v:null; }catch(e){ return null; } })();
+function arrastrarLw(e){
+  const inner=document.querySelector('.g-inner'); if(!inner) return;
+  const x0=e.clientX, w0=inner.getBoundingClientRect(), base=LW||parseFloat(getComputedStyle(inner).getPropertyValue('--lw'))||240;
+  const tira=e.currentTarget; tira.classList.add('on');
+  try{ tira.setPointerCapture(e.pointerId); }catch(x){}
+  const mv=ev=>{ const v=Math.max(120,Math.min(560,Math.round(base+(ev.clientX-x0))));
+    LW=v; inner.style.setProperty('--lw',v+'px'); };
+  const up=()=>{ tira.classList.remove('on');
+    try{ localStorage.setItem(LSW,String(LW)); }catch(x){}
+    document.removeEventListener('pointermove',mv); document.removeEventListener('pointerup',up); };
+  document.addEventListener('pointermove',mv); document.addEventListener('pointerup',up);
+  e.preventDefault();
+}
 function gantt(){
   const vis=visible();
   if(!vis.length) return h('div',{class:'card empty',text:'No hay espacios con los filtros elegidos. Activá al menos un año.'});
   const pm=perMonth(vis), maxN=Math.max(...pm.map(x=>x.n)), maxH=Math.max(...pm.map(x=>x.hs));
   const x13=COLS.length>COLS_B.length;
-  const inner=h('div',{class:'g-inner'+(x13?' x13':'')+(state.compacto?' comp':''),style:`--n:${COLS.length}`+(state.compacto?';--lw:62px':'')});
-  const hl=t=>h('div',{class:'hl',text:t});
+  const inner=h('div',{class:'g-inner'+(x13?' x13':'')+(state.compacto?' comp':''),style:`--n:${COLS.length}`+(state.compacto?';--lw:62px':(LW?`;--lw:${LW}px`:''))});
+  // La primera columna se puede ensanchar o angostar arrastrando el borde.
+  const hl=(t,rz)=>{ const d=h('div',{class:'hl'},t);
+    if(rz&&!state.compacto) d.append(h('div',{class:'rsz',title:'Arrastrá para cambiar el ancho de esta columna',onpointerdown:arrastrarLw}));
+    return d; };
   const i1=inscOf(1), i2=inscOf(2);
   inner.append(h('div',{class:'g-headwrap'},
     h('div',{class:'g-head h1'},hl('Período'),h('div',{style:'grid-column:2'},'Pre'),h('div',{style:'grid-column:3 / 7'},'1.º cuatrimestre'),
@@ -1213,7 +1236,7 @@ function gantt(){
       h('div',{style:'grid-column:8 / 10'},'3.er bimestre'),h('div',{style:'grid-column:10 / 12'},'4.º bimestre'),h('div',{style:'grid-column:12'},''),
       x13?h('div',{style:'grid-column:13'},''):null,
       x13?h('div',{style:'grid-column:14 / 18'},'Ciclo siguiente · cierre de la carrera'):null),
-    h('div',{class:'g-head h3'},hl('Espacio curricular'),
+    h('div',{class:'g-head h3'},hl('Espacio curricular',true),
       ...COLS.map(m=>h('div',{class:(m===7||m===13)?'rcs':'',text:MES[m]})))));
   [...state.years].sort().forEach(y=>{
     const list=vis.filter(s=>s.anio===y); if(!list.length) return;
@@ -2161,7 +2184,7 @@ function aprTxt(s){ if(s.todoAprobado) return 'Todo aprobado';
   const b5=S.filter(x=>x.anio<=5);
   if(b5.length&&b5.every(x=>s.apr.includes(x.codigo))){
     const ex=s.apr.filter(c=>byCode[c]&&byCode[c].anio>5);
-    return 'Todas de 1.º a 5.º año'+(ex.length?' - '+ex.join(' - '):''); }
+    return 'Todas de 1.º a 5.º año'+(ex.length?' y '+ex.join(' - '):''); }
   return s.apr.join(' - '); }
 const finTxt = s => s.finT ? 'Todas aprobadas' : '—';
 function parseCorr(txt){ const t=String(txt||'').trim();
