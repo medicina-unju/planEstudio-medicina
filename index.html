@@ -540,7 +540,7 @@ body.pr-vert #print .pr-plan .pr-head h1{font-size:18px}
 <script>
 window.__AUTOR__={"nombre": "Fabiola Paz", "anio": 2026};
 window.__OFICIAL__={"v":4,"years":[1,2,3,4,5,6],"per":[],"plan":{"3.5":{"apr":"2.5","reg":""},"4.5":{"reg":"","apr":"3.5"}},"overrides":{"2.3":{"ini":3,"fin":4,"sr":false,"flex":false},"6.5":{"ini":10,"fin":11,"sr":false,"flex":false,"cola":"junio"}},"bim":{"2.5":3,"3.8":4,"2.7":4,"4.9":3,"1.4":3,"2.4":2,"5.4":2,"5.9":4,"4.4":2,"4.6":4,"5.5":4,"5.7":3},"fechas":{},"insc":{},"cal":{"res":{"t1":{"ini":"2027-04-05","fin":"2027-07-02"}}},"ciclo":2027,"esc":"mia","tab":"secuencia"};
-window.__BUILD__="10/11/2026 12:12";
+window.__BUILD__="10/11/2026 13:01";
 (function(){
 'use strict';
 // Navegadores de tablets y celulares viejos no traen estas dos; sin ellas la página quedaba en blanco.
@@ -606,7 +606,7 @@ const LS='medunju-v2';
 const TABKEYS=['secuencia','plan','correlativas','horas','calendario'];
 const state={ tab:'secuencia', esc:'mia', years:new Set([1,2]), sel:null, overrides:{}, bim:{}, fechas:{},
   ciclo:new Date().getFullYear()+1, insc:{}, cal:{}, countOpt:false, chain:'cadena', hmode:'campo',
-  plan:{}, compacto:false, panelOff:false, mods:true, fAnio:'todos', fReg:'todos', fTexto:'', regimen:'todos', per:new Set() };
+  plan:{}, compacto:false, panelOff:false, mods:false, fAnio:'todos', fReg:'todos', fTexto:'', regimen:'todos', per:new Set() };
 function load(){ try{ const j=JSON.parse(localStorage.getItem(LS)||'{}'); apply(j); }catch(e){} }
 function apply(j){
   if(Array.isArray(j.years)&&j.years.length) state.years=new Set(j.years.filter(y=>y>=1&&y<=6));

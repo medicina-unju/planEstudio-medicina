@@ -603,7 +603,7 @@ const LS='medunju-v2';
 const TABKEYS=['secuencia','plan','correlativas','horas','calendario'];
 const state={ tab:'secuencia', esc:'mia', years:new Set([1,2]), sel:null, overrides:{}, bim:{}, fechas:{},
   ciclo:new Date().getFullYear()+1, insc:{}, cal:{}, countOpt:false, chain:'cadena', hmode:'campo',
-  plan:{}, compacto:false, panelOff:false, mods:true, fAnio:'todos', fReg:'todos', fTexto:'', regimen:'todos', per:new Set() };
+  plan:{}, compacto:false, panelOff:false, mods:false, fAnio:'todos', fReg:'todos', fTexto:'', regimen:'todos', per:new Set() };
 function load(){ try{ const j=JSON.parse(localStorage.getItem(LS)||'{}'); apply(j); }catch(e){} }
 function apply(j){
   if(Array.isArray(j.years)&&j.years.length) state.years=new Set(j.years.filter(y=>y>=1&&y<=6));

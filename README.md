@@ -208,7 +208,7 @@ la propuesta.
 **Columna de nombres y desplazamiento.** El nombre de cada espacio se ve entero: pasa a dos
 líneas en lugar de cortarse. El diagrama usa siempre los mismos once meses, se muestre o no 6.º año.
 
-**Módulos de la PFO.** El filtro «Ver los módulos de la PFO» abre, debajo del Practicantado,
+**Módulos de la PFO.** Vienen apagados. El filtro «Ver los módulos de la PFO» abre, debajo del Practicantado,
 los seis módulos del Art. 1 del reglamento (Res. C.S. 095-25): Clínica Médica, Quirúrgica,
 Pediátrica, Gineco-Obstétrica, Psiquiatría y Salud Mental, y Emergencias. Cada uno son 214 h:
 90 de guardia y 82 de concurrencia al servicio (80% práctica), más 30 de clases teóricas y 12 de
