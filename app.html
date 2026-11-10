@@ -130,8 +130,6 @@ h3{font-size:16px;margin:0 0 6px}
    y la columna de espacios curriculares quedan fijos mientras se recorren los años. */
 .g-scroll{overflow:auto;max-height:calc(100vh - 150px);min-height:340px;border:1px solid var(--line);border-radius:12px;background:var(--surface);box-shadow:var(--sh-2);overscroll-behavior:contain}
 .g-inner{--n:11;--lw:240px;--cols:var(--lw) repeat(var(--n),minmax(48px,1fr));min-width:calc(var(--lw) + var(--n)*62px)}
-/* Con el 13.º cuatrimestre son cinco columnas más: en vez de achicar todo, el diagrama se desplaza. */
-.g-inner.x13{min-width:calc(var(--lw) + var(--n)*74px)}
 .g-row,.g-head,.sim-row{display:grid;grid-template-columns:var(--cols)}
 .g-row{min-height:42px;border-bottom:1px solid var(--line-2)}
 .g-row>*{grid-row:1}
@@ -174,6 +172,7 @@ h3{font-size:16px;margin:0 0 6px}
 .g-row.mod{min-height:30px;background:color-mix(in srgb,var(--c) 5%,transparent)}
 .g-row.mod .g-label{padding-left:26px;border-left-color:transparent}
 .g-row.mod .g-label{padding-left:18px}
+.tag.cie{background:var(--k3);color:var(--k3-ink)}
 .g-row.mod .g-label .l1{min-width:0}
 .g-row.mod .g-label .code{font-weight:500;color:var(--ink-2);font-family:var(--f-b);font-size:12px;
   flex:0 1 auto;min-width:0;white-space:normal;line-height:1.22}
@@ -240,8 +239,6 @@ aside.detail{min-width:0}
 }
 @media (max-width:640px){
   .g-inner{--lw:92px;--cols:var(--lw) repeat(var(--n),minmax(0,1fr));min-width:0}
-  .g-inner.x13{min-width:560px}
-  .g-inner.x13.comp{min-width:0}
   .g-inner.comp{--lw:52px!important}
   .g-inner.comp .sc-c.hs{font-size:7.5px}
   .g-label{padding:3px 5px}
@@ -555,7 +552,7 @@ let D = EMBED, S = D.subjects, byCode = {};
 // La carrera dura seis años y medio: al año calendario se le suma el 13.º cuatrimestre, que es
 // el 1.º del 7.º año (marzo a junio del año siguiente). La columna 13 es el verano entre los dos.
 const COLS_B = [2,3,4,5,6,7,8,9,10,11,12], COLS_X = [13,14,15,16,17];
-let COLS = COLS_B.concat(COLS_X);
+let COLS = COLS_B.slice();
 const MES = {2:'Feb',3:'Mar',4:'Abr',5:'May',6:'Jun',7:'Jul',8:'Ago',9:'Sep',10:'Oct',11:'Nov',12:'Dic',13:'Ver.',14:'Mar',15:'Abr',16:'May',17:'Jun'};
 const MF = {2:'febrero',3:'marzo',4:'abril',5:'mayo',6:'junio',7:'julio',8:'agosto',9:'septiembre',10:'octubre',11:'noviembre',12:'diciembre',
   13:'verano',14:'marzo',15:'abril',16:'mayo',17:'junio'};
@@ -929,9 +926,14 @@ function monthsIn(s,cols){ const w=win(s);
   if(w.cola){ if(!l.includes(12)&&cols.includes(12)) l.push(12);   // sigue en diciembre
     const f=11+(MESNUM[w.cola]||6); cols.filter(m=>m>=14&&m<=f).forEach(m=>l.push(m)); }
   return l; }
-// months() usa las columnas que se están viendo; monthsAll(), todas las del plan.
-const months = s => monthsIn(s,COLS);
-const monthsAll = s => monthsIn(s,COLS_B.concat(COLS_X));
+// Para dibujar, el medio año final (meses 14 a 17) se muestra sobre los mismos meses del
+// año siguiente: marzo a junio. Así el diagrama no se ensancha.
+const esA7 = s => win(s).ini>=14;            // se cursa en el 1.er cuatrimestre del 7.º año
+const anioVista = s => esA7(s) ? 7 : s.anio;
+function months(s){ const w=win(s);
+  if(w.ini>=14) return COLS.filter(m=>m>=w.ini-11&&m<=w.fin-11);
+  return COLS.filter(m=>m>=w.ini&&m<=w.fin&&(w.sr||m!==7)); }
+const monthsAll = s => monthsIn(s,COLS_B.concat(COLS_X));   // modelo de datos, para las horas por cuatrimestre
 // Meses sobre los que se reparte la carga. Para las materias que siguen en el año siguiente
 // (la PFO) se cuentan también los meses de ese tramo: si no, las horas se amontonan en dos meses.
 function mesesCarga(s){ const w=win(s), n=months(s).length||1;
@@ -1216,9 +1218,8 @@ function arrastrarLw(e){
 function gantt(){
   const vis=visible();
   if(!vis.length) return h('div',{class:'card empty',text:'No hay espacios con los filtros elegidos. Activá al menos un año.'});
-  const pm=perMonth(vis), maxN=Math.max(...pm.map(x=>x.n)), maxH=Math.max(...pm.map(x=>x.hs));
-  const x13=COLS.length>COLS_B.length;
-  const inner=h('div',{class:'g-inner'+(x13?' x13':'')+(state.compacto?' comp':''),style:`--n:${COLS.length}`+(state.compacto?';--lw:62px':(LW?`;--lw:${LW}px`:''))});
+  const pm=perMonth(vis.filter(s=>!esA7(s))), maxN=Math.max(...pm.map(x=>x.n)), maxH=Math.max(...pm.map(x=>x.hs));
+  const inner=h('div',{class:'g-inner'+(state.compacto?' comp':''),style:`--n:${COLS.length}`+(state.compacto?';--lw:62px':(LW?`;--lw:${LW}px`:''))});
   // La primera columna se puede ensanchar o angostar arrastrando el borde.
   const hl=(t,rz)=>{ const d=h('div',{class:'hl'},t);
     if(rz&&!state.compacto) d.append(h('div',{class:'rsz',title:'Arrastrá para cambiar el ancho de esta columna',onpointerdown:arrastrarLw}));
@@ -1227,26 +1228,31 @@ function gantt(){
   inner.append(h('div',{class:'g-headwrap'},
     h('div',{class:'g-head h1'},hl('Período'),h('div',{style:'grid-column:2'},'Pre'),h('div',{style:'grid-column:3 / 7'},'1.º cuatrimestre'),
       h('div',{class:'rc',style:'grid-column:7'},'Receso'),h('div',{style:'grid-column:8 / 12'},'2.º cuatrimestre'),h('div',{style:'grid-column:12'},''),
-      x13?h('div',{class:'rc',style:'grid-column:13'},'Verano'):null,
-      x13?h('div',{class:'c13',style:'grid-column:14 / 18'},'13.º cuatrimestre · 7.º año'):null),
+),
     h('div',{class:'g-head h2'},hl('Inscripción'),
       h('div',{style:'grid-column:2'},h('span',{class:'insc',title:`Inscripción: ${dmy(i1.d)} al ${dmy(i1.h)}`,text:'INSC. 1'})),
       h('div',{style:'grid-column:3 / 5'},'1.er bimestre'),h('div',{style:'grid-column:5 / 7'},'2.º bimestre'),
       h('div',{style:'grid-column:7'},h('span',{class:'insc',title:`Inscripción: ${dmy(i2.d)} al ${dmy(i2.h)}`,text:'INSC. 2'})),
       h('div',{style:'grid-column:8 / 10'},'3.er bimestre'),h('div',{style:'grid-column:10 / 12'},'4.º bimestre'),h('div',{style:'grid-column:12'},''),
-      x13?h('div',{style:'grid-column:13'},''):null,
-      x13?h('div',{style:'grid-column:14 / 18'},'Ciclo siguiente · cierre de la carrera'):null),
+),
     h('div',{class:'g-head h3'},hl('Espacio curricular',true),
-      ...COLS.map(m=>h('div',{class:(m===7||m===13)?'rcs':'',text:MES[m]})))));
-  [...state.years].sort().forEach(y=>{
-    const list=vis.filter(s=>s.anio===y); if(!list.length) return;
-    const hs=list.reduce((a,s)=>a+s.hs,0);
+      ...COLS.map(m=>h('div',{class:m===7?'rcs':'',text:MES[m]})))));
+  const MP=state.mods?modsPFO():null;
+  const bandas=[...state.years].sort((a,b)=>a-b);
+  if(vis.some(esA7)) bandas.push(7);
+  bandas.forEach(y=>{
+    const list=vis.filter(s=>anioVista(s)===y);
+    const pfo=y===7?vis.find(s=>s.cf==='PFO'&&win(s).cola):null;
+    if(!list.length&&!pfo) return;
+    const hs=list.reduce((a,s)=>a+s.hs,0), cb=YCOL[y===7?6:y].bg;
     inner.append(h('div',{class:'g-row',style:'min-height:0;border-bottom:0'},
-      h('div',{class:'yb',style:'--c:'+YCOL[y].bg},h('div',null,ORD[y-1]+' año',
-        h('span',{class:'meta',text:`${list.length} espacios · ${fmt(hs)} h`})))));
+      h('div',{class:'yb',style:'--c:'+cb},h('div',null,
+        y===7?'7.º año · 1.er cuatrimestre, el medio año que cierra la carrera':ORD[y-1]+' año',
+        h('span',{class:'meta',text:y===7?`${list.length} espacios · ${fmt(hs)} h · ciclo ${state.ciclo+1}`:`${list.length} espacios · ${fmt(hs)} h`})))));
+    if(pfo){ inner.append(row(pfo,true));
+      if(MP) MP.list.filter(m=>anioDe(m.ini)!==state.ciclo).forEach(m=>inner.append(filaMod(m,col(pfo)))); }
     list.forEach(s=>{ inner.append(row(s));
-      if(state.mods&&s.cf==='PFO'){ const M=modsPFO();
-        if(M) M.list.forEach(m=>inner.append(filaMod(m,col(s)))); } });
+      if(MP&&s.cf==='PFO') MP.list.filter(m=>anioDe(m.ini)===state.ciclo).forEach(m=>inner.append(filaMod(m,col(s)))); });
   });
   const cp=state.compacto;
   const rN=h('div',{class:'sim-row'},h('div',{class:'sl'},cp?'En simultáneo':'Espacios en simultáneo',h('small',{text:state.countOpt?'incluye optativos':'sin optativos'})));
@@ -1265,7 +1271,7 @@ function gantt(){
   const rC=h('div',{class:'sim-row'},h('div',{class:'sl'},cp?'Por cuatr.':'Carga por cuatrimestre',h('small',{text:'suma de los meses'})),
     h('div',{class:'cu c1',style:'grid-column:2 / 8'},h('b',{text:fmt(cuat(2,7))+' h'}),h('span',{text:'1.º cuatrimestre'})),
     h('div',{class:'cu c2',style:`grid-column:8 / 13`},h('b',{text:fmt(cuat(8,12))+' h'}),h('span',{text:'2.º cuatrimestre'})),
-    x13?h('div',{class:'cu c3',style:'grid-column:13 / 18'},h('b',{text:fmt(cuat(13,17))+' h'}),h('span',{text:'13.º cuatrimestre'})):null);
+    null);
   inner.append(h('div',{class:'sim'},rN,rH,rC));
   const sc=h('div',{class:'g-scroll',id:'gsc',tabindex:'0','aria-label':'Diagrama de cursada por mes'},inner);
   const pk=pm.filter(x=>x.n===maxN&&x.n).map(x=>x.m), pkH=pm.filter(x=>x.hs===maxH&&x.hs).map(x=>x.m);
@@ -1290,7 +1296,7 @@ function gantt(){
     h('li',{text:'Semestral: seis meses corridos desde el inicio del cuatrimestre (16/03 a 11/09, como Ciencias Biológicas este año).'}),
     h('li',{text:'Carga por mes: horas totales divididas por los meses de cursada. La Práctica Final Obligatoria se reparte sobre todo su tramo, incluido el verano y el cierre en junio del año siguiente.'}),
     h('li',{text:'Carga por cuatrimestre: la suma de la carga mensual estimada, de febrero a julio y de agosto a diciembre. Las anuales y las semestrales quedan repartidas entre los dos.'}),
-    h('li',{text:'13.º cuatrimestre: la carrera dura seis años y medio, así que al final hay medio año más, que es el 1.º cuatrimestre del 7.º año (marzo a junio del año siguiente). Ahí se cursan las Rotaciones Electivas I y II y cierra la Práctica Final Obligatoria. Entra en el calendario del ciclo siguiente.'}),
+    h('li',{text:'13.º cuatrimestre: la carrera dura seis años y medio, así que al final hay medio año más, que es el 1.º cuatrimestre del 7.º año. Se dibuja como una banda de 7.º año sobre los mismos meses, porque ya corresponde al ciclo siguiente: ahí se cursan las Rotaciones Electivas I y II y cierra la Práctica Final Obligatoria.'}),
     h('li',{text:'Es una estimación para discutir el orden. Cada materia tiene en el panel de detalle un campo para cargar la fecha real una vez que esté definida; mientras no se cargue, se muestra la estimada.'})));
   const M=state.mods?modsPFO():null;
   const nm=M?h('div',{class:'insight w',style:'margin:12px 0 0'},h('div',null,
@@ -1305,15 +1311,18 @@ const MODS=[['Clínica Médica','C. Médica'],['Clínica Quirúrgica','C. Quirú
 // Horas por módulo, según el reglamento: 214 h, 80% práctica y 20% teórica.
 const MODH={total:214,gua:90,con:82,teo:30,est:12};
 function colDeFecha(iso){ const m=mesDe(iso), y=anioDe(iso);
-  if(y===state.ciclo) return m;
-  return m<=2 ? 13 : 11+m; }
+  return y===state.ciclo ? m : Math.max(2,m); }   // enero no tiene columna: va con febrero
 function modsPFO(){
   const s=S.find(x=>x.cf==='PFO'); if(!s||!win(s).cola) return null;
   const f=fechas(s), a=dOf(f.ini), b=dOf(f.fin), dias=Math.round((b-a)/86400000)+1;
   const paso=dias/MODS.length;
   return {code:s.codigo, semanas:Math.round(dias/7/MODS.length*10)/10,
     list:MODS.map(([n,ab],i)=>{ const ini=isoOf(addDays(a,Math.round(i*paso))), fin=isoOf(addDays(a,Math.round((i+1)*paso)-1));
-      return {n,ab,i:i+1,ini,fin,ci:colDeFecha(ini),cf:colDeFecha(fin)}; })};
+      // Un módulo que cruza el cambio de año se corta en diciembre y sigue en la banda del 7.º.
+      const y1=anioDe(ini)===state.ciclo;
+      const ci=y1?mesDe(ini):Math.max(2,mesDe(ini));
+      const cf=y1?(anioDe(fin)===state.ciclo?mesDe(fin):12):Math.max(2,mesDe(fin));
+      return {n,ab,i:i+1,ini,fin,ci,cf}; })};
 }
 function filaMod(m,c){
   const pr=MODH.gua+MODH.con, te=MODH.teo+MODH.est;
@@ -1331,24 +1340,26 @@ function filaMod(m,c){
     r.append(g); }
   return r;
 }
-function row(s){
-  const c=col(s), rel=relOf(s), ms=months(s), rr=runs(ms), w=win(s);
+function row(s,cont){
+  const c=col(s), rel=relOf(s), w=win(s);
+  // cont: el tramo del Practicantado que cae en el 7.º año, de febrero a junio.
+  const ms=cont?COLS.filter(m=>m>=2&&m<=mesDe(fechas(s).fin)):months(s), rr=runs(ms);
   const r=h('div',{class:'g-row'+(rel?' r-'+rel:'')+(state.sel===s.codigo?' sel':''),style:`--c:${c.bg};--t:${c.fg}`});
   const rt=rel==='apr'?['apr','Aprobada']:rel==='reg'?['apr','Regular']:rel==='dep'?['dep','Habilita']:null;
   r.append(h('button',{class:'g-label',type:'button',onclick:()=>sel(s.codigo),'aria-label':`${s.codigo} ${s.nombre}`},
     h('span',{class:'l1'},h('span',{class:'code',text:s.codigo}),h('span',{class:'nm',text:s.nombre}),
-      rt?h('span',{class:'tag '+rt[0],text:rt[1]}):(esTuyo(s.codigo)?h('span',{class:'tag yo',text:'tu cambio'}):(moved(s)?h('span',{class:'tag mv',text:'movida'}):null))),
+      cont?h('span',{class:'tag cie',text:'cierre'}):(rt?h('span',{class:'tag '+rt[0],text:rt[1]}):(esTuyo(s.codigo)?h('span',{class:'tag yo',text:'tu cambio'}):(moved(s)?h('span',{class:'tag mv',text:'movida'}):null)))),
     h('span',{class:'l2'},h('span',{text:DURS[s.dur]}),h('span',{class:'num',text:fmt(s.hs)+' h'}),
       h('span',{text:s.regimen==='Promoción'?'Promoción':'Final'}),s.cursado==='Virtual'?h('span',{text:'Virtual'}):null,
       bimOf(s)?h('span',{text:BIMC[bimOf(s)]}):null,
       (()=>{ const f=fechas(s); return h('span',{class:'fch',title:`Del ${dmy(f.ini)} al ${dmy(f.fin)}`,text:`${dm(f.ini)} al ${dm(f.fin)}`}); })())));
-  COLS.forEach((m,i)=>r.append(h('div',{class:'mc'+((m===7||m===13)?' rec':'')+(m>=8&&m<=12?' q2':'')+(m>=14?' q3':''),style:`grid-column:${i+2}`})));
+  COLS.forEach((m,i)=>r.append(h('div',{class:'mc'+(m===7?' rec':'')+(m>=8?' q2':''),style:`grid-column:${i+2}`})));
   rr.forEach((run,ri)=>{
     const a=COLS.indexOf(run[0]), b=COLS.indexOf(run[run.length-1]);
     if(ri>0){ const pe=COLS.indexOf(rr[ri-1][rr[ri-1].length-1]); r.append(h('div',{class:'conn',style:`grid-column:${pe+3} / ${a+2}`})); }
-    const g=h('button',{class:'seg-b'+(w.flex?' flex':'')+(w.cola&&ri===rr.length-1?' cola':''),type:'button',
+    const g=h('button',{class:'seg-b'+(w.flex?' flex':'')+(w.cola&&!cont&&ri===rr.length-1?' cola':''),type:'button',
       style:`grid-column:${a+2} / ${b+3}`,'aria-label':`${s.codigo}, ${rango(s)}`,onclick:()=>sel(s.codigo)},
-      ri===0?h('span',{class:'sc',text:s.codigo}):null, ri===0?h('span',{class:'sh',text:fmt(s.hs)+' h'}):null,
+      ri===0?h('span',{class:'sc',text:s.codigo}):null, ri===0?h('span',{class:'sh',text:cont?'cierre':fmt(s.hs)+' h'}):null,
       ri===0?h('span',{class:'pl',text:(s.cursado==='Virtual'?'V · ':'')+(s.regimen==='Promoción'?'P':'EF')}):null);
     tipOn(g,e=>showTip(e,s,w.flex?'A elección del estudiante.':(s.propRazon&&state.esc!=='base'?s.propRazon:'')));
     r.append(g);
@@ -2237,8 +2248,7 @@ const nTextos=()=>Object.values(state.plan).reduce((a,o)=>a+Object.keys(o).lengt
 const corrCambio = code => state.esc!=='base' ? (D.corrCambios||[]).filter(x=>x.code===code) : [];
 function render(){
   syncCorr();
-  // Las columnas del medio año final (13.º cuatrimestre) solo se muestran si hay algo que cursar ahí.
-  COLS = COLS_B.concat(visible().some(s=>{const w=win(s); return w.ini>=14||w.cola;})?COLS_X:[]);
+  COLS = COLS_B;   // un solo juego de meses: el medio año final se dibuja como 7.º año
   const g=document.getElementById('gsc'); const keep=g?[g.scrollLeft,g.scrollTop]:null;
   colors(); renderTiles(); renderScen(); renderTabs(); hideTip();
   const main=document.getElementById('main');

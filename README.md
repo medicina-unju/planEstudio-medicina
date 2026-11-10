@@ -183,10 +183,11 @@ volante se genera un día hábil antes del turno (el viernes), para que los doce
 definitiva de estudiantes inscriptos. Ambas fechas se calculan desde el primer día de examen del turno, con feriados.
 
 **13.º cuatrimestre.** La carrera dura seis años y medio: después del 6.º año hay medio año más,
-que es el 1.º cuatrimestre del 7.º año (marzo a junio del año siguiente). El diagrama lo dibuja a
-la derecha, separado por el verano. Ahí van las Rotaciones Electivas I y II y el cierre de la
-Práctica Final Obligatoria. No entra en el cuadro de SIU de este ciclo —se carga en el del ciclo
-siguiente—, así que figura como nota debajo del cuadro.
+que es el 1.º cuatrimestre del 7.º año. El diagrama lo muestra como una banda de **7.º año**,
+sobre los mismos once meses, porque ya corresponde al ciclo siguiente; así no se ensancha. Ahí
+van las Rotaciones Electivas I y II y el tramo final de la Práctica Final Obligatoria, marcado
+«cierre». El resumen del pie cuenta solo el ciclo en curso. No entra en el cuadro de SIU de este
+ciclo —se carga en el del ciclo siguiente—, así que figura como nota debajo del cuadro.
 
 **Correlativas para cursar y para rendir.** El plan distingue tres condiciones para cursar
 —aprobada, regular y en curso (cursada simultánea)— y una para rendir. Son las mismas que usa
@@ -205,9 +206,7 @@ cambiar su ancho, entre 120 y 560 px; el valor queda guardado en ese navegador y
 la propuesta.
 
 **Columna de nombres y desplazamiento.** El nombre de cada espacio se ve entero: pasa a dos
-líneas en lugar de cortarse. Cuando se muestra 6.º año aparecen las cinco columnas del 13.º
-cuatrimestre y el diagrama se desplaza de costado, para que los meses conserven su ancho en
-lugar de achicarse. De 1.º a 5.º año esas columnas no existen y entra todo sin desplazamiento.
+líneas en lugar de cortarse. El diagrama usa siempre los mismos once meses, se muestre o no 6.º año.
 
 **Módulos de la PFO.** El filtro «Ver los módulos de la PFO» abre, debajo del Practicantado,
 los seis módulos del Art. 1 del reglamento (Res. C.S. 095-25): Clínica Médica, Quirúrgica,
